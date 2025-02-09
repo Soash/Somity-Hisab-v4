@@ -146,8 +146,12 @@ STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 
 STATIC_ROOT = BASE_DIR/'staticfiles'
-MEDIA_ROOT = BASE_DIR/'media'
-# MEDIA_ROOT = '/home/ngoclassicmartbd/public_html/media'
+
+if ENVIRONMENT == 'development':
+    MEDIA_ROOT = BASE_DIR/'media'
+else:
+    MEDIA_ROOT = '/home/dmkssomity/public_html/media'
+    
 STATICFILES_DIRS = [BASE_DIR/'static']
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
