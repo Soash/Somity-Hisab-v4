@@ -170,7 +170,7 @@ if not DEBUG:
     X_FRAME_OPTIONS = 'DENY'
     SECURE_CONTENT_TYPE_NOSNIFF = True
 
-    CSRF_TRUSTED_ORIGINS = ['http://dmks.somityhisab.com/', 'http://dmks.somityhisab.com/']
+    CSRF_TRUSTED_ORIGINS = ['https://dmks.somityhisab.com/']
 else:
     CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', 'http://localhost', 'https://choice-alien-saved.ngrok-free.app']
     # CSRF_TRUSTED_ORIGINS = ['https://choice-alien-saved.ngrok-free.app']
