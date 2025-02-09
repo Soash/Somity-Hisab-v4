@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load custom_filters %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'report/styles.css' %}">
+    <title>Account Statement</title>
+    <style>
+        .table{
+            margin: 20px 0px;
+        }
+    </style>
+</head>
+<body>
+
+    <div style="text-align: center;">
+        <h1>{{somity_name}}</h1>
+        <h3>INTEGRITY IS OUR HALLMARK</h3>
+        <hr>
+        <h3>Account Statement</h3>
+        <h3>Branch Name: {{ branch }}</h3>
+        {% if start_date and end_date %}
+            <h3>Date: {{ start_date }} to {{end_date}}</h3>
+        {% endif %}
+        
+    </div>
+
+
+    <table class="table">
+        <thead class="text-center">
+            <tr>
+                <td colspan="4" class="text-center">Customer Information</td>
+            </tr>
+            <tr>
+                <td>Account No.</td>
+                <td>Customer Name</td>
+                <td>Mobile</td>
+                <td>Address</td>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            <tr>
+                <td>{{ customer.account_no }}</td>
+                <td>{{ customer.customer_name }}</td>
+                <td>{{ customer.mobile_number }}</td>
+                <td>{{customer.current_village}}, {{customer.current_post_office}}, {{customer.current_thana}}, {{customer.current_district}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    
+    {% if account_type == "all" %}
+    <table class="table">
+        <thead class="text-center">
+            <tr>
+                <td colspan="4" class="text-center">Report Summary</td>
+            </tr>
+            <tr>
+                <td>SL</td>
+                <td class="text-center">Type</td>
+                <td>Deposit</td>
+                <td>Withdraw</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>General Savings</td>
+                <td class="text-right">{{ general_deposit_sum }}</td>
+                <td class="text-right">{{ general_withdraw_sum }}</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Special Savings</td>
+                <td class="text-right">{{ special_deposit_sum }}</td>
+                <td class="text-right">{{ special_withdraw_sum }}</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>FDR Account</td>
+                <td class="text-right">{{ fdr_deposit_sum }}</td>
+                <td class="text-right">{{ fdr_withdraw_sum }}</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>DPS Savings</td>
+                <td class="text-right">{{ dps_deposit_sum }}</td>
+                <td class="text-right">{{ dps_withdraw_sum }}</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Loan Investment</td>
+                <td class="text-right">{{ loan_collection_sum }}</td>
+                <td class="text-right">-</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>CC Loan</td>
+                <td class="text-right">{{ cc_loan_collection_sum }}</td>
+                <td class="text-right">-</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Share</td>
+                <td class="text-right">{{ share_deposit_sum }}</td>
+                <td class="text-right">{{ share_withdraw_sum }}</td>
+            </tr>
+            {% comment %} <tr>
+                <td>8</td>
+                <td>Share Profit</td>
+                <td class="text-right">-</td>
+                <td class="text-right">-</td>
+            </tr> {% endcomment %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2" class="text-right">Grand Total:</td>
+                <td class="text-right">{{ total_deposit_sum }}</td>
+                <td class="text-right">{{ total_withdraw_sum }}</td>
+            </tr>
+        </tfoot>
+    </table>{% endif %}
+
+
+
+    {% if account_type == "general" or account_type == "all" %}
+    <table class="table">
+        <thead class="text-center">
+            <tr>
+                <td colspan="7" class="text-center">General Savings Transactions</td>
+            </tr>
+            <tr>
+                <td>TrxID</td>
+                <td>Date</td>
+                <td>Deposit</td>
+                <td>Withdraw</td>
+                <td>Balance</td>
+                <td>Posted By</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in general_trans %}
+            <tr>
+                <td>{{ transaction.VoucherID }}</td>
+                <td>{{ transaction.created_at|date:"d-M-Y" }}</td>
+                <td class="text-right">
+                    {% if transaction.transaction_type == 'deposit' %}
+                        {{ transaction.Amount|floatformat:2 }}
+                    {% else %}
+                        0.00
+                    {% endif %}
+                </td>
+                <td class="text-right">
+                    {% if transaction.transaction_type == 'withdraw' %}
+                        {{ transaction.Amount|floatformat:2 }}
+                    {% else %}
+                        0.00
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ transaction.current_balance|floatformat:2 }}</td>
+                <td class="text-right">{{ transaction.processed_by.username }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2" class="text-right">Total:</td>
+                <td class="text-right">
+                    {{ general_trans|sum_amounts:"deposit" }}
+                </td>
+                <td class="text-right">
+                    {{ general_trans|sum_amounts:"withdraw" }}
+                </td>                
+                <td class="text-right">
+                    {{ general_trans.last.current_balance|floatformat:2 }}
+                </td>
+            </tr>
+        </tfoot>
+    </table>{% endif %}
+    
+    {% if account_type == "special" or account_type == "all" %}
+    <table class="table">
+        <thead class="text-center">
+            <tr>
+                <td colspan="7" class="text-center">Savings Transactions</td>
+            </tr>
+            <tr>
+                <td>TrxID</td>
+                <td>Date</td>
+                <td>Deposit</td>
+                <td>Withdraw</td>
+                <td>Balance</td>
+                <td>Posted By</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in savings_trans %}
+            <tr>
+                <td>{{ transaction.VoucherID }}</td>
+                <td>{{ transaction.created_at|date:"d-M-Y" }}</td>
+                <td class="text-right">
+                    {% if transaction.transaction_type == 'deposit' %}
+                        {{ transaction.Amount|floatformat:2 }}
+                    {% else %}
+                        0.00
+                    {% endif %}
+                </td>
+                <td class="text-right">
+                    {% if transaction.transaction_type == 'withdraw' %}
+                        {{ transaction.Amount|floatformat:2 }}
+                    {% else %}
+                        0.00
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ transaction.current_balance|floatformat:2 }}</td>
+                <td class="text-right">{{ transaction.processed_by.username }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2" class="text-right">Total:</td>
+                <td class="text-right">
+                    {{ savings_trans|sum_amounts:"deposit" }}
+                </td>
+                <td class="text-right">
+                    {{ savings_trans|sum_amounts:"withdraw" }}
+                </td>                
+                <td class="text-right">
+                    {{ savings_trans.last.current_balance|floatformat:2 }}
+                </td>
+            </tr>
+        </tfoot>
+    </table>{% endif %}
+    
+
+    {% if account_type == "share" or account_type == "all" %}
+    <table class="table">
+        <thead class="text-center">
+            <tr>
+                <td colspan="7" class="text-center">Share Account Transactions</td>
+            </tr>
+            <tr>
+                <td>TrxID</td>
+                <td>Date</td>
+                <td>Deposit</td>
+                <td>Withdraw</td>
+                <td>Balance</td>
+                <td>Posted By</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in share_ac_trans %}
+            <tr>
+                <td>{{ transaction.VoucherID }}</td>
+                <td>{{ transaction.created_at|date:"d-M-Y" }}</td>
+                <td class="text-right">
+                    {% if transaction.transaction_type == 'deposit' %}
+                        {{ transaction.Amount|floatformat:2 }}
+                    {% else %}
+                        0.00
+                    {% endif %}
+                </td>
+                <td class="text-right">
+                    {% if transaction.transaction_type == 'withdraw' %}
+                        {{ transaction.Amount|floatformat:2 }}
+                    {% else %}
+                        0.00
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ transaction.balance|floatformat:2 }}</td>
+                <td class="text-right">{{ transaction.processed_by.username }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2" class="text-right">Total:</td>
+                <td class="text-right">
+                    {{ share_ac_trans|sum_amounts:"deposit" }}
+                </td>
+                <td class="text-right">
+                    {{ share_ac_trans|sum_amounts:"withdraw" }}
+                </td>                
+                <td class="text-right">
+                    {{ share_ac_trans.last.balance|floatformat:2 }}
+                </td>
+            </tr>
+        </tfoot>
+    </table>{% endif %}
+
+
+    {% if account_type == "loan" or account_type == "all" %}
+    <table class="table">
+        <thead class="text-center">
+            <tr>
+                <td colspan="8" class="text-center">Loan Collections</td>
+            </tr>
+            <tr>
+                <td>TrxID</td>
+                <td>Date</td>
+                <td>Amount</td>
+                <td>Fine</td>
+                <td>Principal</td>
+                <td>Profit</td>
+                <td>Posted By</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for collection in loan_collections %}
+            <tr>
+                <td>{{ collection.VoucherID }}</td>
+                <td>{{ collection.Date|date:"d-M-Y" }}</td>
+                <td class="text-right">{{ collection.Amount|floatformat:2 }}</td>
+                <td class="text-right">{{ collection.fine|floatformat:2 }}</td>
+                <td class="text-right">{{ collection.principal|floatformat:2 }}</td>
+                <td class="text-right">{{ collection.profit|floatformat:2 }}</td>
+                <td class="text-right">{{ collection.processed_by.username }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2" class="text-right">Total:</td>
+                <td class="text-right">
+                    {{ loan_collections|sum_loan:"Amount" }}
+                </td>
+                <td class="text-right">
+                    {{ loan_collections|sum_loan:"fine" }}
+                </td>
+                <td class="text-right">
+                    {{ loan_collections|sum_loan:"principal" }}
+                </td>
+                <td class="text-right">
+                    {{ loan_collections|sum_loan:"profit" }}
+                </td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>{% endif %}
+
+    {% if account_type == "cc_loan" or account_type == "all" %}
+    <table class="table">
+        <thead class="text-center">
+            <tr>
+                <td colspan="6" class="text-center">Loan CC Collections</td>
+            </tr>
+            <tr>
+                <td>TrxID</td>
+                <td>Date</td>
+                <td>Amount</td>
+                <td>Fine</td>
+                <td>Posted By</td>
+                <td>Note</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for collection in loan_cc_collections %}
+            <tr>
+                <td>{{ collection.VoucherID }}</td>
+                <td>{{ collection.Date|date:"d-M-Y" }}</td>
+                <td class="text-right">{{ collection.Amount|floatformat:2 }}</td>
+                <td class="text-right">{{ collection.Fine|floatformat:2 }}</td>
+                <td>{{ collection.processed_by.username }}</td>
+                <td>{{ collection.Note }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2" class="text-right">Total:</td>
+                <td class="text-right">{{ loan_cc_collections|sum_loan:"Amount" }}</td>
+                <td class="text-right">{{ loan_cc_collections|sum_loan:"Fine" }}</td>
+                <td colspan="2"></td>
+            </tr>
+        </tfoot>
+    </table>{% endif %}
+
+    {% if account_type == "dps" or account_type == "all" %}
+    <table class="table">
+        <thead class="text-center">
+            <tr>
+                <td colspan="9" class="text-center">DPS Transaction History</td>
+            </tr>
+            <tr>
+                <td>Voucher ID</td>
+                <td>Date</td>
+                <td>Deposit</td>
+                <td>Withdraw</td>
+                <td>Fine</td>
+                <td>Balance</td>
+                <td>Processed By</td>
+                <td>Note</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in dps_transaction_history %}
+            <tr>
+                <td>{{ transaction.VoucherID }}</td>
+                <td>{{ transaction.date|date:"d-M-Y H:i" }}</td>
+                <td class="text-right">
+                    {% if transaction.transaction_type == 'deposit' %}
+                        {{ transaction.amount|floatformat:2 }}
+                    {% else %}
+                        0.00
+                    {% endif %}
+                </td>
+                <td class="text-right">
+                    {% if transaction.transaction_type == 'withdraw' %}
+                        {{ transaction.amount|floatformat:2 }}
+                    {% else %}
+                        0.00
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ transaction.fine|floatformat:2 }}</td>
+                <td class="text-right">{{ transaction.current_balance|floatformat:2 }}</td>
+                <td>{{ transaction.processed_by.username }}</td>
+                <td>{{ transaction.note }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2" class="text-right"><strong>Total:</strong></td>
+                <td class="text-right"><strong>{{ dps_transaction_history|sum_amounts_dps:"deposit" }}</strong></td>
+                <td class="text-right"><strong>{{ dps_transaction_history|sum_amounts_dps:"withdraw" }}</strong></td>
+                <td class="text-right"><strong>{{ dps_transaction_history|sum_loan:"fine" }}</strong></td>
+                <td class="text-right"><strong>{{ dps_transaction_history.last.current_balance|floatformat:2  }}</strong></td>
+                <td colspan="5"></td>
+            </tr>
+        </tfoot>
+    </table>{% endif %}
+    
+    {% if account_type == "fdr" or account_type == "all" %}
+    <table class="table">
+        <thead class="text-center">
+            <tr>
+                <td colspan="7" class="text-center"><strong>FDR Transaction History</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Voucher ID</strong></td>
+                <td><strong>Date</strong></td>
+                <td><strong>Deposit</strong></td>
+                <td><strong>Withdraw</strong></td>
+                <td><strong>Balance</strong></td>
+                <td><strong>Processed By</strong></td>
+                <td><strong>Note</strong></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in fdr_transaction_history %}
+            <tr>
+                <td>{{ transaction.VoucherID }}</td>
+                <td>{{ transaction.created_at|date:"d-M-Y H:i" }}</td>
+                <td class="text-right">
+                    {% if transaction.transaction_type == 'deposit' %}
+                        {{ transaction.Amount|floatformat:2 }}
+                    {% else %}
+                        0.00
+                    {% endif %}
+                </td>
+                <td class="text-right">
+                    {% if transaction.transaction_type == 'withdraw' %}
+                        {{ transaction.Amount|floatformat:2 }}
+                    {% else %}
+                        0.00
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ transaction.current_balance|floatformat:2 }}</td>
+                <td>{{ transaction.processed_by.username }}</td>
+                <td>{{ transaction.note }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2" class="text-right"><strong>Total:</strong></td>
+                <td class="text-right"><strong>{{ fdr_transaction_history|sum_amounts:"deposit"|floatformat:2 }}</strong></td>
+                <td class="text-right"><strong>{{ fdr_transaction_history|sum_amounts:"withdraw"|floatformat:2 }}</strong></td>
+                <td class="text-right"><strong>{{ fdr_transaction_history.last.current_balance|floatformat:2 }}</strong></td>
+                <td colspan="2"></td>
+            </tr>
+        </tfoot>
+    </table>{% endif %}
+
+    
+    
+    
+    
+
+    <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+        <p>Prepared by: _____________________</p>
+        <p>Approved by: _____________________</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;" class="no-print">
+        <button onclick="window.history.back();">Go Back</button>
+        <button onclick="window.print();">Print</button>
+        <button onclick="window.location.href='{% url 'home' %}';">Home</button>
+    </div>
+</body>
+</html>

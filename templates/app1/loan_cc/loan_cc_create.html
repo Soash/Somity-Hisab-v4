@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add CC Loan{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/customer_details.css' %}">
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+{% endblock %}
+
+{% block content %}
+<h2>Add CC Loan</h2>
+<div class="div1">
+    <table>
+        <tr>
+            <th>Account No.</th>
+            <td>{{ customer.account_no }}</td>
+        </tr>
+        <tr>
+            <th>Customer Name</th>
+            <td>{{ customer.customer_name }}</td>
+        </tr>
+        <tr>
+            <th>Parents</th>
+            <td>{{ customer.customer_father }}/{{ customer.customer_mother }}</td>
+        </tr>
+        <tr>
+            <th>Mobile Number</th>
+            <td>{{ customer.mobile_number }}</td>
+        </tr>
+        <tr>
+            <th>Customer Type</th>
+            <td>{{ customer.customer_type }}</td>
+        </tr>
+        <tr>
+            <th>Somity/Group</th>
+            <td>{{ customer.group }}</td>
+        </tr>
+        <tr>
+            <th>Current Address</th>
+            <td>{{ customer.current_village }}, {{ customer.current_post_office }}, {{ customer.current_thana }}, {{ customer.current_district }}</td>
+        </tr>
+        <tr>
+            <th>Permanent Address</th>
+            <td>{{ customer.permanent_village }}, {{ customer.permanent_post_office }}, {{ customer.permanent_thana }}, {{ customer.permanent_district }}</td>
+        </tr>
+    </table>
+    
+    <div class="img-container">
+        {% if customer.profile_picture %}
+        <div>
+            <img src="{{ customer.profile_picture.url }}" class="centered-image">
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="div2">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('input', function() {
+        const loanAmount = parseFloat(document.getElementById('id_loan_amount').value) || 0;
+        const profitPercent = parseFloat(document.getElementById('id_profit_percent').value) || 0;
+        const numberOfInstallments = parseInt(document.getElementById('id_number_of_installments').value) || 1;
+        const loanScheme = document.getElementById('id_loan_scheme').value;
+    
+        // Calculate Profit Taka
+        const profitTaka = loanAmount * (profitPercent / 100);
+        document.getElementById('id_profit_taka').value = profitTaka.toFixed(2);
+    
+        // Calculate Total Amount
+        const totalAmount = loanAmount + profitTaka;
+        document.getElementById('id_total_amount').value = totalAmount.toFixed(2);
+    
+        // Calculate Installment Amount
+        const installmentAmount = totalAmount / numberOfInstallments;
+        document.getElementById('id_installment_amount').value = installmentAmount.toFixed(2);
+    
+        // Set Installment Sequence
+        let installmentSequence;
+        switch (loanScheme) {
+            case 'monthly':
+                installmentSequence = 30;
+                break;
+            default:
+                installmentSequence = '';
+        }
+        document.getElementById('id_installment_sequence').value = installmentSequence;
+
+    });
+</script>
+
+<script>
+    $(function() {
+        var today = new Date();
+        var formattedDate = $.datepicker.formatDate('yy-mm-dd', today);
+
+        $("#id_date").datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: today,
+        }).val(formattedDate);
+    });
+</script>
+{% endblock %}

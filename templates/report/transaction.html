@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bank Statement</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+  <div style="text-align: center;">
+    <h1>{{somity_name}}</h1>
+    <h3>INTEGRITY IS OUR HALLMARK</h3>
+    <hr>
+    <p>Branch Name: {{ branch.name }}</p>
+    {% if bank %}
+        <p>Bank: {{ bank.bank_name }}</p>
+    {% else %}
+        <p>Bank: All Banks</p>
+    {% endif %}
+    <p>Date: {{ start_date }} - {{ end_date }}</p>
+</div>
+
+
+
+
+{% if transactions %}
+  <table>
+      <thead>
+          <tr>
+              <th>Date</th>
+              <th>Bank Name</th>
+              <th>Deposit</th>
+              <th>Withdraw</th>
+              <th>Note</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for transaction in transactions %}
+              <tr>
+                  <td>{{ transaction.date }}</td>
+                  <td>{{ transaction.bank.bank_name }}</td>
+                  <td>{{ transaction.deposit_amount }}</td>
+                  <td>{{ transaction.withdraw_amount }}</td>
+                  <td>{{ transaction.note|default:""}}</td>
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+{% elif error %}
+  <p>{{ error }}</p>
+{% endif %}
+
+
+<div style="text-align: center; margin-top: 20px;" class="no-print">
+  <button onclick="window.history.back();">Go Back</button>
+  <button onclick="window.print();">Print</button>
+  <button onclick="window.location.href='{% url 'home' %}';">home</button>
+</div>
+
+<form method="post" class="no-print">
+  {% csrf_token %}
+  <label for="start_date">Start Date:</label>
+  <input type="date" id="start_date" name="start_date" required>
+
+  <label for="end_date">End Date:</label>
+  <input type="date" id="end_date" name="end_date" required>
+
+  <label for="bank">Bank:</label>
+  <select id="bank" name="bank" required>
+      <option value="all">All Banks</option>
+      {% for bank in banks %}
+          <option value="{{ bank.id }}">{{ bank.bank_name }}</option>
+      {% endfor %}
+  </select>
+
+  <button type="submit">View Transactions</button>
+</form>
+
+
+</body>

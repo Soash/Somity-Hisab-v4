@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'report/styles.css' %}">
+    <title>DPS Report</title>
+</head>
+<body>
+
+    <div style="text-align: center;">
+        <h1>{{somity_name}}</h1>
+        <h3>INTEGRITY IS OUR HALLMARK</h3>
+        <hr>
+        <h3>DPS Report</h3>
+        <h3>Branch Name: {{ branch }}</h3>
+    </div>
+
+    <div class="container">   
+        {% if dpss %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>SL</th>
+                    <th>Account Number</th>
+                    <th>Customer Name</th>
+                    <th>Somity</th>
+                    <th>Scheme</th>
+                    <th>Date</th>
+                    <th>Inst.</th>
+                    <th>Profit</th>
+                    <th>Installment</th>
+                    <th>Target</th>
+                    <th>Balance</th>
+                    <th>Due</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dps in dpss %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ dps.customer.account_no }}</td>
+                    <td>{{ dps.customer.customer_name }}</td>
+                    <td>{{ dps.customer.group }}</td>
+                    <td>{{ dps.dps_scheme.scheme_name }}</td>
+                    <td>{{ dps.start_date}} | {{dps.end_date }}</td>
+                    <td>{{dps.paid_installments}} | {{dps.number_of_installments}}</td>
+                    <td>{{ dps.profit_taka }}</td>
+                    <td>{{ dps.amount_per_installments }}</td>
+                    <td>{{ dps.total_amount }}</td>
+                    <td>{{ dps.balance }}</td>
+                    <td>{{ dps.due }}</td>
+                    <td>{{ dps.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7" style="text-align: right;">Grand Total:</td>
+                    <td>{{totals.total_profit_taka}}</td>
+                    <td>{{totals.total_amount_per_installments}}</td>
+                    <td>{{totals.total_total_amount}}</td>
+                    <td>{{totals.total_balance}}</td>
+                    <td>{{totals.total_due}}</td>
+                </tr>
+            </tfoot>
+        </table>
+        {% endif %}
+    </div>
+
+
+    <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+        <p>Prepared by: _____________________</p>
+        <p>Approved by: _____________________</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;" class="no-print">
+        <button onclick="window.history.back();">Go Back</button>
+        <button onclick="window.print();">Print</button>
+        <button onclick="window.location.href='{% url 'home' %}';">home</button>
+    </div>
+</body>
+</html>

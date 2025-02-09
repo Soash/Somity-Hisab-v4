@@ -1,0 +1,290 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add Customer{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/customer_add.css' %}">
+{% endblock %}
+
+{% block content %}
+<div>
+    <h2>Edit Customer</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form">
+            <div class="form-title">
+                <div>
+                   Membership Information 
+                </div>
+                <div></div>
+            </div>
+            <div class="form-container">
+                <input type="hidden" id="status" name="status" value="Active">
+                <div>
+                    <label>Somity/Group</label>
+                    {{ form.group }}
+                </div>
+                <div>
+                    <label>Customer Type</label>
+                    {{ form.customer_type }}
+                </div>
+                <div>
+                    <label>Joining Date</label>
+                    {{ form.joining_date }}
+                </div>
+                <div>
+                    <label>Account No</label>
+                    {{ form.account_no }}
+                </div>
+                <div>
+                    <label>Admission Fee</label>
+                    {{ form.admission_fee }}
+                </div>
+                <div>
+                    <label>Admission Form Fee</label>
+                    {{ form.admission_form_fee }}
+                </div>
+                <div>
+                    <label>Pass Book</label>
+                    {{ form.pass_book }}
+                </div>
+                <div>
+                    <label>General Savings Amount</label>
+                    {{ form.general_savings_amount }}
+                </div>
+                <div>
+                    <label>Special Savings Amount</label>
+                    {{ form.special_savings_amount }}
+                </div>
+                <div>
+                    <label>Password</label>
+                    {{ form.password }}
+                </div>
+            </div>
+        </div>
+
+        <div class="form">
+            <div class="form-title">
+                <div>
+                   Share AC
+                </div>
+                <div></div>
+            </div>
+            <div class="form-container">
+                <div>
+                    <label>Add Share AC</label>
+                    {{ form.add_share_ac }}
+                </div>
+                <div>
+                    <label>Previous Balance</label>
+                    {{ form.previous_balance }}
+                </div>
+                <div>
+                    <label>Nominee</label>
+                    {{ form.nominee }}
+                </div>
+            </div>
+        </div>
+
+        <div class="form">
+            <div class="form-title">
+                <div>
+                   Basic Information
+                </div>
+                <div></div>
+            </div>
+            <div class="form-container">
+                <div>
+                    <label>Customer Name</label>
+                    {{ form.customer_name }}
+                </div>
+                <div>
+                    <label>Mobile Number</label>
+                    {{ form.mobile_number }}
+                </div>
+                <div>
+                    <label>Spouse Name</label>
+                    {{ form.spouse_name }}
+                </div>
+                <div>
+                    <label>National ID Number</label>
+                    {{ form.national_id_number }}
+                </div>
+                <div>
+                    <label>Gender</label>
+                    {{ form.gender }}
+                </div>
+                <div>
+                    <label>Religion</label>
+                    {{ form.religion }}
+                </div>
+                <div>
+                    <label>Father's Name</label>
+                    {{ form.customer_father }}
+                </div>
+                <div>
+                    <label>Mother's Name</label>
+                    {{ form.customer_mother }}
+                </div>
+                <div>
+                    <label>Secondary Number</label>
+                    {{ form.secondary_number }}
+                </div>
+                <div>
+                    <label>Email</label>
+                    {{ form.email }}
+                </div>
+                <div>
+                    <label>Profession</label>
+                    {{ form.profession }}
+                </div>
+                <div>
+                    <label>Business Name</label>
+                    {{ form.business_name }}
+                </div>
+                <div>
+                    <label>Date of Birth</label>
+                    {{ form.date_of_birth }}
+                </div>
+            </div>
+        </div>
+
+        <div class="form">
+            <div class="form-title">
+                <div>
+                   Current Address
+                </div>
+                <div></div>
+            </div>
+            <div class="form-container">
+                <div>
+                    <label>Current Village</label>
+                    {{ form.current_village }}
+                </div>
+                <div>
+                    <label>Current Post Office</label>
+                    {{ form.current_post_office }}
+                </div>
+                <div>
+                    <label>Current Thana</label>
+                    {{ form.current_thana }}
+                </div>
+                <div>
+                    <label>Current District</label>
+                    {{ form.current_district }}
+                </div>
+            </div>            
+        </div>
+
+        <div class="form">
+            <div class="form-title">
+                <div>
+                   Permanent <Address></Address>
+                </div>
+                <div></div>
+            </div>
+            <div class="form-container">
+                <div>
+                    <label>Permanent Village</label>
+                    {{ form.permanent_village }}
+                </div>
+                <div>
+                    <label>Permanent Post Office</label>
+                    {{ form.permanent_post_office }}
+                </div>
+                <div>
+                    <label>Permanent Thana</label>
+                    {{ form.permanent_thana }}
+                </div>
+                <div>
+                    <label>Permanent District</label>
+                    {{ form.permanent_district }}
+                </div>
+            </div>            
+        </div>
+
+        <div class="form">
+            <div class="form-title">
+                <div>
+                   Upload files
+                </div>
+                <div></div>
+            </div>
+            <div class="form-container">
+                <div>
+                    <label>Profile Picture  (Max. 100KB)</label>
+                    {{ form.profile_picture }}
+                </div>
+                <div>
+                    <label>Signature Card  (Max. 100KB)</label>
+                    {{ form.signature_card }}
+                </div>
+                <div>
+                    <label>National ID Copy  (Max. 100KB)</label>
+                    {{ form.national_id_copy }}
+                </div>
+            </div>            
+        </div>
+
+        <div class="form">
+            <div class="form-title">
+                <div>
+                   Nominee Information
+                </div>
+                <div></div>
+            </div>
+            <div class="form-container">
+                <div>
+                    <label>Nominee Name:</label>
+                    {{ form.nominee_name }}
+                </div>
+                <div>
+                    <label>Nominee Relation:</label>
+                    {{ form.nominee_relation }}
+                </div>
+                <div>
+                    <label>Nominee Father:</label>
+                    {{ form.nominee_father }}
+                </div>
+                <div>
+                    <label>Nominee Mother:</label>
+                    {{ form.nominee_mother }}
+                </div>
+                <div>
+                    <label>Nominee National ID:</label>
+                    {{ form.nominee_national_id }}
+                </div>
+                <div>
+                    <label>Nominee Mobile Number:</label>
+                    {{ form.nominee_mobile_number }}
+                </div>
+                <div>
+                    <label>Nominee Address:</label>
+                    {{ form.nominee_address }}
+                </div>
+            </div>            
+        </div>
+        
+        <button type="submit" class="btn">Submit</button>
+
+        <div>
+            {% if form.errors %}
+            <div>
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Profit Distribution History
+{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'otrans/styles.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+{% endblock %}
+{% block content %}
+
+<div>
+   <h2>
+    Profit Distribution History
+    </h2>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>SL</th>
+            <th>Date</th>
+            <th>Financial Year</th>
+            <th>Year</th>
+            <th>Profit Type</th>
+            <th>Profit in Percent</th>
+            <th>Total Account</th>
+            <th>Profit Amount</th>
+            <th>Process By</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for distribution in profit_distributions %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ distribution.date }}</td>
+            <td>{{ distribution.financial_year }}</td>
+            <td>{{ distribution.year }}</td>
+            <td>{{ distribution.profit_type }}</td>
+            <td>{{ distribution.profit_percentage }}%</td>
+            <td>{{ distribution.total_account }}</td>
+            <td>{{ distribution.profit_amount|floatformat:2 }}</td>
+            <td>{{ distribution.process_by }}</td>
+            <td><i class="fa-solid fa-desktop"></i></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="10">No profit distribution records found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(function() {
+        var today = new Date();
+        var formattedDate = $.datepicker.formatDate('yy-mm-dd', today);
+
+        $("#date").datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: today,
+        }).val(formattedDate);
+    });
+</script>
+{% endblock %}
+
+

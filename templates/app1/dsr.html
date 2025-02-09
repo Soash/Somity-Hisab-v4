@@ -1,0 +1,271 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}Delete/Close Accounts{% endblock %}
+
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/customer_details.css' %}">
+<style>
+    .account-section {
+        margin-bottom: 20px;
+    }
+    .account-section h2 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-size: 24px;
+    }
+    .account-section table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    .account-section table th, .account-section table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+    .account-section table th {
+        background-color: #f2f2f2;
+    }
+    .action-link {
+        color: red;
+        text-decoration: none;
+    }
+    .action-link:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="customer-details">
+    <h2>Customer Details</h2>
+    <table>
+        <tr>
+            <th>Account No.</th>
+            <td>{{ customer.account_no }}</td>
+        </tr>
+        <tr>
+            <th>Customer Name</th>
+            <td>{{ customer.customer_name }}</td>
+        </tr>
+        <tr>
+            <th>Parents</th>
+            <td>{{ customer.customer_father }}/{{ customer.customer_mother }}</td>
+        </tr>
+        <tr>
+            <th>Mobile Number</th>
+            <td>{{ customer.mobile_number }}</td>
+        </tr>
+        <tr>
+            <th>Customer Type</th>
+            <td>{{ customer.customer_type }}</td>
+        </tr>
+        <tr>
+            <th>Somity/Group</th>
+            <td>{{ customer.group }}</td>
+        </tr>
+        <tr>
+            <th>Current Address</th>
+            <td>{{ customer.current_village }}, {{ customer.current_post_office }}, {{ customer.current_thana }}, {{ customer.current_district }}</td>
+        </tr>
+        <tr>
+            <th>Permanent Address</th>
+            <td>{{ customer.permanent_village }}, {{ customer.permanent_post_office }}, {{ customer.permanent_thana }}, {{ customer.permanent_district }}</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">
+                <a href="{% url 'general_transaction_history' customer.id %}" class="action-link">General AC Transaction History</a>
+            </td>
+            <td>
+                <a href="{% url 'savings_transaction_history' customer.id %}" class="action-link">Savings AC Transaction History</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <b><a href="{% url 'delete_customer' customer.id %}" class="action-link" onclick="return confirm('Are you sure you want to delete this Customer?');">Delete</a></b>
+            </td>
+        </tr>
+    </table>
+</div>
+
+{% if loans or loan_ccs or loan_sps or dpss or fdrs or shares %}
+    <div class="account-section">
+        {% if loans %}
+            <h2>Loans</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Scheme</th>
+                        <th>Amount</th>
+                        <th>Profit %</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for loan in loans %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'loan_delete' loan.id %}" class="action-link" onclick="return confirm('Are you sure you want to delete this loan?');">Delete</a><br>
+                                <a href="{% url 'loan_trans' loan_id=loan.id %}" class="action-link">Transactions</a>
+                            </td>
+                            <td>{{ loan.loan_scheme }}</td>
+                            <td>{{ loan.loan_amount }}</td>
+                            <td>{{ loan.profit_percent }}</td>
+                            <td>{{ loan.total_amount }}</td>
+                            <td>{{ loan.status }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+        {% if loan_ccs %}
+            <h2>Loan CC</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Scheme</th>
+                        <th>Amount</th>
+                        <th>Profit %</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for loan_cc in loan_ccs %}
+                        <tr>
+                            <td><a href="{% url 'loan_cc_delete' loan_cc.id %}" class="action-link" onclick="return confirm('Are you sure you want to delete this loan?');">Delete</a>
+                                <br><a href="{% url 'loan_cc_trans' loan_id=loan_cc.id %}" class="action-link">Transactions</a>
+                            </td>
+                            <td>{{ loan_cc.loan_scheme }}</td>
+                            <td>{{ loan_cc.loan_amount }}</td>
+                            <td>{{ loan_cc.profit_percent }}</td>
+                            <td>{{ loan_cc.total_amount }}</td>
+                            <td>{{ loan_cc.status }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+        {% if loan_sps %}
+            <h2>Special Loans</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Amount</th>
+                        <th>Profit</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for loan_sp in loan_sps %}
+                        <tr>
+                            <td><a href="{% url 'loan_sp_delete' loan_sp.id %}" class="action-link" onclick="return confirm('Are you sure you want to delete this loan?');">Delete</a></td>
+                            <td>{{ loan_sp.amount }}</td>
+                            <td>{{ loan_sp.profit }}</td>
+                            <td>{{ loan_sp.status }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+        {% if dpss %}
+            <h2>DPS</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Scheme</th>
+                        <th>Amount per Installment</th>
+                        <th>Installments</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dps in dpss %}
+                        <tr>
+                            <td><a href="{% url 'dps_delete' dps.id %}" class="action-link" onclick="return confirm('Are you sure you want to delete this DPS?');">Delete</a>
+                                <br><a href="{% url 'dps_transaction' dps.id %}" class="action-link">Transactions</a>
+                            </td>
+                            <td>{{ dps.dps_scheme.scheme_name }}</td>
+                            <td>{{ dps.amount_per_installments }}</td>
+                            <td>{{ dps.number_of_installments }}</td>
+                            <td>{{ dps.total_amount }}</td>
+                            <td>{{ dps.status }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+        {% if fdrs %}
+            <h2>FDR</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Scheme</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Opening Amount</th>
+                        <th>Balance</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for fdr in fdrs %}
+                        <tr>
+                            <td><a href="{% url 'fdr_close' fdr.id %}" class="action-link" onclick="return confirm('Are you sure you want to close this FDR?');">Close</a>
+                            <br><a href="{% url 'fdr_transaction_history' fdr.id %}" class="action-link">Transactions</a></td>
+                            <td>{{ fdr.scheme.scheme_name }}</td>
+                            <td>{{ fdr.start_date }}</td>
+                            <td>{{ fdr.end_date }}</td>
+                            <td>{{ fdr.opening_amount }}</td>
+                            <td>{{ fdr.balance_amount }}</td>
+                            <td>{{ fdr.status }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+        {% if shares %}
+            <h2>Shares</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Share ID</th>
+                        <th>Customer</th>
+                        <th>Balance</th>
+                        <th>Nominee</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for share in shares %}
+                        <tr>
+                            <td><a href="{% url 'share_delete' share.share_id %}" class="action-link" onclick="return confirm('Are you sure you want to delete this share?');">Delete</a>
+                                <br><a href="{% url 'share_transaction_history' share.share_id %}" class="action-link">Transactions</a>
+                            </td>
+                            <td>{{ share.share_id }}</td>
+                            <td>{{ share.customer }}</td>
+                            <td>{{ share.balance }}</td>
+                            <td>{{ share.nominee }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% else %}
+    <p>No accounts found for this customer.</p>
+{% endif %}
+{% endblock %}

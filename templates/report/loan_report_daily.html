@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daily Due Loan Report</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>{{somity_name}}</h1>
+        <h3>INTEGRITY IS OUR HALLMARK</h3>
+        <hr>
+        <p>Branch Name: {{ branch.name }}</p>
+        <p>Daily Due Loan Report</p>
+        <p>Date: {{ report_date }}</p>
+        <hr>
+    </div>
+
+
+    {% if loans %}
+    <table style="margin-top: 20px;">
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Account No</th>
+                <th>Customer Name</th>
+                <th>Somity/Group</th>
+                <th>Start Date</th>
+                <th>Expire Date</th>
+                <th>Principal</th>
+                <th>Profit</th>
+                <th>Total</th>
+                <th>Total Paid</th>
+                <th>Inst.</th>
+                <th>Inst. Amt</th>
+                <th>Due</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loan in loans %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ loan.customer.account_no }}</td>
+                <td>{{ loan.customer.customer_name }}</td>
+                <td>{{ loan.customer.group.group_name }}</td>
+                <td>{{ loan.start_date|date:"d-M-Y" }}</td>
+                <td>{{ loan.end_date|date:"d-M-Y" }}</td>
+                <td>{{ loan.loan_amount }}</td>
+                <td>{{ loan.profit_taka }}</td>
+                <td>{{ loan.total_amount }}</td>
+                <td>{{ loan.paid_amount }}</td>
+                <td>{{ loan.paid_installments }}/{{ loan.number_of_installments }}</td>
+                <td>{{ loan.installment_amount }}</td>
+                <td>{{ loan.due }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="6">TOTAL</td>
+                <td>{{ total_loan_amount|floatformat:2 }}</td>
+                <td>{{ total_profit_taka|floatformat:2 }}</td>
+                <td>{{ total_total_amount|floatformat:2 }}</td>
+                <td>{{ total_paid_amount|floatformat:2 }}</td>
+                <td></td>
+                <td>{{ total_installment_amount|floatformat:2 }}</td>
+                <td>{{ total_due|floatformat:2 }}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <div style="margin-top: 20px;display: flex;justify-content: space-between;">
+        <p>Prepared by: _____________________</p>
+        <p>Approved by: _____________________</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;" class="no-print">
+        <button onclick="window.history.back();">Go Back</button>
+        <button onclick="window.print();">Print</button>
+        <button onclick="window.location.href='{% url 'home' %}';">home</button>
+    </div>
+    {% endif %}
+
+    <form method="post" class="no-print">
+        {% csrf_token %}
+        <div>
+            <label for="id_group">Select Somity</label>
+            {{ group_form.group }}
+        </div>
+        <button type="submit">Generate</button>
+    </form>
+    
+</body>
+</html>

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Transaction History{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="table-container">
+    <table id="myTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Account No</th>
+                <th>Customer Name</th>
+                <th>Balance</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ data.customer.account_no }}</td>
+                <td>{{ data.customer.customer_name }}</td>
+                <td>{{ data.balance_amount }}</td>
+                <td>{{ data.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+  
+<h2 style="margin-top: 25px">FDR Transaction History</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Amount</th>
+      <th>Balance</th>
+      <th>Note</th>
+      <th>Processed By</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for transaction in transactions %}
+    <tr>
+      <td>{{ transaction.created_at }}</td>
+      <td>{{ transaction.get_transaction_type_display }}</td>
+      <td>{{ transaction.Amount }}</td>
+      <td>{{ transaction.current_balance }}</td>
+      <td>{{ transaction.note|default:" " }}</td>
+      <td>{{ transaction.processed_by }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+
+{% endblock %}

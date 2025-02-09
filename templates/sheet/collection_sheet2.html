@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load collection_sheet_2_tags %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+        .w-50{
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>Samity Hisab</h1>
+        <h3>INTEGRITY IS OUR HALLMARK</h3>
+        <hr>
+        <p>Collection Sheet</p>
+        <p>Branch Name: {{ somity.branch }}</p>
+        <p>Somity: {{ somity.group_name }}</p>
+    </div>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>SL</th>
+            <th>Account No</th>
+            <th>Customer Name</th>
+            <th>Type</th>
+            <th>Loan/Total 	</th>
+            <th>Balance</th>
+            <th>Due</th>
+            <th>Installment/Target</th>
+            <th class="w-50"></th>
+            <th class="w-50"></th>
+            <th class="w-50"></th>
+            <th class="w-50"></th>
+            <th class="w-50"></th>
+            <th class="w-50"></th>
+            <th>Penalty</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+            <td rowspan="{% total_data_count customer %}">{{ forloop.counter }}</td>
+            <td rowspan="{% total_data_count customer %}">{{ customer.account_no }}</td>
+            <td rowspan="{% total_data_count customer %}">{{ customer.customer_name }}</td>
+
+            <td>Savings</td>
+            <td></td>
+            <td>{% savings_balance customer %}</td>
+            <td></td>
+            <td>{% savings_target customer %}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Special</td>
+            <td></td>
+            <td>{% special_balance customer %}</td>
+            <td></td>
+            <td>{% special_target customer %}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% add_loan customer %}
+        {% add_cc_loan customer %}
+        {% add_dps customer %}
+
+        {% endfor %}  
+    </tbody>
+    <tfoot>
+        <td colspan="4">Total</td>
+        <td id="total_sum"></td>
+        <td id="total_balance"></td>
+        <td id="total_due"></td>
+        <td id="total_inst"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tfoot>
+</table>
+
+
+<div style="margin-top: 20px;display: flex;justify-content: space-between;">
+    <p>Prepared by: _____________________</p>
+    <p>Approved by: _____________________</p>
+</div>
+
+<div style="text-align: center; margin-top: 20px;" class="no-print">
+    <button onclick="window.history.back();">Go Back</button>
+    <button onclick="window.print();">Print</button>
+    <button onclick="window.location.href='{% url 'home' %}';">home</button>
+</div>
+
+<script>
+    function sumTableCells(className, targetId) {
+        // Get all td elements with the specified class
+        const cells = document.querySelectorAll(`td.${className}`);
+        let sum = 0;
+    
+        // Iterate through each cell and add its content to the sum
+        cells.forEach(cell => {
+            // Parse the text content as a float and add to the sum
+            let value = parseFloat(cell.textContent.trim());
+            if (!isNaN(value)) {
+                sum += value;
+            }
+        });
+    
+        // Update the td element with the specified targetId with the sum
+        document.getElementById(targetId).textContent = sum;
+    }
+    
+    // Call the function for each class and target id
+    sumTableCells('total', 'total_sum');
+    sumTableCells('balance', 'total_balance');
+    sumTableCells('due', 'total_due');
+    sumTableCells('inst', 'total_inst');
+        
+</script>
+</body>
+</html>
+

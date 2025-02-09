@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% load static %}{% load i18n %}
+{% block title %}{% trans "Home" %}{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="div1">
+    <i class="fa-solid fa-arrow-down"></i></i> {% trans "Todays Collection & Withdraw" %} : {{date|date:"Y-m-d"}} <i class="fa-solid fa-arrow-down"></i>
+</div>
+<div class="div2">
+    <div class="grid-container">
+        <a href="{% url 'general_deposit_search' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-piggy-bank"></i>
+            <p>{% trans "Savings Deposit" %}</p>
+        </div>
+        </a>
+        <a href="{% url 'loan_collection_search' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-hand-holding-usd"></i>
+            <p>{% trans "Loan Collection" %}</p>
+        </div>
+        </a>
+        <a href="{% url 'loan_cc_collection_search' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-credit-card"></i>
+            <p>{% trans "CC Loan Collection" %}</p>
+        </div>
+        </a>
+        <a href="{% url 'dps_deposit_search' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <p>{% trans "DPS" %}</p>
+        </div>
+        </a>
+        <a href="{% url 'common_collection' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-coins"></i>
+            <p>{% trans "Common Collection" %}</p>
+        </div>
+        </a>
+        <a href="{% url 'share_deposit_search' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-university"></i>
+            <p>{% trans "Deposit Share AC" %}</p>
+        </div>
+        </a>
+        <a href="{% url 'fdr_deposit_search' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-university"></i>
+            <p>{% trans "Deposit FDR" %}</p>
+        </div>
+        </a>
+        <a href="{% url 'general_expense' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-receipt"></i>
+            <p>{% trans "Voucher Expense" %}</p>
+        </div>
+        </a>
+        <a href="{% url 'customer_add' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fas fa-user-plus"></i>
+                <p>{% trans "New Admission" %}</p>
+            </div>
+        </a>
+        </a>
+        <a href="{% url 'customer_balance' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-search"></i>
+            <p>{% trans "At a Glance" %}</p>
+        </div>
+        </a>
+        <a href="{% url 'customer_list' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fas fa-users"></i>
+                <p>{% trans "Customer List" %}</p>
+            </div>
+        </a>
+
+
+        </a>
+        <a href="{% url 'user_entry_summary' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-search-dollar"></i>
+            <p>{% trans "User Collection" %}</p>
+        </div>
+        </a>
+        <a href="{% url 'general_list' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-user-friends"></i>
+            <p>{% trans "Savings Accounts" %}</p>
+        </div>
+        </a>
+
+
+        <a href="{% url 'loan_list' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-handshake"></i>
+            <p>{% trans "Loan Accounts" %}</p>
+        </div>
+        </a>
+        <a href="{% url 'loan_search' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-hand-holding"></i>
+            <p>{% trans "New Loan" %}</p>
+        </div>
+        </a>
+
+        
+        <a href="{% url 'loan_cc_list' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-handshake"></i>
+            <p>{% trans "CC Loan Accounts" %}</p>
+        </div>
+        </a>
+        <a href="{% url 'loan_cc_search' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fas fa-hand-holding"></i>
+                <p>{% trans "New CC Loan" %}</p>
+            </div>
+        </a>
+    
+
+        <a href="{% url 'dps_list' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fas fa-file-contract"></i>
+                <p>{% trans "DPS Accounts" %}</p>
+            </div>
+        </a>
+        <a href="{% url 'dps_search' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-file-signature"></i>
+            <p>{% trans "New DPS" %}</p>
+        </div>
+        </a>
+
+    
+        <a href="{% url 'fdr_list' %}" class="grid-item-link">
+        <div class="grid-item">
+            <i class="fas fa-file-contract"></i>
+            <p>{% trans "FDR Accounts" %}</p>
+        </div>
+        </a>
+        <a href="{% url 'fdr_search' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fas fa-file-signature"></i>
+                <p>{% trans "New DPS" %}</p>
+            </div>
+        </a>
+
+
+
+        <a href="{% url 'share_list' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fas fa-file-contract"></i>
+                <p>{% trans "Share Accounts" %}</p>
+            </div>
+        </a>
+        <a href="{% url 'share_search' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fas fa-file-signature"></i>
+                <p>{% trans "Add Share" %}</p>
+            </div>
+        </a>
+        <a href="{% url 'share_search' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fas fa-receipt"></i>
+                <p>{% trans "Voucher Income" %}</p>
+            </div>
+        </a>
+
+
+
+
+        <a href="{% url 'dps_close_search' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fa-solid fa-house-lock"></i>
+                <p>{% trans "DPS Closing" %}</p>
+            </div>
+        </a>
+        <a href="{% url 'fdr_close_search' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fa-solid fa-house-lock"></i>
+                <p>{% trans "FDR Closing" %}</p>
+            </div>
+        </a>
+
+
+
+        <a href="{% url 'savings_withdraw_search' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fa-solid fa-money-bill-transfer"></i>
+                <p>{% trans "Savings Withdraw" %}</p>
+            </div>
+        </a>
+        <a href="{% url 'dps_withdraw_search' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fa-solid fa-money-bill-transfer"></i>
+                <p>{% trans "DPS Withdraw" %}</p>
+            </div>
+        </a>
+
+
+
+        <a href="{% url 'bank_deposit' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fa-solid fa-building-columns"></i>
+                <p>{% trans "Bank Deposit" %}</p>
+            </div>
+        </a>
+        <a href="{% url 'bank_withdraw' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fa-solid fa-building-columns"></i>
+                <p>{% trans "Bank Withdraw" %}</p>
+            </div>
+        </a>
+
+
+
+        <a href="{% url 'sms_single' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fa-solid fa-message"></i>
+                <p>{% trans "Send SMS" %}</p>
+            </div>
+        </a>
+        <a href="{% url 'logout' %}" class="grid-item-link">
+            <div class="grid-item">
+                <i class="fa-solid fa-power-off"></i>
+                <p>{% trans "Logout" %}</p>
+            </div>
+        </a>
+
+
+
+
+    </div>
+</div>
+{% endblock %}
+

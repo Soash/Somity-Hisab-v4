@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'report/styles.css' %}">
+    <title>Fixed Deposit Report</title>
+</head>
+<body>
+
+    <div style="text-align: center;">
+        <h1>{{somity_name}}</h1>
+        <h3>INTEGRITY IS OUR HALLMARK</h3>
+        <hr>
+        <h3>Fixed Deposit Report</h3>
+        <h3>Branch Name: {{ branch }}</h3>
+    </div>
+
+    <div class="container">   
+        {% if fdrs %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>SL</th>
+                    <th>Account Number</th>
+                    <th>Customer Name</th>
+                    <th>Somity</th>
+                    <th>Scheme</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Total Profit</th>
+                    <th>Paid Profit</th>
+                    <th>Payable</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fdr in fdrs %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ fdr.customer.account_no }}</td>
+                    <td>{{ fdr.customer.customer_name }}</td>
+                    <td>{{ fdr.customer.group }}</td>
+                    <td>{{ fdr.scheme.scheme_name }}</td>
+                    <td>{{ fdr.start_date}} | {{fdr.end_date }}</td>
+                    <td>{{ fdr.opening_amount }}</td>
+                    <td>{{ fdr.monthly_profit_taka }}</td>
+                    <td>{{ fdr.paid_profit }}</td>
+                    <td>{{ fdr.payable }}</td>
+                    <td>{{ fdr.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" style="text-align: right;">Grand Total:</td>
+                    <td>{{totals.total_opening_amount}}</td>
+                    <td>{{totals.total_monthly_profit_taka}}</td>
+                    <td>{{totals.total_paid_profit}}</td>
+                    <td>{{totals.total_payable}}</td>
+                </tr>
+            </tfoot>
+        </table>
+        {% endif %}
+    </div>
+
+
+    <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+        <p>Prepared by: _____________________</p>
+        <p>Approved by: _____________________</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;" class="no-print">
+        <button onclick="window.history.back();">Go Back</button>
+        <button onclick="window.print();">Print</button>
+        <button onclick="window.location.href='{% url 'home' %}';">home</button>
+    </div>
+</body>
+</html>

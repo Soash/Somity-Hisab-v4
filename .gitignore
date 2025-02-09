@@ -1,0 +1,4 @@
+.env
+db.sqlite3
+info.txt
+app1_debug.log

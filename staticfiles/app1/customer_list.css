@@ -1,0 +1,13 @@
+h2 {
+    /* text-align: center; */
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0951a2;
+}
+
+.table-container {
+    /* max-height: 300px; */
+    /* overflow-y: auto; */
+    overflow-x: auto;
+}

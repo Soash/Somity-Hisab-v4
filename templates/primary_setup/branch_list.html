@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Branch List{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'primary_setup/brach_list.css' %}">
+{% endblock %}
+{% block content %}
+
+<div>
+   <h2>Branch List</h2>
+   <button id="add-branch-btn">Add Branch</button>
+</div>
+
+
+<div id="add-branch-form">
+    <div>
+        <div>Add Branch</div>
+        <div><i class="fa-solid fa-trash"></i></div>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Branch Name</th>
+                <th>Branch Short Name</th>
+                <th>Mobile No.</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for branch in branches %}
+            <tr>
+                <td><a href="{% url 'branch_list_edit' pk=branch.id %}"><i class="fa-solid fa-pen"></i></a></td>
+                <td>{{ branch.name }}</td>
+                <td>{{ branch.branch_short_name }}</td>
+                <td>{{ branch.mobile_no }}</td>
+                <td>{{ branch.email }}</td>
+                <td>{{ branch.telephone }}</td>
+                <td>{{ branch.address }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+ 
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addBranchButton = document.getElementById('add-branch-btn');
+        const addBranchForm = document.getElementById('add-branch-form');
+        const trashIcon = document.querySelector('#add-branch-form i');
+    
+        // Show the form when "Add Branch" button is clicked
+        addBranchButton.addEventListener('click', function () {
+            addBranchForm.style.display = 'block';
+        });
+    
+        // Hide the form when the trash icon is clicked
+        trashIcon.addEventListener('click', function () {
+            addBranchForm.style.display = 'none';
+        });
+    });    
+</script>
+{% endblock %}

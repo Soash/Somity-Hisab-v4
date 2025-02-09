@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% load static %}{% load i18n %}
+{% block title %}{% trans "Dashboard" %}{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+<link rel="stylesheet" href="{% static 'app1/add_loan1.css' %}">
+<link rel="stylesheet" href="{% static 'dashboard/dashboard.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+{% endblock %}
+
+{% block content %}
+<h2>{% trans "Dashboard" %}</h2>
+
+<div class="dashboard">
+    <div class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{ total_general_savings }}</div>
+            <div class="card-title">{% trans "General Savings" %}</div>
+        </div>
+    </div>
+    <div class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{ total_special_savings }}</div>
+            <div class="card-title">{% trans "Special Savings" %}</div>
+        </div>
+    </div>
+    <div class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{ total_dps_balance }}</div>
+            <div class="card-title">{% trans "DPS" %}</div>
+        </div>
+    </div>
+    <div class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{ total_loan_balance }}</div>
+            <div class="card-title">{% trans "Loan" %}</div>
+        </div>
+    </div>
+    <div class="card purple">
+        <div class="card-content">
+            <div class="card-value">{{ total_loan_profit }}</div>
+            <div class="card-title">{% trans "Profit on Loan" %}</div>
+        </div>
+    </div>
+    <div class="card red">
+        <div class="card-content">
+            <div class="card-value">{{ total_cc_loan_amount }}</div>
+            <div class="card-title">{% trans "CC Loan Amount" %}</div>
+        </div>
+    </div>
+    <div class="card red">
+        <div class="card-content">
+            <div class="card-value">{{ total_fdr_deposit }}</div>
+            <div class="card-title">{% trans "FDR Deposited" %}</div>
+        </div>
+    </div>
+    <div class="card purple">
+        <div class="card-content">
+            <div class="card-value">{{ total_fdr_profit }}</div>
+            <div class="card-title">{% trans "Distributed FDR Profit" %}</div>
+        </div>
+    </div>
+    <div class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{ total_dps_profit }}</div>
+            <div class="card-title">{% trans "Distributed DPS Profit" %}</div>
+        </div>
+    </div>
+    <div class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{ total_share_balance }}</div>
+            <div class="card-title">{% trans "Share Balance" %}</div>
+        </div>
+    </div>
+    <div class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{ total_share_profit }}</div>
+            <div class="card-title">{% trans "Share Profit Balance" %}</div>
+        </div>
+    </div>
+    <div class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{ voucher_category_count }}</div>
+            <div class="card-title">{% trans "Total Vouchers" %}</div>
+        </div>
+    </div>
+    <div class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{ total_income_amount }}</div>
+            <div class="card-title">{% trans "Voucher Income" %}</div>
+        </div>
+    </div>
+    <div class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{ total_expense_amount }}</div>
+            <div class="card-title">{% trans "Voucher Expenses" %}</div>
+        </div>
+    </div>
+    <div class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{ total_customers }}</div>
+            <div class="card-title">{% trans "Total Customers" %}</div>
+        </div>
+    </div>
+    <div class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{ daily_customers }}</div>
+            <div class="card-title">{% trans "Total Customers (Daily)" %}</div>
+        </div>
+    </div>
+    <div class="card purple">
+        <div class="card-content">
+            <div class="card-value">{{ weekly_customers }}</div>
+            <div class="card-title">{% trans "Total Customers (Weekly)" %}</div>
+        </div>
+    </div>
+    <div class="card purple">
+        <div class="card-content">
+            <div class="card-value">{{ monthly_customers }}</div>
+            <div class="card-title">{% trans "Total Customers (Monthly)" %}</div>
+        </div>
+    </div>
+    <div class="card purple">
+        <div class="card-content">
+            <div class="card-value">{{ male_customers }}</div>
+            <div class="card-title">{% trans "Male Customers" %}</div>
+        </div>
+    </div>
+    <div class="card purple">
+        <div class="card-content">
+            <div class="card-value">{{ female_customers }}</div>
+            <div class="card-title">{% trans "Female Customers" %}</div>
+        </div>
+    </div>
+    <div class="card red">
+        <div class="card-content">
+            <div class="card-value">{{ inactive_customers }}</div>
+            <div class="card-title">{% trans "Inactive Customers" %}</div>
+        </div>
+    </div>
+    <div class="card red">
+        <div class="card-content">
+            <div class="card-value">{{ total_somity }}</div>
+            <div class="card-title">{% trans "Total Somity" %}</div>
+        </div>
+    </div>
+    <div class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{ total_staff }}</div>
+            <div class="card-title">{% trans "Total Staff" %}</div>
+        </div>
+    </div>
+    <div class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{ total_general_ac }}</div>
+            <div class="card-title">{% trans "Savings Account" %}</div>
+        </div>
+    </div>
+    <div class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{ total_fdr }}</div>
+            <div class="card-title">{% trans "FDR AC" %}</div>
+        </div>
+    </div>
+    <div class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{ total_dps }}</div>
+            <div class="card-title">{% trans "DPS AC" %}</div>
+        </div>
+    </div>
+    <div class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{ total_loan_ac }}</div>
+            <div class="card-title">{% trans "Loan AC" %}</div>
+        </div>
+    </div>
+    <div class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{ total_loan_cc }}</div>
+            <div class="card-title">{% trans "CC Loan AC" %}</div>
+        </div>
+    </div>
+
+
+
+    <div class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{ total_director }}</div>
+            <div class="card-title">{% trans "Total Director" %}</div>
+        </div>
+    </div>
+    <div class="card red">
+        <div class="card-content">
+            <div class="card-value">{{ total_director_balance }}</div>
+            <div class="card-title">{% trans "Director Due" %}</div>
+        </div>
+    </div>
+    <div class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{ total_outloan }}</div>
+            <div class="card-title">{% trans "Out Loan AC Count" %}</div>
+        </div>
+    </div>
+    <div class="card red">
+        <div class="card-content">
+            <div class="card-value">{{ total_OutLoan_balance }}</div>
+            <div class="card-title">{% trans "Out Loan Balance" %}</div>
+        </div>
+    </div>
+    <div class="card purple">
+        <div class="card-content">
+            <div class="card-value">{{ total_ssm_amount }}</div>
+            <div class="card-title">{% trans "Security Money" %}</div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

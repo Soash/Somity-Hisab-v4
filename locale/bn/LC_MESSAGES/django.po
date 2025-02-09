@@ -1,0 +1,1162 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-13 12:52+0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\dashboard\views.py:26
+msgid "Today"
+msgstr "দৈনিক"
+
+#: .\dashboard\views.py:31
+#: .\templates\sheet\loan_collection_sheet_filter.html:19
+msgid "Monthly"
+msgstr "মাসিক"
+
+#: .\templates\admin\base_site.html:102 .\templates\app1\customer_home.html:77
+#: .\templates\app1\home.html:232 .\templates\base.html:83
+msgid "Logout"
+msgstr "লগআউট"
+
+#: .\templates\admin\base_site.html:103 .\templates\base.html:84
+msgid "Package"
+msgstr "প্যাকেজ"
+
+#: .\templates\admin\base_site.html:104 .\templates\app1\customer_home.html:76
+#: .\templates\base.html:85
+msgid "Change Password"
+msgstr "পাসওয়ার্ড পরিবর্তন করুন"
+
+#: .\templates\admin\base_site.html:130 .\templates\app1\home.html:3
+#: .\templates\base.html:97
+msgid "Home"
+msgstr "হোম"
+
+#: .\templates\admin\base_site.html:134 .\templates\base.html:101
+msgid "Default"
+msgstr "ডিফল্ট"
+
+#: .\templates\admin\base_site.html:135 .\templates\base.html:102
+msgid "Today Dashboard"
+msgstr "আজকের ড্যাশবোর্ড"
+
+#: .\templates\admin\base_site.html:136 .\templates\base.html:103
+msgid "Monthly Dashboard"
+msgstr "মাসিক ড্যাশবোর্ড"
+
+#: .\templates\admin\base_site.html:137 .\templates\app1\customer_home.html:68
+#: .\templates\base.html:104 .\templates\dashboard\dashboard.html:4
+#: .\templates\dashboard\dashboard.html:16
+#: .\templates\dashboard\dashboard_all.html:3
+#: .\templates\dashboard\dashboard_all.html:14
+msgid "Dashboard"
+msgstr "ড্যাশবোর্ড"
+
+#: .\templates\admin\base_site.html:142 .\templates\base.html:109
+msgid "Account"
+msgstr "অ্যাকাউন্ট"
+
+#: .\templates\admin\base_site.html:146 .\templates\base.html:113
+msgid "Add Customer"
+msgstr "গ্রাহক যোগ করুন"
+
+#: .\templates\admin\base_site.html:147 .\templates\app1\home.html:79
+#: .\templates\base.html:116
+msgid "Customer List"
+msgstr "গ্রাহকের তালিকা"
+
+#: .\templates\admin\base_site.html:148 .\templates\app1\customer_home.html:69
+#: .\templates\base.html:120
+msgid "General AC"
+msgstr "সাধারণ অ্যাকাউন্ট"
+
+#: .\templates\admin\base_site.html:149 .\templates\base.html:124
+msgid "Special Savings AC"
+msgstr "বিশেষ সঞ্চয় অ্যাকাউন্ট"
+
+#: .\templates\admin\base_site.html:150 .\templates\base.html:125
+msgid "Add Loan AC"
+msgstr "ঋণ অ্যাকাউন্ট যোগ করুন"
+
+#: .\templates\admin\base_site.html:151 .\templates\base.html:126
+msgid "Loan AC List"
+msgstr "ঋণ অ্যাকাউন্টের তালিকা"
+
+#: .\templates\admin\base_site.html:152 .\templates\base.html:127
+msgid "Add CC Loan"
+msgstr "সিসি ঋণ যোগ করুন"
+
+#: .\templates\admin\base_site.html:153 .\templates\base.html:128
+msgid "CC Loan List"
+msgstr "সিসি ঋণের তালিকা"
+
+#: .\templates\admin\base_site.html:154 .\templates\base.html:129
+msgid "Add Special Loan"
+msgstr "বিশেষ ঋণ যোগ করুন"
+
+#: .\templates\admin\base_site.html:155 .\templates\base.html:130
+msgid "Special Loan List"
+msgstr "বিশেষ ঋণের তালিকা"
+
+#: .\templates\admin\base_site.html:156 .\templates\base.html:131
+msgid "Add DPS"
+msgstr "ডিপিএস যোগ করুন"
+
+#: .\templates\admin\base_site.html:157 .\templates\base.html:132
+msgid "DPS List"
+msgstr "ডিপিএস তালিকা"
+
+#: .\templates\admin\base_site.html:158 .\templates\base.html:133
+msgid "Add FDR"
+msgstr "এফডিআর যোগ করুন"
+
+#: .\templates\admin\base_site.html:159 .\templates\base.html:134
+msgid "FDR List"
+msgstr "এফডিআর তালিকা"
+
+#: .\templates\admin\base_site.html:160 .\templates\base.html:135
+msgid "Add Share AC"
+msgstr "শেয়ার অ্যাকাউন্ট যোগ করুন"
+
+#: .\templates\admin\base_site.html:161 .\templates\base.html:136
+msgid "Share AC List"
+msgstr "শেয়ার অ্যাকাউন্ট তালিকা"
+
+#: .\templates\admin\base_site.html:162 .\templates\app1\delete_search.html:4
+#: .\templates\app1\delete_search.html:10
+#: .\templates\app1\delete_search_results.html:4 .\templates\base.html:137
+msgid "Delete"
+msgstr "মুছে ফেলুন"
+
+#: .\templates\admin\base_site.html:167 .\templates\base.html:142
+msgid "Credit"
+msgstr "ক্রেডিট"
+
+#: .\templates\admin\base_site.html:171 .\templates\base.html:146
+msgid "Somity Wise Installment Collection"
+msgstr "সমিতি অনুযায়ী কিস্তি সংগ্রহ"
+
+#: .\templates\admin\base_site.html:172 .\templates\base.html:147
+msgid "Somity Wise General AC Deposit"
+msgstr "সমিতি অনুযায়ী সাধারণ অ্যাকাউন্ট জমা"
+
+#: .\templates\admin\base_site.html:173 .\templates\base.html:148
+msgid "Somity Wise DPS Deposit"
+msgstr "সমিতি অনুযায়ী ডিপিএস জমা"
+
+#: .\templates\admin\base_site.html:174 .\templates\app1\home.html:42
+#: .\templates\base.html:149
+msgid "Common Collection"
+msgstr "সাধারণ সংগ্রহ"
+
+#: .\templates\admin\base_site.html:175 .\templates\base.html:150
+msgid "Deposit General AC"
+msgstr "সাধারণ অ্যাকাউন্টে জমা"
+
+#: .\templates\admin\base_site.html:176 .\templates\base.html:151
+msgid "Deposit Special Savings AC"
+msgstr "বিশেষ সঞ্চয় অ্যাকাউন্টে জমা"
+
+#: .\templates\admin\base_site.html:177 .\templates\base.html:152
+msgid "Installment Collection"
+msgstr "কিস্তি সংগ্রহ"
+
+#: .\templates\admin\base_site.html:178 .\templates\base.html:153
+msgid "Loan Close"
+msgstr "ঋণ বন্ধ করুন"
+
+#: .\templates\admin\base_site.html:179 .\templates\app1\home.html:30
+#: .\templates\base.html:154 .\templates\dashboard\dashboard.html:67
+msgid "CC Loan Collection"
+msgstr "সিসি ঋণ সংগ্রহ"
+
+#: .\templates\admin\base_site.html:180 .\templates\base.html:155
+msgid "CC Loan Close"
+msgstr "সিসি ঋণ বন্ধ করুন"
+
+#: .\templates\admin\base_site.html:181 .\templates\base.html:156
+msgid "Special Loan Close"
+msgstr "বিশেষ ঋণ বন্ধ করুন"
+
+#: .\templates\admin\base_site.html:182 .\templates\app1\home.html:48
+#: .\templates\base.html:157
+msgid "Deposit Share AC"
+msgstr "শেয়ার অ্যাকাউন্টে জমা"
+
+#: .\templates\admin\base_site.html:183 .\templates\base.html:158
+msgid "Deposit DPS"
+msgstr "ডিপিএসে জমা"
+
+#: .\templates\admin\base_site.html:184 .\templates\app1\home.html:54
+#: .\templates\base.html:159
+msgid "Deposit FDR"
+msgstr "এফডিআরে জমা"
+
+#: .\templates\admin\base_site.html:185 .\templates\app1\home.html:217
+#: .\templates\base.html:160
+msgid "Bank Withdraw"
+msgstr "ব্যাংক থেকে উত্তোলন"
+
+#: .\templates\admin\base_site.html:190 .\templates\base.html:165
+msgid "Debit"
+msgstr "ডেবিট"
+
+#: .\templates\admin\base_site.html:194 .\templates\base.html:169
+msgid "Withdraw General AC"
+msgstr "সাধারণ অ্যাকাউন্ট থেকে উত্তোলন"
+
+#: .\templates\admin\base_site.html:195 .\templates\base.html:170
+msgid "Withdraw Special Savings AC"
+msgstr "বিশেষ সঞ্চয় অ্যাকাউন্ট থেকে উত্তোলন"
+
+#: .\templates\admin\base_site.html:196 .\templates\base.html:171
+msgid "Withdraw DPS"
+msgstr "ডিপিএস থেকে উত্তোলন"
+
+#: .\templates\admin\base_site.html:197 .\templates\base.html:172
+msgid "DPS Close"
+msgstr "ডিপিএস বন্ধ করুন"
+
+#: .\templates\admin\base_site.html:198 .\templates\base.html:173
+msgid "Withdraw Share AC"
+msgstr "শেয়ার অ্যাকাউন্ট থেকে উত্তোলন"
+
+#: .\templates\admin\base_site.html:199 .\templates\base.html:174
+msgid "Profit Withdraw Share AC"
+msgstr "শেয়ার অ্যাকাউন্ট থেকে লাভ উত্তোলন"
+
+#: .\templates\admin\base_site.html:200 .\templates\app1\bank_deposit.html:4
+#: .\templates\app1\bank_deposit.html:13 .\templates\app1\home.html:211
+#: .\templates\base.html:175
+msgid "Bank Deposit"
+msgstr "ব্যাংকে জমা"
+
+#: .\templates\admin\base_site.html:201 .\templates\base.html:176
+msgid "FDR Profit Withdraw"
+msgstr "এফডিআর থেকে লাভ উত্তোলন"
+
+#: .\templates\admin\base_site.html:202 .\templates\base.html:177
+msgid "FDR Balance Withdraw"
+msgstr "এফডিআর থেকে ব্যালেন্স উত্তোলন"
+
+#: .\templates\admin\base_site.html:203 .\templates\base.html:178
+msgid "FDR Close"
+msgstr "এফডিআর বন্ধ"
+
+#: .\templates\admin\base_site.html:208 .\templates\base.html:183
+msgid "Other Transactions"
+msgstr "অন্যান্য লেনদেন"
+
+#: .\templates\admin\base_site.html:212 .\templates\base.html:187
+msgid "General Expense"
+msgstr "সাধারণ খরচ"
+
+#: .\templates\admin\base_site.html:213 .\templates\base.html:188
+msgid "General Income"
+msgstr "সাধারণ আয়"
+
+#: .\templates\admin\base_site.html:214 .\templates\base.html:189
+msgid "Deposit from Director"
+msgstr "পরিচালকের কাছ থেকে জমা"
+
+#: .\templates\admin\base_site.html:215 .\templates\base.html:190
+msgid "Withdraw for Director"
+msgstr "পরিচালকের জন্য উত্তোলন"
+
+#: .\templates\admin\base_site.html:216 .\templates\base.html:191
+msgid "Passbook"
+msgstr "পাসবই"
+
+#: .\templates\admin\base_site.html:217 .\templates\base.html:192
+msgid "Get Out Loan"
+msgstr "বাহিরের ঋণ নিন"
+
+#: .\templates\admin\base_site.html:218 .\templates\base.html:193
+msgid "Return Out Loan"
+msgstr "বাহিরের ঋণ ফেরত দিন"
+
+#: .\templates\admin\base_site.html:219 .\templates\base.html:194
+msgid "SSM Deposit"
+msgstr "এসএসএম জমা"
+
+#: .\templates\admin\base_site.html:220 .\templates\base.html:195
+msgid "SSM Withdraw"
+msgstr "এসএসএম উত্তোলন"
+
+#: .\templates\admin\base_site.html:221 .\templates\base.html:196
+msgid "Staff Salary Distribution"
+msgstr "কর্মচারীর বেতন বিতরণ"
+
+#: .\templates\admin\base_site.html:222 .\templates\base.html:197
+msgid "Profit Generate Monthly"
+msgstr "মাসিক মুনাফা তৈরি"
+
+#: .\templates\admin\base_site.html:223 .\templates\base.html:198
+msgid "Profit Distribution History"
+msgstr "মুনাফা বিতরণের ইতিহাস"
+
+#: .\templates\admin\base_site.html:228 .\templates\base.html:203
+msgid "All Reports"
+msgstr "সব রিপোর্ট"
+
+#: .\templates\admin\base_site.html:232 .\templates\base.html:207
+msgid "Daily Loan Report"
+msgstr "দৈনিক ঋণ রিপোর্ট"
+
+#: .\templates\admin\base_site.html:233 .\templates\base.html:208
+msgid "Weekly Loan Report"
+msgstr "সাপ্তাহিক ঋণ রিপোর্ট"
+
+#: .\templates\admin\base_site.html:234 .\templates\base.html:209
+msgid "Monthly Loan Report"
+msgstr "মাসিক ঋণ রিপোর্ট"
+
+#: .\templates\admin\base_site.html:235 .\templates\base.html:210
+msgid "Loan Due List"
+msgstr "ঋণের বকেয়া তালিকা"
+
+#: .\templates\admin\base_site.html:236 .\templates\base.html:211
+msgid "Loan Recovery Percentage"
+msgstr "ঋণ পুনরুদ্ধারের শতকরা হার"
+
+#: .\templates\admin\base_site.html:237 .\templates\base.html:212
+msgid "Admission Report"
+msgstr "ভর্তি রিপোর্ট"
+
+#: .\templates\admin\base_site.html:238 .\templates\base.html:213
+msgid "Customer Balance"
+msgstr "গ্রাহকের ব্যালেন্স"
+
+#: .\templates\admin\base_site.html:239 .\templates\base.html:214
+msgid "General Ledger"
+msgstr "সাধারণ লেজার"
+
+#: .\templates\admin\base_site.html:240 .\templates\base.html:215
+#, fuzzy
+#| msgid "Bank Statement"
+msgid "Account Statement"
+msgstr "ব্যাংক বিবৃতি"
+
+#: .\templates\admin\base_site.html:241 .\templates\base.html:216
+msgid "Bank Statement"
+msgstr "ব্যাংক বিবৃতি"
+
+#: .\templates\admin\base_site.html:242 .\templates\base.html:217
+msgid "Receive & Payment"
+msgstr "গ্রহণ ও প্রদান"
+
+#: .\templates\admin\base_site.html:243 .\templates\base.html:218
+msgid "Profit & Loss"
+msgstr "লাভ ও ক্ষতি"
+
+#: .\templates\admin\base_site.html:244 .\templates\base.html:219
+msgid "Balance Sheet"
+msgstr "ব্যালান্স শীট"
+
+#: .\templates\admin\base_site.html:245 .\templates\base.html:220
+msgid "Monthly Top Sheet"
+msgstr "মাসিক টপ শীট"
+
+#: .\templates\admin\base_site.html:246 .\templates\base.html:221
+msgid "Monthly Wise Top Sheet"
+msgstr "মাসিক ভিত্তিতে টপ শীট"
+
+#: .\templates\admin\base_site.html:247 .\templates\base.html:222
+msgid "Loan Opening Closing Report"
+msgstr "ঋণ খোলার বন্ধের রিপোর্ট"
+
+#: .\templates\admin\base_site.html:248 .\templates\base.html:223
+msgid "Voucher Report"
+msgstr "ভাউচার রিপোর্ট"
+
+#: .\templates\admin\base_site.html:249 .\templates\base.html:224
+msgid "Share AC Report"
+msgstr "শেয়ার একাউন্ট রিপোর্ট"
+
+#: .\templates\admin\base_site.html:250 .\templates\base.html:225
+msgid "DPS Report"
+msgstr "ডিপিএস রিপোর্ট"
+
+#: .\templates\admin\base_site.html:251 .\templates\base.html:226
+msgid "FDR Report"
+msgstr "এফডিআর রিপোর্ট"
+
+#: .\templates\admin\base_site.html:252 .\templates\base.html:227
+msgid "User Wise Entry Summary"
+msgstr "ব্যবহারকারী ভিত্তিক এন্ট্রি সারসংক্ষেপ"
+
+#: .\templates\admin\base_site.html:253 .\templates\base.html:228
+msgid "User Entry Summary"
+msgstr "ব্যবহারকারী এন্ট্রি সারসংক্ষেপ"
+
+#: .\templates\admin\base_site.html:254 .\templates\base.html:229
+msgid "User Log"
+msgstr "ব্যবহারকারীর লগ"
+
+#: .\templates\admin\base_site.html:259 .\templates\base.html:234
+msgid "Primary Setup"
+msgstr "প্রাথমিক সেটআপ"
+
+#: .\templates\admin\base_site.html:264 .\templates\base.html:239
+msgid "Branch List"
+msgstr "শাখার তালিকা"
+
+#: .\templates\admin\base_site.html:268 .\templates\base.html:243
+msgid "Staff List"
+msgstr "কর্মচারীর তালিকা"
+
+#: .\templates\admin\base_site.html:272 .\templates\base.html:247
+msgid "Somity List"
+msgstr "সমিতির তালিকা"
+
+#: .\templates\admin\base_site.html:276 .\templates\base.html:251
+msgid "Bank List"
+msgstr "ব্যাংকের তালিকা"
+
+#: .\templates\admin\base_site.html:280 .\templates\base.html:255
+msgid "Director List"
+msgstr "পরিচালকের তালিকা"
+
+#: .\templates\admin\base_site.html:284 .\templates\base.html:259
+msgid "Out Loan"
+msgstr "বাহিরের ঋণ"
+
+#: .\templates\admin\base_site.html:288 .\templates\base.html:263
+msgid "Loan Category"
+msgstr "ঋণ শ্রেণী"
+
+#: .\templates\admin\base_site.html:292 .\templates\base.html:267
+msgid "Voucher Category"
+msgstr "ভাউচার শ্রেণী"
+
+#: .\templates\admin\base_site.html:296 .\templates\base.html:271
+msgid "FDR Scheme"
+msgstr "এফডিআর স্কিম"
+
+#: .\templates\admin\base_site.html:300 .\templates\base.html:275
+msgid "DPS Scheme"
+msgstr "ডিপিএস স্কিম"
+
+#: .\templates\admin\base_site.html:304 .\templates\base.html:279
+msgid "Holiday"
+msgstr "ছুটি"
+
+#: .\templates\admin\base_site.html:308 .\templates\base.html:283
+msgid "User Type"
+msgstr "ব্যবহারকারীর ধরন"
+
+#: .\templates\admin\base_site.html:312 .\templates\base.html:287
+msgid "SMS Setting"
+msgstr "এসএমএস সেটিং"
+
+#: .\templates\admin\base_site.html:316 .\templates\base.html:291
+#, fuzzy
+#| msgid "Package Details"
+msgid "Package Setting"
+msgstr "প্যাকেজ বিস্তারিত"
+
+#: .\templates\admin\base_site.html:321 .\templates\base.html:295
+#, fuzzy
+#| msgid "SMS Setting"
+msgid "Logo Setting"
+msgstr "এসএমএস সেটিং"
+
+#: .\templates\admin\base_site.html:327 .\templates\base.html:303
+msgid "Sheet Download"
+msgstr "শীট ডাউনলোড"
+
+#: .\templates\admin\base_site.html:331 .\templates\base.html:307
+msgid "Collection Sheet 1"
+msgstr "সংগ্রহ শীট ১"
+
+#: .\templates\admin\base_site.html:332 .\templates\base.html:308
+msgid "Collection Sheet 2"
+msgstr "সংগ্রহ শীট ২"
+
+#: .\templates\admin\base_site.html:333 .\templates\base.html:309
+msgid "Loan Collection Sheet"
+msgstr "ঋণ সংগ্রহ শীট"
+
+#: .\templates\admin\base_site.html:334 .\templates\base.html:310
+msgid "CC Loan Collection Sheet"
+msgstr "সিসি ঋণ সংগ্রহ শীট"
+
+#: .\templates\admin\base_site.html:335 .\templates\base.html:311
+msgid "Savings Collection Sheet"
+msgstr "সঞ্চয় সংগ্রহ শীট"
+
+#: .\templates\admin\base_site.html:340 .\templates\base.html:316
+msgid "Mobile SMS"
+msgstr "মোবাইল এসএমএস"
+
+#: .\templates\admin\base_site.html:344 .\templates\base.html:320
+#: .\templates\sms\sms_bulk.html:4 .\templates\sms\sms_bulk.html:11
+msgid "Send Bulk SMS"
+msgstr "বাল্ক এসএমএস প্রেরণ করুন"
+
+#: .\templates\admin\base_site.html:345 .\templates\base.html:321
+#: .\templates\sms\sms_single.html:4 .\templates\sms\sms_single.html:11
+msgid "Send Single SMS"
+msgstr "একক এসএমএস প্রেরণ করুন"
+
+#: .\templates\admin\base_site.html:346 .\templates\base.html:322
+#: .\templates\sms\sms_customer.html:5 .\templates\sms\sms_customer.html:14
+msgid "Send SMS to Customers"
+msgstr "গ্রাহকদের এসএমএস প্রেরণ করুন"
+
+#: .\templates\admin\base_site.html:347 .\templates\base.html:323
+msgid "SMS Report"
+msgstr "এসএমএস রিপোর্ট"
+
+#: .\templates\app1\bank_deposit.html:19
+#: .\templates\sheet\collection_sheet_filter.html:24
+#: .\templates\sheet\loan_collection_sheet_filter.html:22
+#: .\templates\sheet\select_somity.html:14 .\templates\sms\sms_bulk.html:33
+#: .\templates\sms\sms_single.html:32
+msgid "Submit"
+msgstr "জমা দিন"
+
+#: .\templates\app1\bank_deposit.html:23
+msgid "Transaction History"
+msgstr "লেনদেনের ইতিহাস"
+
+#: .\templates\app1\bank_deposit.html:30
+msgid "Bank"
+msgstr "ব্যাংক"
+
+#: .\templates\app1\bank_deposit.html:31
+msgid "Deposit Amount"
+msgstr "জমার পরিমাণ"
+
+#: .\templates\app1\bank_deposit.html:32
+msgid "Withdraw Amount"
+msgstr "উত্তোলনের পরিমাণ"
+
+#: .\templates\app1\bank_deposit.html:33
+#: .\templates\app1\delete_search_results.html:84
+msgid "Balance"
+msgstr "ব্যালান্স"
+
+#: .\templates\app1\bank_deposit.html:34
+msgid "Note"
+msgstr "নোট"
+
+#: .\templates\app1\bank_deposit.html:35 .\templates\sms\sms_bulk.html:19
+msgid "Attachment"
+msgstr ""
+
+#: .\templates\app1\bank_deposit.html:36
+msgid "Process By"
+msgstr "প্রক্রিয়াকরণ করেছেন"
+
+#: .\templates\app1\bank_deposit.html:37
+msgid "Entry Date"
+msgstr "প্রবেশের তারিখ"
+
+#: .\templates\app1\bank_deposit.html:52
+msgid "Download"
+msgstr "ডাউনলোড"
+
+#: .\templates\app1\customer_home.html:70
+#, fuzzy
+#| msgid "Add Share AC"
+msgid "Share AC"
+msgstr "শেয়ার অ্যাকাউন্ট যোগ করুন"
+
+#: .\templates\app1\customer_home.html:71
+#: .\templates\dashboard\dashboard_all.html:170
+msgid "DPS AC"
+msgstr "ডিপিএস অ্যাকাউন্ট"
+
+#: .\templates\app1\customer_home.html:72
+#: .\templates\dashboard\dashboard_all.html:164
+msgid "FDR AC"
+msgstr "এফডিআর অ্যাকাউন্ট"
+
+#: .\templates\app1\customer_home.html:73
+#: .\templates\dashboard\dashboard_all.html:176
+msgid "Loan AC"
+msgstr "ঋণ অ্যাকাউন্ট"
+
+#: .\templates\app1\customer_home.html:74
+#: .\templates\dashboard\dashboard_all.html:182
+msgid "CC Loan AC"
+msgstr "সিসি ঋণ অ্যাকাউন্ট"
+
+#: .\templates\app1\customer_home.html:75
+#, fuzzy
+#| msgid "Profit"
+msgid "Profile"
+msgstr "লাভ"
+
+#: .\templates\app1\delete_search.html:14
+#: .\templates\app1\delete_search_results.html:26
+msgid "Account No."
+msgstr "অ্যাকাউন্ট নম্বর"
+
+#: .\templates\app1\delete_search.html:17
+#: .\templates\dashboard\dashboard.html:23
+msgid "Search"
+msgstr ""
+
+#: .\templates\app1\delete_search_results.html:30
+#: .\templates\app1\delete_search_results.html:77
+msgid "Customer Name"
+msgstr "গ্রাহকের নাম"
+
+#: .\templates\app1\delete_search_results.html:34
+msgid "Parents"
+msgstr "অভিভাবক"
+
+#: .\templates\app1\delete_search_results.html:38
+#: .\templates\sms\sms_report.html:26 .\templates\sms\sms_single.html:18
+msgid "Mobile Number"
+msgstr "মোবাইল নম্বর"
+
+#: .\templates\app1\delete_search_results.html:42
+msgid "Customer Type"
+msgstr "গ্রাহকের ধরন"
+
+#: .\templates\app1\delete_search_results.html:46
+msgid "Somity/Group"
+msgstr "সমিতি/গ্রুপ"
+
+#: .\templates\app1\delete_search_results.html:50
+msgid "Current Address"
+msgstr "বর্তমান ঠিকানা"
+
+#: .\templates\app1\delete_search_results.html:54
+msgid "Permanent Address"
+msgstr "স্থায়ী ঠিকানা"
+
+#: .\templates\app1\delete_search_results.html:70
+msgid "FDR"
+msgstr "এফডিআর"
+
+#: .\templates\app1\delete_search_results.html:75
+msgid "Action"
+msgstr "অ্যাকশন"
+
+#: .\templates\app1\delete_search_results.html:76
+msgid "Account No"
+msgstr "অ্যাকাউন্ট নম্বর"
+
+#: .\templates\app1\delete_search_results.html:78
+#: .\templates\sheet\collection_sheet_filter.html:14
+#: .\templates\sheet\loan_collection_sheet_filter.html:7
+#: .\templates\sheet\select_somity.html:8
+msgid "Somity"
+msgstr "সমিতি"
+
+#: .\templates\app1\delete_search_results.html:79
+#: .\templates\sheet\loan_collection_sheet_filter.html:14
+msgid "Scheme"
+msgstr "স্কিম"
+
+#: .\templates\app1\delete_search_results.html:80
+#: .\templates\sms\sms_customer.html:23 .\templates\sms\sms_report.html:25
+msgid "Type"
+msgstr "ধরন"
+
+#: .\templates\app1\delete_search_results.html:81
+#: .\templates\app1\package.html:27
+msgid "Start Date"
+msgstr ""
+
+#: .\templates\app1\delete_search_results.html:82
+msgid "End Date"
+msgstr "শেষ তারিখ"
+
+#: .\templates\app1\delete_search_results.html:83
+msgid "Opening Amount"
+msgstr "খোলার পরিমাণ"
+
+#: .\templates\app1\delete_search_results.html:85
+msgid "Profit"
+msgstr "লাভ"
+
+#: .\templates\app1\delete_search_results.html:86
+msgid "Total Profit"
+msgstr "মোট লাভ"
+
+#: .\templates\app1\delete_search_results.html:87
+msgid "Profit Paid"
+msgstr "ঋণে লাভ"
+
+#: .\templates\app1\delete_search_results.html:88
+msgid "Available Profit"
+msgstr "উপলব্ধ মুনাফা"
+
+#: .\templates\app1\delete_search_results.html:89
+#: .\templates\app1\package.html:23
+msgid "Status"
+msgstr "অবস্থা"
+
+#: .\templates\app1\delete_search_results.html:95
+msgid "Are you sure you want to close?"
+msgstr "আপনি কি সত্যিই বন্ধ করতে চান?"
+
+#: .\templates\app1\delete_search_results.html:95
+msgid "Close"
+msgstr "বন্ধ করুন"
+
+#: .\templates\app1\home.html:11
+msgid "Todays Collection & Withdraw"
+msgstr "আজকের সংগ্রহ ও উত্তোলন"
+
+#: .\templates\app1\home.html:18
+msgid "Savings Deposit"
+msgstr "সঞ্চয় জমা"
+
+#: .\templates\app1\home.html:24
+msgid "Loan Collection"
+msgstr "ঋণ সংগ্রহ"
+
+#: .\templates\app1\home.html:36 .\templates\dashboard\dashboard_all.html:32
+msgid "DPS"
+msgstr "ডিপিএস"
+
+#: .\templates\app1\home.html:60
+msgid "Voucher Expense"
+msgstr "ভাউচার খরচ"
+
+#: .\templates\app1\home.html:66
+msgid "New Admission"
+msgstr "নতুন ভর্তি"
+
+#: .\templates\app1\home.html:73
+msgid "At a Glance"
+msgstr "এক নজরে"
+
+#: .\templates\app1\home.html:88
+msgid "User Collection"
+msgstr "ব্যবহারকারী সংগ্রহ"
+
+#: .\templates\app1\home.html:94
+msgid "Savings Accounts"
+msgstr "সঞ্চয় অ্যাকাউন্টস"
+
+#: .\templates\app1\home.html:102
+msgid "Loan Accounts"
+msgstr "ঋণ অ্যাকাউন্টস"
+
+#: .\templates\app1\home.html:108
+msgid "New Loan"
+msgstr "নতুন ঋণ"
+
+#: .\templates\app1\home.html:116
+msgid "CC Loan Accounts"
+msgstr "সিসি ঋণ অ্যাকাউন্টস"
+
+#: .\templates\app1\home.html:122
+msgid "New CC Loan"
+msgstr "নতুন সিসি ঋণ"
+
+#: .\templates\app1\home.html:130
+msgid "DPS Accounts"
+msgstr "ডিপিএস অ্যাকাউন্টস"
+
+#: .\templates\app1\home.html:136 .\templates\app1\home.html:150
+msgid "New DPS"
+msgstr "নতুন ডিপিএস"
+
+#: .\templates\app1\home.html:144
+msgid "FDR Accounts"
+msgstr "এফডিআর অ্যাকাউন্টস"
+
+#: .\templates\app1\home.html:159
+msgid "Share Accounts"
+msgstr "শেয়ার অ্যাকাউন্টস"
+
+#: .\templates\app1\home.html:165
+msgid "Add Share"
+msgstr "শেয়ার যোগ করুন"
+
+#: .\templates\app1\home.html:171 .\templates\dashboard\dashboard_all.html:92
+msgid "Voucher Income"
+msgstr "ভাউচার আয়"
+
+#: .\templates\app1\home.html:181
+msgid "DPS Closing"
+msgstr "ডিপিএস বন্ধ"
+
+#: .\templates\app1\home.html:187
+msgid "FDR Closing"
+msgstr "এফডিআর বন্ধ"
+
+#: .\templates\app1\home.html:196
+msgid "Savings Withdraw"
+msgstr "সঞ্চয় উত্তোলন"
+
+#: .\templates\app1\home.html:202
+msgid "DPS Withdraw"
+msgstr "ডিপিএস উত্তোলন"
+
+#: .\templates\app1\home.html:226
+msgid "Send SMS"
+msgstr "এসএমএস প্রেরণ করুন"
+
+#: .\templates\app1\package.html:4 .\templates\app1\package.html:13
+msgid "Package Details"
+msgstr "প্যাকেজ বিস্তারিত"
+
+#: .\templates\app1\package.html:19
+msgid "Client ID"
+msgstr "ক্লায়েন্ট আইডি"
+
+#: .\templates\app1\package.html:31
+msgid "Expired Date"
+msgstr "মেয়াদ উত্তীর্ণ তারিখ"
+
+#: .\templates\app1\package.html:35
+msgid "Billing Cycle"
+msgstr "বিলিং চক্র"
+
+#: .\templates\app1\package.html:39
+msgid "Package Name"
+msgstr "প্যাকেজের নাম"
+
+#: .\templates\app1\package.html:43
+msgid "Limit Customer"
+msgstr "গ্রাহকের সীমা"
+
+#: .\templates\app1\package.html:48
+msgid "No package data available"
+msgstr ""
+
+#: .\templates\base.html:330
+msgid "Developer Info"
+msgstr "ডেভেলপার ইনফো"
+
+#: .\templates\dashboard\dashboard.html:4
+#: .\templates\dashboard\dashboard.html:16
+#, python-format
+msgid "%(dashboard)s"
+msgstr "%(dashboard)s"
+
+#: .\templates\dashboard\dashboard.html:31
+msgid "General Savings Collection"
+msgstr "সাধারণ সঞ্চয় সংগ্রহ"
+
+#: .\templates\dashboard\dashboard.html:37
+msgid "General Savings Transactions"
+msgstr "সাধারণ সঞ্চয় লেনদেন"
+
+#: .\templates\dashboard\dashboard.html:43
+msgid "Special Savings Collection"
+msgstr "বিশেষ সঞ্চয় সংগ্রহ"
+
+#: .\templates\dashboard\dashboard.html:49
+msgid "Special Savings Transactions"
+msgstr "বিশেষ সঞ্চয় লেনদেন"
+
+#: .\templates\dashboard\dashboard.html:55
+msgid "Installments Collection"
+msgstr "কিস্তি সংগ্রহ"
+
+#: .\templates\dashboard\dashboard.html:61
+msgid "Installments Transactions"
+msgstr "কিস্তি লেনদেন"
+
+#: .\templates\dashboard\dashboard.html:73
+msgid "CC Loan Transactions"
+msgstr "সিসি ঋণ লেনদেন"
+
+#: .\templates\dashboard\dashboard.html:79
+msgid "Loan Distribute"
+msgstr "ঋণ বিতরণ"
+
+#: .\templates\dashboard\dashboard.html:85
+msgid "Loan Distribute Transactions"
+msgstr "ঋণ বিতরণ লেনদেন"
+
+#: .\templates\dashboard\dashboard.html:91
+msgid "DPS Collection"
+msgstr "ডিপিএস সংগ্রহ"
+
+#: .\templates\dashboard\dashboard.html:97
+msgid "DPS Collection Transactions"
+msgstr "ডিপিএস সংগ্রহ লেনদেন"
+
+#: .\templates\dashboard\dashboard.html:103
+msgid "FDR Collection"
+msgstr "এফডিআর সংগ্রহ"
+
+#: .\templates\dashboard\dashboard.html:109
+msgid "FDR Collection Transactions"
+msgstr "এফডিআর সংগ্রহ লেনদেন"
+
+#: .\templates\dashboard\dashboard.html:115
+msgid "Share Collection"
+msgstr "শেয়ার সংগ্রহ"
+
+#: .\templates\dashboard\dashboard.html:121
+msgid "Share Transactions"
+msgstr "শেয়ার লেনদেন"
+
+#: .\templates\dashboard\dashboard.html:129
+msgid "Admission Fee Collection"
+msgstr "ভর্তির ফি সংগ্রহ"
+
+#: .\templates\dashboard\dashboard.html:135
+msgid "Admission Fee Transactions"
+msgstr "ভর্তির ফি লেনদেন"
+
+#: .\templates\dashboard\dashboard.html:141
+msgid "Savings Withdrawal"
+msgstr "সঞ্চয় উত্তোলন"
+
+#: .\templates\dashboard\dashboard.html:147
+msgid "Savings Withdrawal Transactions"
+msgstr "সঞ্চয় উত্তোলন লেনদেন"
+
+#: .\templates\dashboard\dashboard.html:153
+msgid "DPS Withdrawal"
+msgstr "ডিপিএস উত্তোলন"
+
+#: .\templates\dashboard\dashboard.html:159
+msgid "DPS Withdrawal Transactions"
+msgstr "ডিপিএস উত্তোলন লেনদেন"
+
+#: .\templates\dashboard\dashboard.html:165
+msgid "FDR Withdrawal"
+msgstr "এফডিআর উত্তোলন"
+
+#: .\templates\dashboard\dashboard.html:171
+msgid "FDR Withdrawal Transactions"
+msgstr "এফডিআর উত্তোলন লেনদেন"
+
+#: .\templates\dashboard\dashboard_all.html:20
+msgid "General Savings"
+msgstr "সাধারণ সঞ্চয়"
+
+#: .\templates\dashboard\dashboard_all.html:26
+msgid "Special Savings"
+msgstr "বিশেষ সঞ্চয়"
+
+#: .\templates\dashboard\dashboard_all.html:38
+msgid "Loan"
+msgstr "ঋণ"
+
+#: .\templates\dashboard\dashboard_all.html:44
+msgid "Profit on Loan"
+msgstr "ঋণে লাভ"
+
+#: .\templates\dashboard\dashboard_all.html:50
+msgid "CC Loan Amount"
+msgstr "সিসি ঋণ পরিমাণ"
+
+#: .\templates\dashboard\dashboard_all.html:56
+msgid "FDR Deposited"
+msgstr "এফডিআর জমা"
+
+#: .\templates\dashboard\dashboard_all.html:62
+msgid "Distributed FDR Profit"
+msgstr "বিতরিত এফডিআর লাভ"
+
+#: .\templates\dashboard\dashboard_all.html:68
+msgid "Distributed DPS Profit"
+msgstr "বিতরিত ডিপিএস লাভ"
+
+#: .\templates\dashboard\dashboard_all.html:74
+msgid "Share Balance"
+msgstr "শেয়ার ব্যালেন্স"
+
+#: .\templates\dashboard\dashboard_all.html:80
+msgid "Share Profit Balance"
+msgstr "শেয়ার লাভ ব্যালেন্স"
+
+#: .\templates\dashboard\dashboard_all.html:86
+msgid "Total Vouchers"
+msgstr "মোট ভাউচার"
+
+#: .\templates\dashboard\dashboard_all.html:98
+msgid "Voucher Expenses"
+msgstr "ভাউচার খরচ"
+
+#: .\templates\dashboard\dashboard_all.html:104
+msgid "Total Customers"
+msgstr "মোট গ্রাহক"
+
+#: .\templates\dashboard\dashboard_all.html:110
+msgid "Total Customers (Daily)"
+msgstr "মোট গ্রাহক (দৈনিক)"
+
+#: .\templates\dashboard\dashboard_all.html:116
+msgid "Total Customers (Weekly)"
+msgstr "মোট গ্রাহক (সাপ্তাহিক)"
+
+#: .\templates\dashboard\dashboard_all.html:122
+msgid "Total Customers (Monthly)"
+msgstr "মোট গ্রাহক (মাসিক)"
+
+#: .\templates\dashboard\dashboard_all.html:128
+msgid "Male Customers"
+msgstr "পুরুষ গ্রাহক"
+
+#: .\templates\dashboard\dashboard_all.html:134
+msgid "Female Customers"
+msgstr "মহিলা গ্রাহক"
+
+#: .\templates\dashboard\dashboard_all.html:140
+msgid "Inactive Customers"
+msgstr "নিষ্ক্রিয় গ্রাহক"
+
+#: .\templates\dashboard\dashboard_all.html:146
+msgid "Total Somity"
+msgstr "মোট সমিতি"
+
+#: .\templates\dashboard\dashboard_all.html:152
+msgid "Total Staff"
+msgstr "মোট কর্মী"
+
+#: .\templates\dashboard\dashboard_all.html:158
+msgid "Savings Account"
+msgstr "সঞ্চয় অ্যাকাউন্ট"
+
+#: .\templates\dashboard\dashboard_all.html:191
+msgid "Total Director"
+msgstr "মোট পরিচালক"
+
+#: .\templates\dashboard\dashboard_all.html:197
+msgid "Director Due"
+msgstr "পরিচালক বকেয়া"
+
+#: .\templates\dashboard\dashboard_all.html:203
+msgid "Out Loan AC Count"
+msgstr "বাহিরের ঋণ অ্যাকাউন্টের সংখ্যা"
+
+#: .\templates\dashboard\dashboard_all.html:209
+msgid "Out Loan Balance"
+msgstr "বাহিরের ঋণ ব্যালেন্স"
+
+#: .\templates\dashboard\dashboard_all.html:215
+msgid "Security Money"
+msgstr "জামানত"
+
+#: .\templates\sheet\collection_sheet_filter.html:4
+msgid "Collection Sheet"
+msgstr "সংগ্রহ শীট ১"
+
+#: .\templates\sheet\collection_sheet_filter.html:21
+#: .\templates\sms\sms_report.html:24
+msgid "Date"
+msgstr "তারিখ"
+
+#: .\templates\sheet\loan_collection_sheet_filter.html:16
+msgid "Daily"
+msgstr "দৈনিক"
+
+#: .\templates\sheet\loan_collection_sheet_filter.html:17
+msgid "Weekly"
+msgstr "সাপ্তাহিক"
+
+#: .\templates\sheet\loan_collection_sheet_filter.html:18
+msgid "Half Monthly"
+msgstr "অর্ধ মাসিক"
+
+#: .\templates\sms\sms_bulk.html:25 .\templates\sms\sms_customer.html:36
+#: .\templates\sms\sms_report.html:27 .\templates\sms\sms_single.html:24
+msgid "SMS Body"
+msgstr "এসএমএস এর বিষয়বস্তু"
+
+#: .\templates\sms\sms_bulk.html:27 .\templates\sms\sms_customer.html:38
+#: .\templates\sms\sms_single.html:26
+msgid "Please Type Message"
+msgstr "দয়া করে বার্তা টাইপ করুন"
+
+#: .\templates\sms\sms_bulk.html:28 .\templates\sms\sms_customer.html:39
+#: .\templates\sms\sms_single.html:27
+msgid ""
+"* 160 characters count as 1 SMS in English language and 70 characters in "
+"other languages as 1 SMS."
+msgstr ""
+"ইংরেজি ভাষায় ১৬০ অক্ষর এবং অন্যান্য ভাষায় ৭০ অক্ষর ১টি এসএমএস হিসেবে গণ্য হবে।"
+
+#: .\templates\sms\sms_bulk.html:34
+msgid "Sample Download"
+msgstr "নমুনা ডাউনলোড"
+
+#: .\templates\sms\sms_customer.html:25
+msgid "All Customer"
+msgstr "সকল গ্রাহক"
+
+#: .\templates\sms\sms_customer.html:26
+msgid "Active Customer"
+msgstr "সক্রিয় গ্রাহক"
+
+#: .\templates\sms\sms_customer.html:27
+msgid "All DPS A/C"
+msgstr "সকল ডিপিএস অ্যাকাউন্ট"
+
+#: .\templates\sms\sms_customer.html:28
+msgid "Active DPS A/C"
+msgstr "সক্রিয় ডিপিএস অ্যাকাউন্ট"
+
+#: .\templates\sms\sms_customer.html:29
+msgid "All Loan A/C"
+msgstr "সকল ঋণ অ্যাকাউন্ট"
+
+#: .\templates\sms\sms_customer.html:30
+msgid "Active Loan A/C"
+msgstr "সক্রিয় ঋণ অ্যাকাউন্ট"
+
+#: .\templates\sms\sms_customer.html:31
+msgid "All FDR A/C"
+msgstr "সকল এফডিআর অ্যাকাউন্ট"
+
+#: .\templates\sms\sms_customer.html:32
+msgid "Active FDR A/C"
+msgstr "সক্রিয় এফডিআর অ্যাকাউন্ট"
+
+#: .\templates\sms\sms_customer.html:51 .\templates\sms\sms_single.html:39
+msgid "SMS API Responses:"
+msgstr "এসএমএস এপিআই প্রতিক্রিয়া:"
+
+#: .\templates\sms\sms_report.html:4 .\templates\sms\sms_report.html:17
+msgid "Send Report"
+msgstr "প্রতিবেদন পাঠান"
+
+#: .\templates\sms\sms_report.html:28
+msgid "Sent By"
+msgstr "পাঠিয়েছে"
+
+#: .\templates\sms\sms_report.html:42
+msgid "No SMS reports found."
+msgstr "কোনও এসএমএস প্রতিবেদন পাওয়া যায়নি।"
+
+#: .\templates\sms\sms_single.html:20
+msgid "Multiple Mobile Number separator By Comma (,)"
+msgstr "একাধিক মোবাইল নম্বর কমা (,) দিয়ে আলাদা করুন"
+
+#~ msgid "THIS PAGE IS NOT DYNAMIC"
+#~ msgstr "এই পৃষ্ঠা গতিশীল নয়"
+
+#~ msgid "Active"
+#~ msgstr "সক্রিয়"
+
+#~ msgid "01-jan-2023"
+#~ msgstr "০১-জানুয়ারি-২০২৩"
+
+#~ msgid "31-Dec-2030"
+#~ msgstr "৩১-ডিসেম্বর-২০৩০"
+
+#~ msgid "1 - 300 Members"
+#~ msgstr "১ - ৩০০ সদস্য"
+
+#~ msgid "300"
+#~ msgstr "৩০০"

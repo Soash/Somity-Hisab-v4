@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Staff Salary Distribution
+{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'otrans/styles.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<style>
+    .main th, .main td {
+        white-space: wrap;
+    }
+    td input{
+        width: 50px;
+        padding: 10px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<div>
+   <h2>
+    Staff Salary Distribution
+    </h2>
+</div>
+
+<div class="table-container">
+    <form method="POST" action="{% url 'save_salary' %}">
+        {% csrf_token %}
+        <div>
+            Branch: {{branch.branch}}, Year: {{year}}, Month: {{month}}, Date: {{date}}
+        </div>
+        <input type="hidden" name="year" value="{{ year }}">
+        <input type="hidden" name="month" value="{{ month }}">
+        <input type="hidden" name="date" value="{{ date }}">
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="select-all"></th>
+                        <th>Name</th>
+                        <th>Designation</th>
+                        <th>Joining Date</th>
+                        <th>Basic Salary</th>
+                        <th>House Rent</th>
+                        <th>Medical Allowance</th>
+                        <th>Travel Allowance</th>
+                        <th>Mobile Allowance</th>
+                        <th>Internet Allowance</th>
+                        <th>Others</th>
+                        <th>Bonus</th>
+                        <th>Deduction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in staff %}
+                    <tr>
+                        <td><input type="checkbox" name="staff_ids" value="{{ item.id }}" class="select-staff"></td>
+                        <td>{{ item.username }}</td>
+                        <td>{{ item.group }}</td>
+                        <td>{{ item.date_joined|date:"Y-m-d" }}</td>
+                        <td>{{ item.basic_salary }}</td>
+                        <td>{{ item.house_rent }}</td>
+                        <td>{{ item.medical_allowance }}</td>
+                        <td>{{ item.travel_allowance }}</td>
+                        <td>{{ item.mobile_allowance }}</td>
+                        <td>{{ item.internet_allowance }}</td>
+                        <td><input type="text" name="others_{{ item.id }}" pattern="\d*"></td>
+                        <td><input type="text" name="bonus_{{ item.id }}" pattern="\d*"></td>
+                        <td><input type="text" name="deduction_{{ item.id }}" pattern="\d*"></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="13">No data available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <button type="submit">Save</button>
+    </form>
+    
+
+    
+</div>
+ 
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function confirmSubmit() {
+        return confirm("Are you sure you want to submit this form?");
+    }
+</script>
+<script>
+    document.getElementById('select-all').addEventListener('change', function() {
+        var checkboxes = document.querySelectorAll('.select-staff');
+        for (var checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+        }
+    });
+</script>
+{% endblock %}
+
+

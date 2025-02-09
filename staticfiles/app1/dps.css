@@ -1,0 +1,157 @@
+/* General form styles */
+.div2 form {
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #0951a2;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    grid-gap: 15px;
+}
+
+/* Style form groups */
+form div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* Ensure labels are styled correctly */
+form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.div2 form input, .div2 form select, .div2 form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Placeholder styling */
+input::placeholder, textarea::placeholder {
+    color: #aaa;
+}
+
+/* Button styles */
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #0951a2;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0951a2;
+}
+
+/* Adjust textarea height */
+textarea {
+    resize: vertical;
+}
+
+/* Style for readonly inputs */
+.div2 form input[readonly], 
+.div2 form select[readonly], 
+.div2 form textarea[readonly] {
+    background-color: #e9ecef; /* Light gray background for readonly fields */
+    color: #495057; /* Slightly darker text color */
+    border-color: #ced4da; /* Lighter border */
+    cursor: not-allowed; /* Indicate that the field is not editable */
+}
+
+/* Ensure consistent padding and font styling */
+.div2 form input[readonly], 
+.div2 form select[readonly], 
+.div2 form textarea[readonly] {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+.main{
+    width: 80%;
+}
+
+.main .table-container {
+    overflow-x: auto;
+}
+
+.main table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.main thead {
+    background-color: #0951a2;
+    color: white;
+}
+
+.main th, 
+.main td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 870px) {
+    .main{
+        width: 100%;
+    }
+  }
+
+
+
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+    .div2 form {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+
+    button[type="submit"] {
+        width: 100%;
+    }
+    .main{
+        width: 100%;
+    }
+    
+}
+
+
+
+

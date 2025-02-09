@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Special Loan Collection{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+{% endblock %}
+
+{% block content %}
+
+    <h2>Special Loan Collection: {{ loan.transaction_id }}</h2>
+
+    <div class="table-container">
+        <table id="myTable" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Account No</th>
+                    <th>Customer Name</th>
+                    <th>Somity</th>
+          
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Amount</th>
+                    <th>Profit</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>           
+                <tr>           
+                    <td>{{ loan.customer.account_no }}</td>
+                    <td>{{ loan.customer.customer_name }}</td>
+                    <td>{{ loan.customer.group }}</td>
+                    <td>{{ loan.start_date }}</td>
+                    <td>{{ loan.end_date }}</td>
+                    <td>{{ loan.amount }}</td>
+                    <td>{{ loan.profit }}</td>
+                    <td>{{ loan.profit|add:loan.amount|floatformat:"2" }}</td>
+                    <td>{{ loan.status }}</td>
+                    {% comment %} <td>{{ due }}</td> {% endcomment %}
+                </tr>       
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="div2">
+        <form action="#">
+            <label for="">Loan Amount</label>
+            <input type="text" value="{{ loan.amount }}" readonly>
+            <label for="">Profit</label>
+            <input type="text" value="{{ loan.profit }}" readonly>
+        </form>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    <script>
+        $(function() {
+            var today = new Date();
+            var formattedDate = $.datepicker.formatDate('yy-mm-dd', today);
+    
+            $("#id_Date").datepicker({
+                dateFormat: "yy-mm-dd",
+                defaultDate: today,
+            }).val(formattedDate);
+        });
+    </script>
+{% endblock %}

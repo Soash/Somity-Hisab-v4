@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}{% trans "Collection Sheet" %}{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+{% endblock %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+
+    <label for="somity">{% trans "Somity" %}:</label>
+    <select name="somity" id="somity">
+        {% for somity in somities %}
+        <option value="{{ somity.id }}">{{ somity.group_name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="date">{% trans "Date" %}:</label>
+    <input type="date" name="date" id="date">
+
+    <button type="submit">{% trans "Submit" %}</button>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(function() {
+        var today = new Date();
+        var formattedDate = $.datepicker.formatDate('yy-mm-dd', today);
+
+        $("#date").datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: today,
+        }).val(formattedDate);
+    });
+</script>
+{% endblock %}

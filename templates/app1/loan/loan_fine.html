@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Loan Collection{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+{% endblock %}
+
+{% block content %}
+
+    <h2>Loan Collection: {{ loan.transaction_id }}</h2>
+
+    <div class="table-container">
+        <table id="myTable" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Account No</th>
+                    <th>Customer Name</th>
+                    <th>Somity</th>
+                    <th>Loan Scheme</th>
+                    <th>Loan Category</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Installments</th>
+                    <th>Installments Amount</th>
+                    <th>Total Amount</th>
+                    <th>Paid</th>
+                    <th>Fine</th>
+                    {% comment %} <th>Due</th> {% endcomment %}
+                </tr>
+            </thead>
+            <tbody>           
+                <tr>           
+                    <td>{{ loan.customer.status }}</td>
+                    <td>{{ loan.customer.account_no }}</td>
+                    <td>{{ loan.customer.customer_name }}</td>
+                    <td>{{ loan.customer.group }}</td>
+                    <td>{{ loan.loan_scheme }}</td>
+                    <td>{{ loan.loan_category }}</td>
+                    <td>{{ loan.date }}</td>
+                    <td>{{ loan.end_date }}</td>
+                    {% comment %} <td>{{paid_installments_count}}/{{ loan.number_of_installments }}</td> {% endcomment %}
+                    <td>{{ loan.number_of_installments }}</td>
+                    <td>{{ loan.installment_amount }}</td>
+                    <td>{{ loan.total_amount }}</td>
+                    <td>{{ loan.paid_amount }}</td>
+                    <td>{{ loan.fine }}</td>
+                    {% comment %} <td>{{ due }}</td> {% endcomment %}
+                </tr>       
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="div2">
+        <form action="#">
+            <label for="">Total Fine</label>
+            <input type="text" value="{{ loan.fine }}" readonly>
+        </form>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>SL</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fine in loan_fines %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ fine.Date }}</td>
+                        <td>{{ fine.Amount }}</td>
+                        <td>{{ fine.Note|default:"" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    <script>
+        $(function() {
+            var today = new Date();
+            var formattedDate = $.datepicker.formatDate('yy-mm-dd', today);
+    
+            $("#id_Date").datepicker({
+                dateFormat: "yy-mm-dd",
+                defaultDate: today,
+            }).val(formattedDate);
+        });
+    </script>
+{% endblock %}

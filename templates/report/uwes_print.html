@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'report/styles.css' %}">
+    <title>User Wise Entry Summary</title>
+</head>
+<body>
+
+    <div style="text-align: center;">
+        <h1>{{somity_name}}</h1>
+        <h3>INTEGRITY IS OUR HALLMARK</h3>
+        <hr>
+        <h3>User Entry Summary</h3>
+        <h3>Branch Name: {{ branch }}</h3>
+        <h3>Date: {{ start_date }} to {{end_date}}</h3>
+    </div>
+
+    <div class="container">   
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>SL</th>
+                    <th>Staff</th>
+                    <th>Designation</th>
+                    <th>Mobile</th>
+                    <th>Cash IN Amount</th>
+                    <th>Cash Out Amount</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in staff_data %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{ data.staff }}</td>
+                    <td>{{ data.staff.group }}</td>
+                    <td>{{ data.staff.mobile|default:"" }}</td>
+                    <td>{{ data.total_cash_in | floatformat:2 }}</td>
+                    <td>{{ data.total_cash_out| floatformat:2 }}</td>
+                    <td>{{ data.balance | floatformat:2}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="4"><strong>Grand Total:</strong></td>
+                    <td><strong>{{ grand_total_cash_in | floatformat:2}}</strong></td>
+                    <td><strong>{{ grand_total_cash_out | floatformat:2}}</strong></td>
+                    <td><strong>{{ grand_balance | floatformat:2}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    
+    
+
+    <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+        <p>Prepared by: _____________________</p>
+        <p>Approved by: _____________________</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;" class="no-print">
+        <button onclick="window.history.back();">Go Back</button>
+        <button onclick="window.print();">Print</button>
+        <button onclick="window.location.href='{% url 'home' %}';">Home</button>
+    </div>
+</body>
+</html>

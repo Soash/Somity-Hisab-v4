@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}{% trans "Package Details" %}{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/customer_details.css' %}">
+<style>
+
+</style>
+{% endblock %}
+
+{% block content %}
+<h2>{% trans "Package Details" %}</h2>
+<div class="div1">
+    
+    {% if package %}
+    <table>
+        <tr>
+            <th>{% trans "Client ID" %}</th>
+            <td>: {{ package.client_id }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Status" %}</th>
+            <td>: {{ package.status }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Start Date" %}</th>
+            <td>: {{ package.start_date|date:"d-M-Y" }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Expired Date" %}</th>
+            <td>: {{ package.expired_date|date:"d-M-Y" }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Billing Cycle" %}</th>
+            <td>: {{ package.billing_cycle }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Package Name" %}</th>
+            <td>: {{ package.package_name }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Limit Customer" %}</th>
+            <td>: {{ package.limit_customer }}</td>
+        </tr>
+    </table>
+    {% else %}
+        <p>{% trans "No package data available" %}</p>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

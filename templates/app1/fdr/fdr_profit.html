@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}FDR Profit{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+{% endblock %}
+{% block content %}
+    <h2>Profit History for FDR: {{ fdr.transaction_id }}</h2>
+
+<div class="div1">
+    <div class="table-container">
+        <table id="myTable" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Account No</th>
+                    <th>Customer Name</th>
+                    <th>Somity</th>
+                    <th>Scheme</th>
+                    <th>Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Opening Amount</th>
+                    <th>Balance</th>
+                    <th>Profit %</th>
+                    <th>Total Profit</th>
+                    <th>Profit Paid</th>
+                    <th>Avaailabe Profit</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ fdr.customer.account_no }}</td>
+                    <td>{{ fdr.customer.customer_name }}</td>
+                    <td>{{ fdr.customer.group }}</td>
+                    <td>{{ fdr.scheme.scheme_name }}</td>
+                    <td>{{ fdr.scheme.scheme_type }}</td>
+                    <td>{{ fdr.start_date }}</td>
+                    <td>{{ fdr.end_date }}</td>
+                    <td>{{ fdr.opening_amount }}</td>
+                    <td>{{ fdr.balance_amount }}</td>
+                    <td>{{ fdr.monthly_profit_percentage }}</td>
+                    <td>{{ fdr.monthly_profit_taka }}</td>
+                    <td>{{ fdr.paid_profit }}</td>
+                    <td>{{ fdr.available_profit }}</td>
+                    <td>{{ fdr.status }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Date Added</th>
+                <th>Balance</th>    
+                <th>Profit Rate</th>    
+                <th>Profit Added</th>
+                <th>Available Profit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for history in profit_history %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ history.added_on }}</td>
+                <td>{{ history.current_balance }}</td>
+                <td>{{ history.current_profit_rate }}</td>
+                <td>{{ history.profit_added }}</td>
+                <td>{{ history.available_profit }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

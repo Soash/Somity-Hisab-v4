@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Report</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>Customer Report</h1>
+        <h1>{{somity_name}}</h1>
+        <h3>INTEGRITY IS OUR HALLMARK</h3>
+        <hr>
+        <p>Branch Name: {{ branch.name }}</p>
+        <hr>
+    </div>
+
+    {% if customers %}
+    <table style="margin-top: 20px;">
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Account No</th>
+                <th>Customer Name</th>
+                <th>Somity/Group</th>
+                <th>Address</th>
+                <th>Mobile</th>
+                <th>Father/Mother</th>
+                <th>Joining Date</th>
+                <th>Admission Fee</th>
+                <th>Admission Form Fee</th>
+                <th>Processed By</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ customer.account_no }}</td>
+                <td>{{ customer.customer_name }}</td>
+                <td>{{ customer.group.group_name }}</td>
+                <td>{{ customer.current_village }}, {{ customer.current_post_office }}, {{ customer.current_thana }}, {{ customer.current_district }}</td>
+                <td>{{ customer.mobile_number }}</td>
+                <td>{{ customer.customer_father }}/ {{customer.customer_mother}}</td>
+                <td>{{ customer.joining_date|date:"d-M-Y" }}</td>
+                <td>{{ customer.admission_fee }}</td>
+                <td>{{ customer.admission_form_fee }}</td>
+                <td>{{ customer.processed_by }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="margin-top: 20px;display: flex;justify-content: space-between;">
+        <p>Prepared by: _____________________</p>
+        <p>Approved by: _____________________</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;" class="no-print">
+        <button onclick="window.history.back();">Go Back</button>
+        <button onclick="window.print();">Print</button>
+        <button onclick="window.location.href='{% url 'home' %}';">Home</button>
+    </div>
+    {% endif %}
+
+    <form method="post" class="no-print">
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+        </div>
+        <button type="submit">Generate Report</button>
+    </form>
+</body>
+</html>

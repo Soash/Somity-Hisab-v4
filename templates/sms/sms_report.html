@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}{% trans "Send Report" %}{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css">
+<link rel="stylesheet" href="{% static 'sms/styles.css' %}">
+<style>
+    td {
+        white-space: wrap;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<div>
+   <h2>{% trans "Send Report" %}</h2>
+</div>
+
+<div class="table-container" style="overflow-x: auto;">
+    <table id="myTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>SMS</th>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Type" %}</th>
+                <th>{% trans "Mobile Number" %}</th>
+                <th>{% trans "SMS Body" %}</th>
+                <th>{% trans "Sent By" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in sms_reports %}
+            <tr>
+                <td data-order="{{ report.id }}">✉</td>
+                <td>{{ report.date|date:"d-M-Y h:iA" }}</td>
+                <td>{{ report.sms_type }}</td>
+                <td>{{ report.mobile_number }}</td>
+                <td>{{ report.sms_body }}</td>
+                <td>{{ report.sent_by }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">{% trans "No SMS reports found." %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+</div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable({
+            order: [[0, 'desc']], // Sort the first column (index 0) in descending order
+            columnDefs: [
+                { orderable: true, targets: 0 }, // Enable sorting for the first column
+                { orderable: false, targets: '_all' } // Disable sorting for all other columns
+            ]
+        });
+    });
+</script>
+{% endblock %}
+
+
+{% comment %} <script>
+    $(document).ready(function() {
+        $('#myTable').DataTable({
+            orderClasses: false,
+            //"order": [[0, "asc"]] 
+        });
+    });
+</script> {% endcomment %}

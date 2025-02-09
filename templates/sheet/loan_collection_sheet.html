@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load loan_sheet_tags %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>Samity Hisab</h1>
+        <h3>INTEGRITY IS OUR HALLMARK</h3>
+        <hr>
+        <p>Loan Collection Sheet ({{scheme}})</p>
+        <p>Branch Name: {{ somity.branch }}</p>
+        <p>Somity: {{ somity.group_name }}</p>
+    </div>
+
+<table>
+    <thead>
+        <tr>
+            <td rowspan="2">SL</td>
+            <td rowspan="2">Account No</td>
+            <td rowspan="2">Customer Name</td>
+            <td rowspan="2">Mobile</td>
+            <td rowspan="2">Date</td>
+            <td rowspan="2">Loan</td>
+            <td rowspan="2">Paid</td>
+            <td colspan="2">Due</td>
+            <td rowspan="2">Installment</td>
+            <td rowspan="2">Amount</td>
+            <td colspan="2"></td>
+            <td colspan="2"></td>
+            <td colspan="2"></td>
+            <td colspan="2"></td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Original</td>
+            <td>Profit</td>
+            <td>Original</td>
+            <td>Profit</td>
+            <td>Original</td>
+            <td>Profit</td>
+            <td>Original</td>
+            <td>Profit</td>
+            <td>Original</td>
+            <td>Profit</td>
+            <td>Original</td>
+            <td>Profit</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for info in loans %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ info.customer.account_no }}</td>
+                <td>{{ info.customer.customer_name }}</td>
+                <td>{{ info.customer.mobile_number }}</td>
+                <td>{{ info.start_date }}</td>
+                <td>{{ info.total_amount }}</td>
+                <td>{{ info.paid_amount }}</td>
+                <td>{{ info|due_principal }}</td>
+                <td>{{ info|due_profit }}</td> 
+                <td>{{ info.paid_installments }}/{{ info.number_of_installments }}</td>
+                <td>{{ info.installment_amount }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">Total</td>
+            <td>{{ loans|total_total_amount }}</td> <!-- Total of total_amount -->
+            <td>{{ loans|total_paid_amount }}</td>  <!-- Total of paid_amount -->
+            <td>{{ loans|total_due_principal }}</td> <!-- Total of due_principal -->
+            <td>{{ loans|total_due_profit }}</td> 
+            <td></td>
+            <td>{{ loans|total_installment_amount }}</td> 
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tfoot>
+
+
+</table>
+<div style="margin-top: 20px;display: flex;justify-content: space-between;">
+    <p>Prepared by: _____________________</p>
+    <p>Approved by: _____________________</p>
+</div>
+
+<div style="text-align: center; margin-top: 20px;" class="no-print">
+    <button onclick="window.history.back();">Go Back</button>
+    <button onclick="window.print();">Print</button>
+    <button onclick="window.location.href='{% url 'home' %}';">home</button>
+</div>
+</body>
+</html>
+

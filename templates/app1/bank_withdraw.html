@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}Bank Withdraw{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+{% endblock %}
+
+{% block content %}
+<h1>Bank Withdraw</h1>
+
+<div class="div2">
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+
+<h2>Transaction History</h2>
+<div class="table-container">
+<table class="table">
+    <thead>
+        <tr>
+            {% comment %} <th>Date</th> {% endcomment %}
+            <th>Bank</th>
+            <th>Deposit Amount</th>
+            <th>Withdraw Amount</th>
+            <th>Balance</th>
+            <th>Note</th>
+            <th>Attachment</th>
+            <th>Process By</th>
+            <th>Entry Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaction in bank_transactions %}
+        <tr>
+            {% comment %} <td>{{ transaction.date }}</td> {% endcomment %}
+            <td>{{ transaction.bank.bank_name }}</td>
+            <td>{{ transaction.deposit_amount }}</td>
+            <td>{{ transaction.withdraw_amount }}</td>
+            <td>{{ transaction.bank.balance }}</td>
+            <td>{{ transaction.note }}</td>
+            <td>
+                {% if transaction.attachment %}
+                <a href="{{ transaction.attachment.url }}">Download</a>
+                {% else %}
+                -
+                {% endif %}
+            </td>
+            <td>{{ transaction.processed_by }}</td>
+            <td>{{ transaction.entry_date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(function() {
+        var today = new Date();
+        var formattedDate = $.datepicker.formatDate('yy-mm-dd', today);
+
+        $("#id_date").datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: today,
+        }).val(formattedDate);
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Transfer Share AC{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/customer_details.css' %}">
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+{% endblock %}
+
+{% block content %}
+<h2>Transfer Share AC</h2>
+<div class="div1">
+    
+    <table>
+        <tr>
+            <th>Account No.</th>
+            <td>{{ customer.account_no }}</td>
+        </tr>
+        <tr>
+            <th>Customer Name</th>
+            <td>{{ customer.customer_name }}</td>
+        </tr>
+        <tr>
+            <th>Parents</th>
+            <td>{{ customer.customer_father }}/{{ customer.customer_mother }}</td>
+        </tr>
+        <tr>
+            <th>Mobile Number</th>
+            <td>{{ customer.mobile_number }}</td>
+        </tr>
+        <tr>
+            <th>Customer Type</th>
+            <td>{{ customer.customer_type }}</td>
+        </tr>
+        <tr>
+            <th>Somity/Group</th>
+            <td>{{ customer.group }}</td>
+        </tr>
+        <tr>
+            <th>Current Address</th>
+            <td>{{ customer.current_village }}, {{ customer.current_post_office }}, {{ customer.current_thana }}, {{ customer.current_district }}</td>
+        </tr>
+        <tr>
+            <th>Permanent Address</th>
+            <td>{{ customer.permanent_village }}, {{ customer.permanent_post_office }}, {{ customer.permanent_thana }}, {{ customer.permanent_district }}</td>
+        </tr>
+    </table>
+    
+    <div class="img-container">
+        {% if customer.profile_picture %}
+        <div>
+            <img src="{{ customer.profile_picture.url }}" class="centered-image">
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="div2">
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label for="id_start_date">Date:</label>
+            <input type="text" id="id_start_date" disabled>
+        </p>
+        <p>
+            <label for="account_no">Acoount No.:</label>
+            <input type="text" name="account_no">
+        </p>
+        <p>
+            <label for="nominee">Nominee:</label>
+            <input type="text" name="nominee" id="nominee" maxlength="200">
+        </p>
+        <p>
+            <label for="note">Note:</label>
+            <input type="text" name="note" id="note" maxlength="200">
+        </p>
+        <p></p>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(function() {
+        var today = new Date();
+        var formattedDate = $.datepicker.formatDate('yy-mm-dd', today);
+
+        $("#id_start_date").datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: today,
+        }).val(formattedDate);
+    });
+</script>
+{% endblock %}

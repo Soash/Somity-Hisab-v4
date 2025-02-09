@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Search for General Withdraw{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/add_loan1.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2>Search General Withdraw</h2>
+<div class="div1">
+    <form id="loanForm" method="POST">
+        {% csrf_token %}
+        <div>
+            <input type="text" placeholder="Account No." id="account_no" name="account_no" required>
+        </div>
+        <div>
+            <button type="submit">Search</button>
+        </div>
+    </form>
+    
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+</div>
+{% endblock %}

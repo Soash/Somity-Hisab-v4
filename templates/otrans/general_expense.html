@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}General Expense{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'otrans/styles.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+{% endblock %}
+{% block content %}
+
+<div>
+   <h2>General Expense</h2>
+   <button id="add-branch-btn">Add Expense</button>
+</div>
+
+<div id="add-branch-form">
+    <div>
+        <div>Add Expense</div>
+        <div><i class="fa-solid fa-trash"></i></div>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+</div>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Branch</th>
+                <th>Voucher</th>
+                <th>Date</th>
+                <th>Somity</th>
+                <th>Customer</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Expense By</th>
+                <th>Note</th>
+                {% comment %} <th>Attachment</th> {% endcomment %}
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ expense.branch }}</td>
+                <td>{{ expense.VoucherID }}</td>
+                <td>{{ expense.ExpenseDate }}</td>
+                <td>{{ expense.somity }}</td>
+                <td>{{ expense.CustomerName }}</td>
+                <td>{{ expense.voucher_category }}</td> <!-- This will show the display name of the choice -->
+                <td>{{ expense.Amount }}</td>
+                <td>{{ expense.ExpenseBy }}</td>
+                <td>{{ expense.Note }}</td>
+                {% comment %} <td>
+                    {% if expense.attachment %}
+                    <a href="{{ expense.attachment.url }}">View</a>
+                    {% else %}
+                    No Attachment
+                    {% endif %}
+                </td> {% endcomment %}
+                <td>
+                    <a href="{% url 'expense_print' pk=expense.id %}" target="_blank" style="margin-right: 10px;"><i class="fa-solid fa-print"></i></a>
+                    <a href="#" onclick="confirmDelete('{% url 'expense_delete' pk=expense.id %}'); return false;"><i class="fa-solid fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</div>
+ 
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addBranchButton = document.getElementById('add-branch-btn');
+        const addBranchForm = document.getElementById('add-branch-form');
+        const trashIcon = document.querySelector('#add-branch-form i');
+    
+        // Show the form when "Add Branch" button is clicked
+        addBranchButton.addEventListener('click', function () {
+            addBranchForm.style.display = 'block';
+        });
+    
+        // Hide the form when the trash icon is clicked
+        trashIcon.addEventListener('click', function () {
+            addBranchForm.style.display = 'none';
+        });
+    });    
+</script>
+<script>
+    function confirmDelete(url) {
+        if (confirm('Are you sure you want to delete?')) {
+            window.location.href = url;
+        }
+    }
+</script>
+<script>
+    $(function() {
+        var today = new Date();
+        var formattedDate = $.datepicker.formatDate('yy-mm-dd', today);
+
+        $("#id_ExpenseDate").datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: today,
+        }).val(formattedDate);
+    });
+</script>
+{% endblock %}
+
+

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}DPS Transactions{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+{% endblock %}
+{% block content %}
+
+<div class="table-container">
+  <table id="myTabl" class="display" style="width:100%">
+      <thead>
+          <tr>
+              <th>DPS Scheme</th>
+              <th>Account No</th>
+              <th>Customer Name</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>profit</th>
+              <th>Installments</th>
+              <th>Installments Amount</th>
+              <th>Total Amount</th>
+              <th>Balance</th>
+              <th>Status</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>{{ dps.dps_scheme }}</td>
+              <td>{{ dps.customer.account_no }}</td>
+              <td>{{ dps.customer.customer_name }}</td>
+              <td>{{ dps.start_date }}</td>
+              <td>{{ dps.end_date }}</td>
+              <td>{{ dps.profit_percent }}%</td>
+              <td>{{ dps.number_of_installments }}</td>
+              <td>{{ dps.amount_per_installments }}</td>
+              <td>{{ dps.total_amount }}</td>
+              <td>{{ dps.balance }}</td>
+              <td>{{ dps.customer.status }}</td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+
+
+  <h2>Transaction History for DPS {{ dps.id }}</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Balance</th>
+        <th>Fine</th>
+        <th>Note</th>
+        <th>Processed By</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if transactions  %}
+        
+      
+      
+      {% for transaction in transactions %}
+      <tr>
+        <td>{{ transaction.date }}</td>
+        <td>{{ transaction.get_transaction_type_display }}</td>
+        <td>{{ transaction.amount }}</td>
+        <td>{{ transaction.current_balance }}</td>
+        <td>{{ transaction.fine }}</td>
+        <td>{{ transaction.note|default:" " }}</td>
+        <td>{{ transaction.processed_by }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5">No transactions found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    {% endif %}
+  </table>
+{% endblock %}

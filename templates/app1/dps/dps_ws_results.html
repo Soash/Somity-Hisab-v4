@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}DPS Withdraw{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/customer_details.css' %}">
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h2>DPS Withdraw Search Results</h2>
+
+  <div class="div1">
+    <table>
+        <tr>
+            <th>Account No.</th>
+            <td>{{ customer.account_no }}</td>
+        </tr>
+        <tr>
+            <th>Customer Name</th>
+            <td>{{ customer.customer_name }}</td>
+        </tr>
+        <tr>
+            <th>Parents</th>
+            <td>{{ customer.customer_father }}/{{ customer.customer_mother }}</td>
+        </tr>
+        <tr>
+            <th>Mobile Number</th>
+            <td>{{ customer.mobile_number }}</td>
+        </tr>
+        <tr>
+            <th>Customer Type</th>
+            <td>{{ customer.customer_type }}</td>
+        </tr>
+        <tr>
+            <th>Somity/Group</th>
+            <td>{{ customer.group }}</td>
+        </tr>
+        <tr>
+            <th>Current Address</th>
+            <td>{{ customer.current_village }}, {{ customer.current_post_office }}, {{ customer.current_thana }}, {{ customer.current_district }}</td>
+        </tr>
+        <tr>
+            <th>Permanent Address</th>
+            <td>{{ customer.permanent_village }}, {{ customer.permanent_post_office }}, {{ customer.permanent_thana }}, {{ customer.permanent_district }}</td>
+        </tr>
+    </table>
+    
+    <div class="img-container">
+        {% if customer.profile_picture %}
+        <div>
+            <img src="{{ customer.profile_picture.url }}" class="centered-image">
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <td>SL</td>
+        <td>DPS Scheme</td>
+        <td>Account No</td>
+        <td>Customer Name</td>
+        <td>Start Date</td>
+        <td>End Date</td>
+        <td>profit</td>
+        <td>Installments</td>
+        <td>Installments Amount</td>
+        <td>Total Amount</td>
+        <td>Balance</td>
+        <td>Due</td>
+        <td>Status</td>
+        <td>Action</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for info in dps %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{ info.get_dps_scheme_display }}</td>
+          <td>{{ info.customer.account_no }}</td>
+          <td>{{ info.customer.customer_name }}</td>
+          <td>{{ info.start_date }}</td>
+          <td>{{ info.end_date }}</td>
+          <td>{{ info.profit_percent }}%</td>
+          <td>{{ info.number_of_installments }}</td>
+          <td>{{ info.amount_per_installments }}</td>
+          <td>{{ info.total_amount }}</td>
+          <td>{{ info.balance }}</td>
+          <td>{{ info.due_amount }}</td>
+          <td>{{ info.status }}</td>
+          <td>
+            <a href="{% url 'dps_withdraw' info.id %}">Withdraw</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

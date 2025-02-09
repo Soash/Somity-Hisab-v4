@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}{% trans "Delete" %}{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/customer_details.css' %}">
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+<style>
+    .div3{
+        flex-direction: column;
+    }
+    h2{
+        margin: 0;
+        padding: 0;
+    }
+    .main table{
+        margin-top: 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="div1">
+    <table>
+        <tr>
+            <th>{% trans "Account No." %}</th>
+            <td>{{ customer.account_no }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Customer Name" %}</th>
+            <td>{{ customer.customer_name }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Parents" %}</th>
+            <td>{{ customer.customer_father }}/{{ customer.customer_mother }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Mobile Number" %}</th>
+            <td>{{ customer.mobile_number }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Customer Type" %}</th>
+            <td>{{ customer.customer_type }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Somity/Group" %}</th>
+            <td>{{ customer.group }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Current Address" %}</th>
+            <td>{{ customer.current_village }}, {{ customer.current_post_office }}, {{ customer.current_thana }}, {{ customer.current_district }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Permanent Address" %}</th>
+            <td>{{ customer.permanent_village }}, {{ customer.permanent_post_office }}, {{ customer.permanent_thana }}, {{ customer.permanent_district }}</td>
+        </tr>
+    </table>
+    
+    <div class="img-container">
+        {% if customer.profile_picture %}
+        <div>
+            <img src="{{ customer.profile_picture.url }}" class="centered-image">
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="div1 div3">
+    <h2>{% trans "FDR" %}</h2>
+  <div class="table-container">
+      <table id="myTable" class="display" style="width:100%">
+        <thead>
+              <tr>
+                  <td>{% trans "Action" %}</td>
+                  <td>{% trans "Account No" %}</td>
+                  <td>{% trans "Customer Name" %}</td>
+                  <td>{% trans "Somity" %}</td>
+                  <td>{% trans "Scheme" %}</td>
+                  <td>{% trans "Type" %}</td>
+                  <td>{% trans "Start Date" %}</td>
+                  <td>{% trans "End Date" %}</td>
+                  <td>{% trans "Opening Amount" %}</td>
+                  <td>{% trans "Balance" %}</td>
+                  <td>{% trans "Profit" %} %</td>
+                  <td>{% trans "Total Profit" %}</td>
+                  <td>{% trans "Profit Paid" %}</td>
+                  <td>{% trans "Available Profit" %}</td>
+                  <td>{% trans "Status" %}</td>
+              </tr>
+          </thead>
+          <tbody>
+            {% for fdr in fdrs %}
+              <tr>
+                <td><a href="{% url 'fdr_close' fdr.id %}" onclick="return confirm('{% trans "Are you sure you want to close?" %}');">{% trans "Close" %}</a></td>
+                  <td>{{ fdr.customer.account_no }}</td>
+                  <td>{{ fdr.customer.customer_name }}</td>
+                  <td>{{ fdr.customer.group }}</td>
+                  <td>{{ fdr.scheme.scheme_name }}</td>
+                  <td>{{ fdr.scheme.scheme_type }}</td>
+                  <td>{{ fdr.start_date }}</td>
+                  <td>{{ fdr.end_date }}</td>
+                  <td>{{ fdr.opening_amount }}</td>
+                  <td>{{ fdr.balance_amount }}</td>
+                  <td>{{ fdr.monthly_profit_percentage }}</td>
+                  <td>{{ fdr.monthly_profit_taka }}</td>
+                  <td>{{ fdr.paid_profit }}</td>
+                  <td>{{ fdr.available_profit }}</td>
+                  <td>{{ fdr.status }}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
+</div>
+
+{% endblock %}

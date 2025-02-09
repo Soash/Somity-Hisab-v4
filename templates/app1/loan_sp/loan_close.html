@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Special Loan Close{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/customer_details.css' %}">
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h2>Special Loan Close</h2>
+
+  <div class="div1">
+    <table>
+        <tr>
+            <th>Account No.</th>
+            <td>{{ customer.account_no }}</td>
+        </tr>
+        <tr>
+            <th>Customer Name</th>
+            <td>{{ customer.customer_name }}</td>
+        </tr>
+        <tr>
+            <th>Parents</th>
+            <td>{{ customer.customer_father }}/{{ customer.customer_mother }}</td>
+        </tr>
+        <tr>
+            <th>Mobile Number</th>
+            <td>{{ customer.mobile_number }}</td>
+        </tr>
+        <tr>
+            <th>Customer Type</th>
+            <td>{{ customer.customer_type }}</td>
+        </tr>
+        <tr>
+            <th>Somity/Group</th>
+            <td>{{ customer.group }}</td>
+        </tr>
+        <tr>
+            <th>Current Address</th>
+            <td>{{ customer.current_village }}, {{ customer.current_post_office }}, {{ customer.current_thana }}, {{ customer.current_district }}</td>
+        </tr>
+        <tr>
+            <th>Permanent Address</th>
+            <td>{{ customer.permanent_village }}, {{ customer.permanent_post_office }}, {{ customer.permanent_thana }}, {{ customer.permanent_district }}</td>
+        </tr>
+    </table>
+    
+    <div class="img-container">
+        {% if customer.profile_picture %}
+        <div>
+            <img src="{{ customer.profile_picture.url }}" class="centered-image">
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+<div class="table-container">
+  <table>
+    <tr>
+      <th>SL</th>
+      <th>Transactions ID</th>
+ 
+      <th>Account No</th>
+      <th>Customer Name</th>
+      <th>Somity</th>
+
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Amount</th>
+      <th>Profit</th>
+      <th>Status</th>
+
+      <th>Action</th>
+  </tr>
+</thead>
+    <tbody>
+      {% for loan in loans %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{ loan.transaction_id }}</td>
+
+          <td>{{ loan.customer.account_no }}</td>
+          <td>{{ loan.customer.customer_name }}</td>
+          <td>{{ loan.customer.group}}</td>
+
+          <td>{{ loan.start_date }}</td>
+          <td>{{ loan.end_date }}</td>
+          <td>{{ loan.amount }}</td>
+          <td>{{ loan.profit }}</td>
+          <td>{{ loan.status }}</td>
+          <td>
+            <a href="{% url 'loan_sp_collection' loan.id %}">
+              Close
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

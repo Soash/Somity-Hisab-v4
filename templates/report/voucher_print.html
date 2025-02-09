@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'report/styles.css' %}">
+    <title>Voucher Report</title>
+</head>
+<body>
+
+    <div style="text-align: center;">
+        <h1>{{somity_name}}</h1>
+        <h3>INTEGRITY IS OUR HALLMARK</h3>
+        <hr>
+        <h3>Voucher Report</h3>
+        <h3>Branch Name: {{ branch }}</h3>
+        <h3>Report Type: {{ status }}</h3>
+    </div>
+
+    <div class="container">   
+        {% if entries %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>SL</th>
+                    <th>Date</th>
+                    <th>TrxID</th>
+                    <th>Type</th>
+        
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Details</th>
+                    <th>Processed By</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in entries %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    {% if status == "Income" %}
+                    <td>{{entry.IncomeDate}}</td>
+                    {% else %}
+                    <td>{{entry.ExpenseDate}}</td>
+                    {% endif %}
+                    
+                    <td>{{ entry.VoucherID }}</td>
+                    <td>{{status}}</td>
+         
+                    <td>{{ entry.voucher_category.category_name }}</td>
+                    <td>{{ entry.Amount }}</td>
+                    <td>{{ entry.Note|default:"" }}</td>
+                    {% if status == "Income" %}
+                    <td>{{entry.IncomeBy}}</td>
+                    {% else %}
+                    <td>{{entry.ExpenseBy}}</td>
+                    {% endif %}
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: right;">Grand Total:</td>
+                    <td>{{ totals.total_amount }}</td>
+                    <td colspan="3"></td>
+                </tr>
+            </tfoot>
+        </table>
+        {% else %}
+        <p>No records found.</p>
+        {% endif %}
+    </div>
+
+    <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+        <p>Prepared by: _____________________</p>
+        <p>Approved by: _____________________</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;" class="no-print">
+        <button onclick="window.history.back();">Go Back</button>
+        <button onclick="window.print();">Print</button>
+        <button onclick="window.location.href='{% url 'home' %}';">Home</button>
+    </div>
+</body>
+</html>

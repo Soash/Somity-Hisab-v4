@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Withdraw for Director
+{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'otrans/styles.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+{% endblock %}
+{% block content %}
+
+<div>
+   <h2>
+    Withdraw for Director
+    </h2>
+   <button id="add-branch-btn">Withdraw for Director</button>
+</div>
+
+<div id="add-branch-form">
+    <div>
+        <div>Withdraw for Director</div>
+        <div><i class="fa-solid fa-trash"></i></div>
+    </div>
+
+    <form method="post" onsubmit="return confirmSubmit()">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+</div>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Branch</th>
+                <th>Voucher</th>
+                <th>Director</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Note</th>
+                <th>Processed By</th>
+                {% comment %} <th>Attachment</th> {% endcomment %}
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for info in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ info.branch }}</td>
+                <td>{{ info.VoucherID }}</td>
+                <td>{{ info.director }}</td>
+                <td>{{ info.Date }}</td>
+                <td>{{ info.Amount }}</td>
+                <td>{{ info.processed_by }}</td>
+                <td>{{ info.Note }}</td>
+                {% comment %} <td>
+                    {% if info.attachment %}
+                    <a href="{{ info.attachment.url }}">View</a>
+                    {% else %}
+                    No Attachment
+                    {% endif %}
+                </td> {% endcomment %}
+                <td>
+                    <a href="{% url 'withdraw_print' pk=info.id %}" target="_blank" style="margin-right: 10px;"><i class="fa-solid fa-print"></i></a>
+                    {% comment %} <a href="#" onclick="confirmDelete('{% url 'income_delete' pk=info.id %}'); return false;"><i class="fa-solid fa-trash"></i></a> {% endcomment %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</div>
+ 
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addBranchButton = document.getElementById('add-branch-btn');
+        const addBranchForm = document.getElementById('add-branch-form');
+        const trashIcon = document.querySelector('#add-branch-form i');
+    
+        // Show the form when "Add Branch" button is clicked
+        addBranchButton.addEventListener('click', function () {
+            addBranchForm.style.display = 'block';
+        });
+    
+        // Hide the form when the trash icon is clicked
+        trashIcon.addEventListener('click', function () {
+            addBranchForm.style.display = 'none';
+        });
+    });    
+</script>
+{% comment %} <script>
+    function confirmDelete(url) {
+        if (confirm('Are you sure you want to delete?')) {
+            window.location.href = url;
+        }
+    }
+</script> {% endcomment %}
+<script>
+    $(function() {
+        var today = new Date();
+        var formattedDate = $.datepicker.formatDate('yy-mm-dd', today);
+
+        $("#id_Date").datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: today,
+        }).val(formattedDate);
+    });
+</script>
+<script>
+    function confirmSubmit() {
+        return confirm("Are you sure you want to submit this form?");
+    }
+</script>
+{% endblock %}
+
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>{{somity_name}}</h1>
+        <h3>INTEGRITY IS OUR HALLMARK</h3>
+        <hr>
+        <p>{{title}}</p>
+        <p>Branch Name: {{ branch }}</p>
+        <p>Date: {{ start_date }} to {{end_date}}</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Date</th>
+                <th>Account</th>
+                <th>Customer</th>
+                <th>Somity</th>
+                <th>Amount</th>
+                <th>Principal</th>
+                <th>Profit</th>
+                <th>Fine</th>
+                <th>Processed By</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ transaction.Date|date:"d M, Y" }}</td>
+                <td>{{ transaction.loan.customer.account_no }}</td>
+                <td>{{ transaction.loan.customer.customer_name }}</td>
+                <td>{{ transaction.loan.customer.group }}</td>
+                <td>{{ transaction.Amount }}</td>
+                <td>{{ transaction.principal }}</td>
+                <td>{{ transaction.profit }}</td>
+                <td>{{ transaction.fine }}</td>
+                <td>{{ transaction.processed_by }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5" style="text-align: right;">Total</td>
+                <td>{{total_collection}}</td>
+                <td>{{total_principal}}</td>
+                <td>{{total_profit}}</td>
+                <td>{{total_fine}}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+
+<div style="margin-top: 20px;display: flex;justify-content: space-between;">
+    <p>Prepared by: _____________________</p>
+    <p>Approved by: _____________________</p>
+</div>
+
+<div style="text-align: center; margin-top: 20px;" class="no-print">
+    <button onclick="window.history.back();">Go Back</button>
+    <button onclick="window.print();">Print</button>
+    <button onclick="window.location.href='{% url 'home' %}';">home</button>
+</div>
+</body>
+</html>
+

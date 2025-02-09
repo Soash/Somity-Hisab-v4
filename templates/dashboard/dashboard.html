@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}{% blocktrans %}{{ dashboard }}{% endblocktrans %} {% trans "Dashboard" %}{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+<link rel="stylesheet" href="{% static 'app1/add_loan1.css' %}">
+<link rel="stylesheet" href="{% static 'dashboard/dashboard.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+{% endblock %}
+
+{% block content %}
+<h2>{% blocktrans %}{{ dashboard }}{% endblocktrans %} {% trans "Dashboard" %}
+</h2>
+
+{% if dashboard1 == 'Monthly' %}
+    <form action="{% url 'monthly_dashboard' %}" method="get" class="date-input">
+        <input type="text" name="start_date" id="start_date">   <i class="fa-solid fa-arrows-left-right"></i>
+        <input type="text" name="end_date" id="end_date">
+        <button type="submit">{% trans "Search" %}</button>
+    </form>
+{% endif %}
+
+<div class="dashboard">
+    <a href="{% url 'general_savings_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{general_savings_collection}}</div>
+            <div class="card-title">{% trans "General Savings Collection" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'general_savings_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{general_savings_transaction}}</div>
+            <div class="card-title">{% trans "General Savings Transactions" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'special_savings_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{speical_savings_collection}}</div>
+            <div class="card-title">{% trans "Special Savings Collection" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'special_savings_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{special_savings_transaction}}</div>
+            <div class="card-title">{% trans "Special Savings Transactions" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'installments_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{installments_collection}}</div>
+            <div class="card-title">{% trans "Installments Collection" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'installments_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{installments_transaction}}</div>
+            <div class="card-title">{% trans "Installments Transactions" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'cc_loan_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{cc_loan_collection}}</div>
+            <div class="card-title">{% trans "CC Loan Collection" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'cc_loan_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{cc_loan_transaction}}</div>
+            <div class="card-title">{% trans "CC Loan Transactions" %}</div>
+        </div>
+    </a>
+    <a href="#" class="card red">
+        <div class="card-content">
+            <div class="card-value">0</div>
+            <div class="card-title">{% trans "Loan Distribute" %}</div>
+        </div>
+    </a>
+    <a href="#" class="card red">
+        <div class="card-content">
+            <div class="card-value">0</div>
+            <div class="card-title">{% trans "Loan Distribute Transactions" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'dps_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card purple">
+        <div class="card-content">
+            <div class="card-value">{{dps_collection}}</div>
+            <div class="card-title">{% trans "DPS Collection" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'dps_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card purple">
+        <div class="card-content">
+            <div class="card-value">{{dps_transaction}}</div>
+            <div class="card-title">{% trans "DPS Collection Transactions" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'fdr_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{fdr_collection}}</div>
+            <div class="card-title">{% trans "FDR Collection" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'fdr_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{fdr_transaction}}</div>
+            <div class="card-title">{% trans "FDR Collection Transactions" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'share_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{share_collection}}</div>
+            <div class="card-title">{% trans "Share Collection" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'share_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{share_transaction}}</div>
+            <div class="card-title">{% trans "Share Transactions" %}</div>
+        </div>
+    </a>
+
+    
+    <a href="#" class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{admission_fee_collection}}</div>
+            <div class="card-title">{% trans "Admission Fee Collection" %}</div>
+        </div>
+    </a>
+    <a href="#" class="card blue">
+        <div class="card-content">
+            <div class="card-value">{{admission_fee_transaction}}</div>
+            <div class="card-title">{% trans "Admission Fee Transactions" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'savings_withdraw_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{savings_withdraw_collection}}</div>
+            <div class="card-title">{% trans "Savings Withdrawal" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'savings_withdraw_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card cyan">
+        <div class="card-content">
+            <div class="card-value">{{savings_withdraw_transaction}}</div>
+            <div class="card-title">{% trans "Savings Withdrawal Transactions" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'dps_withdraw_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card purple">
+        <div class="card-content">
+            <div class="card-value">{{dps_withdraw_collection}}</div>
+            <div class="card-title">{% trans "DPS Withdrawal" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'dps_withdraw_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card purple">
+        <div class="card-content">
+            <div class="card-value">{{dps_withdraw_transaction}}</div>
+            <div class="card-title">{% trans "DPS Withdrawal Transactions" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'fdr_withdraw_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card red">
+        <div class="card-content">
+            <div class="card-value">{{fdr_withdraw_collection}}</div>
+            <div class="card-title">{% trans "FDR Withdrawal" %}</div>
+        </div>
+    </a>
+    <a href="{% url 'fdr_withdraw_collection' %}?start_date={{ start_date }}&end_date={{ end_date }}" class="card red">
+        <div class="card-content">
+            <div class="card-value">{{fdr_withdraw_transaction}}</div>
+            <div class="card-title">{% trans "FDR Withdrawal Transactions" %}</div>
+        </div>
+    </a>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(function() {
+        // Get the current URL
+        var url = window.location.href;
+        console.log("URL:", url);
+        
+        // Split the URL into parts
+        var parts = url.split('/');
+        console.log("URL Parts:", parts);
+        
+        // Extract the dates from the URL
+        var startDateFromUrl = parts[parts.length - 3]; // 2nd last part should be the start date
+        var endDateFromUrl = parts[parts.length - 2];   // Last part should be the end date
+        
+        console.log("Start Date from URL:", startDateFromUrl);
+        console.log("End Date from URL:", endDateFromUrl);
+
+        // Set the start date and end date
+        $("#start_date").datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: new Date(startDateFromUrl),
+        }).val(startDateFromUrl);
+        
+        $("#end_date").datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: new Date(endDateFromUrl),
+        }).val(endDateFromUrl);
+        
+        console.log("Start Date in Input:", $("#start_date").val());
+        console.log("End Date in Input:", $("#end_date").val());
+    });
+</script>
+
+{% endblock %}

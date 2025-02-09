@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Fixed Deposit Report{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'report/styles.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+{% endblock %}
+{% block content %}
+
+<div>
+   <h2>Fixed Deposit Report</h2>
+</div>
+
+<div class="box">
+    <form method="POST" action="{% url 'voucher_report' %}">
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+            <input type="submit" value="Report" name="search">
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+    $(function() {
+        var today = new Date();
+        var formattedDate = $.datepicker.formatDate('yy-mm-dd', today);
+
+        $("#id_start_date").datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: today,
+        }).val(formattedDate);
+        $("#id_end_date").datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: today,
+        }).val(formattedDate);
+    });
+</script>
+{% endblock %}

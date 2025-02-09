@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Staff Salary Distribution
+{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'otrans/styles.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+{% endblock %}
+{% block content %}
+
+<div>
+   <h2>
+    Staff Salary Distribution
+    </h2>
+   <button id="add-branch-btn">Staff Salary Distribution</button>
+</div>
+
+<div id="add-branch-form">
+    <div>
+        <div>Staff Salary Distribution</div>
+        <div><i class="fa-solid fa-trash"></i></div>
+    </div>
+
+    <form method="post" action="{% url 'staff_salary_sheet' %}">
+        {% csrf_token %}
+        
+        <label for="year">Year:</label>
+        <select id="year" name="year">
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+        </select>
+        <br>
+
+        <label for="month">Month:</label>
+        <select id="month" name="month">
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+        </select>        
+        <br>
+
+        <label for="date">Date:</label>
+        <input type="text" id="date" name="date">
+        <br>
+
+        <button type="submit">Sheet Generate</button>
+    </form>
+
+</div>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Date</th>
+                <th>Year</th>
+                <th>Month</th>
+                <th>Staff Name</th>
+                <th>Basic Salary</th>
+                <th>Others</th>
+                <th>Bonus</th>
+                <th>Deduction</th>
+                <th>Payable Amount</th>
+                <th>Processed By</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for info in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ info.date }}</td> <!-- Assuming 'date' is the correct field -->
+                <td>{{ info.year }}</td> <!-- Assuming 'year' is the correct field -->
+                <td>{{ info.month }}</td> <!-- Assuming 'month' is the correct field -->
+                <td>{{ info.staff_name }}</td> <!-- Assuming 'staff_name' is the correct field -->
+                <td>{{ info.basic_salary }}</td> <!-- Assuming 'basic_salary' is the correct field -->
+                <td>{{ info.others }}</td> <!-- Assuming 'others' is the correct field -->
+                <td>{{ info.bonus }}</td>
+                <td>{{ info.deduction }}</td> <!-- Assuming 'deduction' is the correct field -->
+                <td>{{ info.payable }}</td> <!-- Assuming 'payable_amount' is the correct field -->
+                <td>{{ info.processed_by }}</td> <!-- Assuming 'processed_by' is the correct field -->
+                <td>
+                    <a href="{% url 'delete_salary' pk=info.id %}" style="margin-right: 10px;">
+                        <i class="fa-solid fa-trash" style="color: red;"></i>
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="11">No data available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addBranchButton = document.getElementById('add-branch-btn');
+        const addBranchForm = document.getElementById('add-branch-form');
+        const trashIcon = document.querySelector('#add-branch-form i');
+    
+        // Show the form when "Add Branch" button is clicked
+        addBranchButton.addEventListener('click', function () {
+            addBranchForm.style.display = 'block';
+        });
+    
+        // Hide the form when the trash icon is clicked
+        trashIcon.addEventListener('click', function () {
+            addBranchForm.style.display = 'none';
+        });
+    });    
+</script>
+{% comment %} <script>
+    function confirmDelete(url) {
+        if (confirm('Are you sure you want to delete?')) {
+            window.location.href = url;
+        }
+    }
+</script> {% endcomment %}
+<script>
+    $(function() {
+        var today = new Date();
+        var formattedDate = $.datepicker.formatDate('yy-mm-dd', today);
+
+        $("#date").datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: today,
+        }).val(formattedDate);
+    });
+</script>
+<script>
+    function confirmSubmit() {
+        return confirm("Are you sure you want to submit this form?");
+    }
+</script>
+{% endblock %}
+
+

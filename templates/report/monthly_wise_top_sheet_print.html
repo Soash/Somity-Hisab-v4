@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    {% load custom_filters %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'report/styles.css' %}">
+    <title>Monthly Wise Top Sheet Report</title>
+</head>
+<body>
+
+    <div style="text-align: center;">
+        <h1>{{somity_name}}</h1>
+        <h3>INTEGRITY IS OUR HALLMARK</h3>
+        <hr>
+        <h3>Yearly Top Sheet - {{ selected_year }}</h3>
+        <h3>Branch Name: {{ branch }}</h3>
+    </div>
+
+    <div class="container">
+        {% if report_type == 'all' %}
+            <h1>Income</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Account Name</th>
+                        {% for month in "January February March April May June July August September October November December"|split %}
+                            <th>{{ month }}</th>
+                        {% endfor %}
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for action, amounts in income_data.items %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ action }}</td>
+                            {% for amount in amounts %}
+                                <td>{{ amount|floatformat:2 }}</td>
+                            {% endfor %}
+                            <td>{{ amounts|sum|floatformat:2 }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="2">Total</td>
+                        {% for total in income_totals %}
+                            <td>{{ total|floatformat:2 }}</td>
+                        {% endfor %}
+                        <td>{{ income_sum|floatformat:2 }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h1>Expense</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Account Name</th>
+                        {% for month in "January February March April May June July August September October November December"|split %}
+                            <th>{{ month }}</th>
+                        {% endfor %}
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for action, amounts in expense_data.items %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ action }}</td>
+                            {% for amount in amounts %}
+                                <td>{{ amount|floatformat:2 }}</td>
+                            {% endfor %}
+                            <td>{{ amounts|sum|floatformat:2 }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="2">Total</td>
+                        {% for total in expense_totals %}
+                            <td>{{ total|floatformat:2 }}</td>
+                        {% endfor %}
+                        <td>{{ expense_sum|floatformat:2 }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        {% elif report_type == 'income' %}
+            <h1>Income</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Account Name</th>
+                        {% for month in "January February March April May June July August September October November December"|split %}
+                            <th>{{ month }}</th>
+                        {% endfor %}
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for action, amounts in income_data.items %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ action }}</td>
+                            {% for amount in amounts %}
+                                <td>{{ amount|floatformat:2 }}</td>
+                            {% endfor %}
+                            <td>{{ amounts|sum|floatformat:2 }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="2">Total</td>
+                        {% for total in income_totals %}
+                            <td>{{ total|floatformat:2 }}</td>
+                        {% endfor %}
+                        <td>{{ income_sum|floatformat:2 }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        {% else %}
+            <h1>Expense</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Account Name</th>
+                        {% for month in "January February March April May June July August September October November December"|split %}
+                        <th>{{ month }}</th>
+                    {% endfor %}
+                    
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for action, amounts in expense_data.items %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ action }}</td>
+                            {% for amount in amounts %}
+                                <td>{{ amount|floatformat:2 }}</td>
+                            {% endfor %}
+                            <td>{{ amounts|sum|floatformat:2 }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="2">Total</td>
+                        {% for total in expense_totals %}
+                            <td>{{ total|floatformat:2 }}</td>
+                        {% endfor %}
+                        <td>{{ expense_sum|floatformat:2 }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
+    <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+        <p>Prepared by: _____________________</p>
+        <p>Approved by: _____________________</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;" class="no-print">
+        <button onclick="window.history.back();">Go Back</button>
+        <button onclick="window.print();">Print</button>
+        <button onclick="window.location.href='{% url 'home' %}';">Home</button>
+    </div>
+</body>
+</html>
+
+

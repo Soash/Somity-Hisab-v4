@@ -1,0 +1,49 @@
+/* Change the background color of the admin header */
+#header {
+    background-color: #0951a2;
+}
+
+/* Change the color of the admin sidebar */
+#sidebar {
+    /* background-color: #333; */
+}
+
+/* Change the color of the admin body */
+#content {
+    /* background-color: #f4f4f4; */
+}
+
+/* Change the color of the buttons */
+/* input[type="submit"], a.button {
+    background-color: #007BFF;
+    color: white;
+} */
+
+/* Customize the color of the links */
+a {
+    /* color: #FFFFFF; */
+}
+
+/* Change the font color */
+body {
+    /* color: #333333; */
+}
+
+#site-name{
+    font-size: 0%;
+}
+#site-name a{
+    color: white;
+}
+
+#site-name a:visited {
+    color: white;
+}
+
+div.breadcrumbs{
+    background-color: #3b3f51;
+}
+
+.module caption{
+    background: #0951a2;
+}

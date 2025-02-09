@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Common Collection{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+<link rel="stylesheet" href="{% static 'app1/add_loan1.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<style>
+    form label{
+        margin: 0;
+    }
+    .main table{
+        margin: 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2>Common Collection</h2>
+<form method="GET" action="{% url 'common_collection' %}">
+    <p style="display: flex; gap: 20px; margin: 20px; align-items: center;">
+        <label for="date">Date:</label>
+        <input type="date" name="date" id="date">
+
+        <label for="account_no">Account No.:</label>
+        <input type="text" name="account_no" id="account_no">
+
+        <button type="submit" style="width: 25%;">Search</button>
+    </p>
+</form>
+
+{% comment %} <h4>Date: {{ date }}</h4> {% endcomment %}
+
+{% if entries %}
+    <div class="div1">
+        <table>
+            <tr>
+                <th>Account No.</th>
+                <td>{{ entries.account_no }}</td>
+            </tr>
+            <tr>
+                <th>Customer Name</th>
+                <td>{{ entries.customer_name }}</td>
+            </tr>
+            <tr>
+                <th>Parents</th>
+                <td>{{ entries.customer_father }}/{{ entries.customer_mother }}</td>
+            </tr>
+            <tr>
+                <th>Mobile Number</th>
+                <td>{{ entries.mobile_number }}</td>
+            </tr>
+            <tr>
+                <th>Customer Type</th>
+                <td>{{ entries.customer_type }}</td>
+            </tr>
+            <tr>
+                <th>Somity/Group</th>
+                <td>{{ entries.group }}</td>
+            </tr>
+            <tr>
+                <th>Current Address</th>
+                <td>{{ entries.current_village }}, {{ entries.current_post_office }}, {{ entries.current_thana }}, {{ entries.current_district }}</td>
+            </tr>
+            <tr>
+                <th>Permanent Address</th>
+                <td>{{ entries.permanent_village }}, {{ entries.permanent_post_office }}, {{ entries.permanent_thana }}, {{ entries.permanent_district }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <form method="POST" action="{% url 'common_collection' %}">
+        {% csrf_token %}
+        <input type="hidden" name="account_no" value="{{ entries.account_no }}">
+        <div class="table-container">
+            <table id="myTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        {% comment %} <th>Account No</th>
+                        <th>Customer Name</th> {% endcomment %}
+                        <th>Balance</th>
+                        <th>Target</th>
+                        <th>General Savings</th>
+                        <th>Special Savings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% comment %} <td>{{ entries.account_no }}</td>
+                        <td>{{ entries.customer_name }}</td> {% endcomment %}
+                        <td>{{ entries.general_ac.balance }}</td>
+                        <td>{{ entries.regular_target }}</td>
+                        <td><input type="text" name="general_amount" value="0"></td>
+                        <td><input type="text" name="special_amount" value="0"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button type="submit">Submit Deposits</button>
+    </form>
+{% else %}
+    <p>No customer found with the provided account number.</p>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(function() {
+        var today = new Date();
+        var formattedDate = $.datepicker.formatDate('yy-mm-dd', today);
+
+        $("#date").datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: today,
+        }).val(formattedDate);
+    });
+</script>
+{% endblock %}

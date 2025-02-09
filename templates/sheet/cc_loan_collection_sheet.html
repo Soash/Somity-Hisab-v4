@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load cc_loan %}
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>Samity Hisab</h1>
+        <h3>INTEGRITY IS OUR HALLMARK</h3>
+        <hr>
+        <p>CC Loan Collection Sheet</p>
+        <p>Branch Name: {{ somity.branch }}</p>
+        <p>Somity: {{ somity.group_name }}</p>
+    </div>
+
+<table>
+    <thead>
+        <tr>
+            <td>SL</td>
+            <td>Account No</td>
+            <td>Customer Name</td>
+            <td>Mobile</td>
+            <td>Loan</td>
+            <td>Paid</td>
+            <td>Due</td>
+            <td>Installment</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ customer.account_no }}</td>
+                <td>{{ customer.customer_name }}</td>
+                <td>{{ customer.mobile_number }}</td>
+                <td>{% cc_loan_amount customer %}</td>
+                <td>{% cc_loan_paid customer %}</td>
+                <td>{% cc_loan_due customer %}</td>
+                <td>{% cc_loan_installment customer %}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4">Total</td>
+            <td>{% total_cc_loan_amount customers %}</td>
+            <td>{% total_cc_paid_amount customers %}</td>
+            <td>{% total_cc_due_amount customers %}</td>
+            <td>{% total_cc_installment_amount customers %}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tfoot>
+
+
+</table>
+<div style="margin-top: 20px;display: flex;justify-content: space-between;">
+    <p>Prepared by: _____________________</p>
+    <p>Approved by: _____________________</p>
+</div>
+
+<div style="text-align: center; margin-top: 20px;" class="no-print">
+    <button onclick="window.history.back();">Go Back</button>
+    <button onclick="window.print();">Print</button>
+    <button onclick="window.location.href='{% url 'home' %}';">home</button>
+</div>
+</body>
+</html>
+

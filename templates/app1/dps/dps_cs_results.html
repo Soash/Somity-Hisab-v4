@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}DPS Closing{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/customer_details.css' %}">
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+<style>
+  /* Basic form styling */
+  .close-form {
+    background-color: #f9f9f9;  /* Light gray background */
+    padding: 20px;
+    border-radius: 8px;  /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+    max-width: 400px;  /* Limit the form width */
+    margin: 20px auto;  /* Center the form horizontally */
+    font-family: Arial, sans-serif;  /* Set font */
+  }
+
+  /* Styling for labels */
+  .close-form label {
+    display: block;  /* Ensure labels take up full width */
+    margin-bottom: 8px;
+    font-weight: bold;  /* Make labels bold */
+  }
+
+  /* Styling for input fields */
+  .close-form input[type="number"] {
+    width: calc(100% - 12px);  /* Full width minus padding */
+    padding: 6px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;  /* Light gray border */
+    border-radius: 4px;  /* Slightly rounded input fields */
+    font-size: 14px;
+  }
+
+  /* Styling for buttons */
+  .close-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  /* Submit button styling */
+  .close-form button[type="submit"] {
+    background-color: #4CAF50;  /* Green background */
+    color: white;  /* White text */
+  }
+
+  /* Cancel button styling */
+  .close-form button[type="button"] {
+    background-color: #f44336;  /* Red background */
+    color: white;  /* White text */
+  }
+
+  /* Hover effects for buttons */
+  .close-form button:hover {
+    opacity: 0.9;  /* Slight transparency on hover */
+  }
+
+  /* Responsive design: make the form more adaptable */
+  @media (max-width: 480px) {
+    .close-form {
+        padding: 15px;
+    }
+
+    .close-form input[type="number"] {
+        width: calc(100% - 10px);
+    }
+
+    .close-form button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .close-form button[type="button"] {
+        margin-left: 0;
+    }
+  }
+
+</style>
+{% endblock %}
+
+{% block content %}
+  <h2>DPS Closing Search Results</h2>
+
+  <div class="div1">
+    <table>
+        <tr>
+            <th>Account No.</th>
+            <td>{{ customer.account_no }}</td>
+        </tr>
+        <tr>
+            <th>Customer Name</th>
+            <td>{{ customer.customer_name }}</td>
+        </tr>
+        <tr>
+            <th>Parents</th>
+            <td>{{ customer.customer_father }}/{{ customer.customer_mother }}</td>
+        </tr>
+        <tr>
+            <th>Mobile Number</th>
+            <td>{{ customer.mobile_number }}</td>
+        </tr>
+        <tr>
+            <th>Customer Type</th>
+            <td>{{ customer.customer_type }}</td>
+        </tr>
+        <tr>
+            <th>Somity/Group</th>
+            <td>{{ customer.group }}</td>
+        </tr>
+        <tr>
+            <th>Current Address</th>
+            <td>{{ customer.current_village }}, {{ customer.current_post_office }}, {{ customer.current_thana }}, {{ customer.current_district }}</td>
+        </tr>
+        <tr>
+            <th>Permanent Address</th>
+            <td>{{ customer.permanent_village }}, {{ customer.permanent_post_office }}, {{ customer.permanent_thana }}, {{ customer.permanent_district }}</td>
+        </tr>
+    </table>
+    
+    <div class="img-container">
+        {% if customer.profile_picture %}
+        <div>
+            <img src="{{ customer.profile_picture.url }}" class="centered-image">
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <td>SL</td>
+        <td>DPS Scheme</td>
+        <td>Start Date</td>
+        <td>End Date</td>
+        <td>profit</td>
+        <td>Installments</td>
+        <td>Installments Amount</td>
+        <td>Target</td>
+        <td>Balance</td>
+        <td>Status</td>
+        <td>Action</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for info in dps %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{ info.dps_scheme }}</td>
+        <td>{{ info.start_date }}</td>
+        <td>{{ info.end_date }}</td>
+        <td>{{ info.profit_percent }}%</td>
+        <td>{{ info.number_of_installments }}</td>
+        <td>{{ info.amount_per_installments }}</td>
+        <td>{{ info.total_amount }}</td>
+        <td>{{ info.balance }}</td>
+        <td>{{ info.status }}</td>
+        <td>
+            <a href="#" class="close-link" data-balance="{{ info.balance }}">Close</a>
+        </td>
+      </tr>
+      <tr class="form-row" style="display: none;">
+        <td colspan="14">
+          <div class="close-form">
+            <form method="POST" action="{% url 'dps_close' info.id %}">
+              {% csrf_token %}
+              <label for="profit_percentage">Profit Percentage:</label>
+              <input type="number" name="profit_percentage" required> <br>
+      
+              <label for="profit_taka">Profit Taka:</label>
+              <input type="number" name="profit_taka" required> <br>
+      
+              <label for="performance_bonus">Performance Bonus:</label>
+              <input type="number" name="performance_bonus" required> <br>
+      
+              <label for="closing_charge">Closing Charge:</label>
+              <input type="number" name="closing_charge" required> <br>
+      
+              <button type="submit">Submit</button> <br>
+              <button type="button" class="cancel-button">Cancel</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+    {% endfor %}
+    
+    </tbody>
+  </table>
+</div>
+
+
+{% endblock %}
+{% block scripts %}
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const closeLinks = document.querySelectorAll('.close-link');
+    let activeFormRow = null;  // Track the currently active form row
+
+    closeLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+
+            // Hide the currently active form, if any
+            if (activeFormRow) {
+                activeFormRow.style.display = 'none';
+            }
+
+            // Get the balance from the data attribute
+            const balance = parseFloat(this.getAttribute('data-balance'));
+            console.log("Balance:", balance); // For debugging
+
+            // Find the form row related to this link
+            const formRow = this.closest('tr').nextElementSibling;
+            const form = formRow.querySelector('.close-form');
+            formRow.style.display = 'table-row';
+            activeFormRow = formRow;  // Update the active form row
+
+            const profitPercentageInput = form.querySelector('input[name="profit_percentage"]');
+            const profitTakaInput = form.querySelector('input[name="profit_taka"]');
+
+            // Add event listeners for the current form
+            profitPercentageInput.addEventListener('input', function() {
+                const profitPercentage = parseFloat(profitPercentageInput.value);
+                console.log("Profit Percentage Changed:", profitPercentage); // Debug
+
+                if (!isNaN(profitPercentage)) {
+                    const profitTaka = (profitPercentage / 100) * balance;
+                    profitTakaInput.value = profitTaka.toFixed(2);  // Round to 2 decimal places
+                } else {
+                    profitTakaInput.value = '';  // Clear if invalid input
+                }
+            });
+
+            profitTakaInput.addEventListener('input', function() {
+                const profitTaka = parseFloat(profitTakaInput.value);
+                console.log("Profit Taka Changed:", profitTaka); // Debug
+
+                if (!isNaN(profitTaka)) {
+                    const profitPercentage = (profitTaka / balance) * 100;
+                    profitPercentageInput.value = profitPercentage.toFixed(2);  // Round to 2 decimal places
+                } else {
+                    profitPercentageInput.value = '';  // Clear if invalid input
+                }
+            });
+        });
+    });
+
+    // Hide form when "Cancel" button is clicked
+    document.querySelectorAll('.cancel-button').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const formRow = this.closest('.form-row');
+            formRow.style.display = 'none';
+            activeFormRow = null;  // Clear the active form row
+        });
+    });
+});
+
+
+</script>
+{% endblock %}

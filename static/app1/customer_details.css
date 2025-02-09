@@ -1,0 +1,88 @@
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #0951a2;
+}
+
+.div1{
+  display: flex;
+  gap: 20px;
+  border: 1px solid #0951a2;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+table {
+  width: 70%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  border: 1px solid #ddd;
+}
+  
+thead th {
+  background-color: #f2f2f2;
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: bold;
+}
+
+tbody td {
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+}
+tbody th {
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+ 
+.img-container{
+  width: 30%;
+  position: relative;
+  border: 1px solid #ddd;
+}
+.centered-image {
+  width: 80%;
+  display: block;
+  margin: 20px auto;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.nid-image {
+  width: 80%;
+  display: block;
+  margin: 20px auto;
+}
+
+.download-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #0951a2;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.download-btn:hover {
+  background-color: #0056b3;
+}
+
+
+@media (max-width: 767px) {
+  table{
+    width: 100%;
+    font-size: 12px;
+  }
+  .div1{
+    flex-direction: column;
+  }
+  .img-container{
+    width: 100%;
+  }
+}

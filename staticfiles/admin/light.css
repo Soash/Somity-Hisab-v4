@@ -1,0 +1,17 @@
+/* custom_admin.css */
+
+/* Force the light mode styles */
+:root {
+    --color-admin-body-background: #f7f7f7;
+    --color-primary: #0d6efd;
+    --color-primary-contrast: #fff;
+    --color-text: #212529;
+    --color-text-muted: #6c757d;
+    --color-border: #dee2e6;
+    --color-background: #fff;
+}
+
+body {
+    background-color: var(--color-admin-body-background);
+    color: var(--color-text);
+}

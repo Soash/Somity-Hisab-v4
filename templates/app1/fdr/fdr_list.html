@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}FDR List{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/customer_list.css' %}">
+<style>
+    .main{
+        width: 85%;
+    }
+</style>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css">
+{% endblock %}
+
+{% block content %}
+
+    <h2>FDR List for {{ active_branch.branch.name }}</h2>
+    
+    <div class="table-container">
+        <table id="myTable" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>SL</th>
+                    <th>Action</th>
+                    <th>Account No</th>
+                    <th>Customer Name</th>
+                    <th>Somity</th>
+                    <th>Scheme</th>
+                    <th>Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Opening Amount</th>
+                    <th>Balance</th>
+                    <th>Profit %</th>
+                    <th>Total Profit</th>
+                    <th>Profit Paid</th>
+                    <th>Avaailabe Profit</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for info in customers %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                            <a href="{% url 'fdr_profit' info.id %}">Profit</a> <br>
+                            <a href="{% url 'fdr_deposit' info.id %}">Deposit</a> <br>
+                            <a href="{% url 'fdr_withdraw' info.id %}">Withdraw</a> <br>
+                            <a href="{% url 'fdr_transaction_history' info.id %}">Transactions</a>
+                        </td>
+                        <td>{{ info.customer.account_no }}</td>
+                        <td>{{ info.customer.customer_name }}</td>
+                        <td>{{ info.customer.group }}</td>
+                        <td>{{ info.scheme.scheme_name }}</td>
+                        <td>{{ info.scheme.scheme_type }}</td>
+                        <td>{{ info.start_date }}</td>
+                        <td>{{ info.end_date }}</td>
+                        <td>{{ info.opening_amount }}</td>
+                        <td>{{ info.balance_amount }}</td>
+                        <td>{{ info.monthly_profit_percentage }}</td>
+                        <td>{{ info.monthly_profit_taka }}</td>
+                        <td>{{ info.paid_profit }}</td>
+                        <td>{{ info.available_profit }}</td>
+                        <td>{{ info.status }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
+{% endblock %}

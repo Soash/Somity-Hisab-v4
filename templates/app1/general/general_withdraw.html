@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}General Withdraw{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+{% endblock %}
+
+{% block content %}
+
+    <h2>General Withdraw: {{ data.VoucherID }}</h2>
+
+    <div class="table-container">
+        <table id="myTable" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Account No</th>
+                    <th>Customer Name</th>
+                    <th>Balance</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ data.customer.account_no }}</td>
+                    <td>{{ data.customer.customer_name }}</td>
+                    <td>{{ data.balance }}</td>
+                    <td>{{ data.status }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="div2">
+        <form>
+            <label for="">Current Balance</label>
+            <input type="text" value="{{ data.balance }}" readonly>
+            <label for="">Date</label>
+            <input type="text" id="id_Date" readonly>
+        </form>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit Withdraw</button>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    <script>
+        $(function() {
+            var today = new Date();
+            var formattedDate = $.datepicker.formatDate('yy-mm-dd', today);
+    
+            $("#id_Date").datepicker({
+                dateFormat: "yy-mm-dd",
+                defaultDate: today,
+            }).val(formattedDate);
+        });
+    </script>
+{% endblock %}

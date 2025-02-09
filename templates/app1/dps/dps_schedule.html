@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}DPS Schedule{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <h2>DPS Schedule</h2>
+
+    <div class="table-container">
+        <table id="myTable" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>DPS Scheme</th>
+                    <th>Account No</th>
+                    <th>Customer Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>profit</th>
+                    <th>Installments</th>
+                    <th>Installments Amount</th>
+                    <th>Total Amount</th>
+                    <th>Balance</th>
+                    <th>Due</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ dps.dps_scheme }}</td>
+                    <td>{{ dps.customer.account_no }}</td>
+                    <td>{{ dps.customer.customer_name }}</td>
+                    <td>{{ dps.start_date }}</td>
+                    <td>{{ dps.end_date }}</td>
+                    <td>{{ dps.profit_percent }}%</td>
+                    <td>{{ paid_installments_count }}/{{ dps.number_of_installments }}</td>
+                    <td>{{ dps.amount_per_installments }}</td>
+                    <td>{{ dps.total_amount }}</td>
+                    <td>{{ dps.balance }}</td>
+                    <td>{{ due }}</td>
+                    <td>{{ dps.customer.status }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <h2 style="margin: 20px 0px">DPS Transactions ID: {{ dps.transaction_id }}</h2>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>SL</th>
+                    <th>Date</th>
+                    <th>Installment Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                {% for schedule in schedules %}
+                    {% if schedule.is_skipped %}
+                    <tr>
+                        <td colspan="4" style="text-align: center">
+                            {% if schedule.skipped_due_date in holidays %}
+                                Holiday: {{ schedule.skipped_due_date }}
+                            {% else %}
+                                Weekend: {{ schedule.skipped_due_date }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+
+
+                    {% if schedule.installment_status == 'due' %}
+                        <tr style="background: red;">
+                    {% elif schedule.installment_status == 'paid' %}
+                        <tr style="background: green;">
+                    {% else %}
+                        <tr>
+                    {% endif %}
+                        <td>{{ schedule.installment_number }}</td>
+                        <td>{{ schedule.due_date }}</td>
+            
+                        <td>{{ schedule.amount }} tk</td>
+                        <td>{{ schedule.installment_status }}</td>
+                                    
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

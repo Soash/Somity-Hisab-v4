@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Expense</title>
+    <style>
+    /* General Styles */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Header Styles */
+    header {
+        background-color: #0072C6;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+    /* Cash Payment Section */
+    .cash-payment {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .cash-payment table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .cash-payment th, .cash-payment td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .cash-payment .signature {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 50px;
+    }
+
+    .cash-payment .signature > div {
+        width: 50%;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 600px) {
+        .container {
+        padding: 10px;
+        }
+
+        .cash-payment {
+        padding: 10px;
+        }
+
+        .cash-payment .signature {
+        flex-direction: column;
+        }
+
+        .cash-payment .signature > div {
+        width: 100%;
+        }
+    }
+
+    /* Styles for the print view */
+    .print-container {
+        margin: 20px;
+    }
+    .print-button {
+        margin-right: 10px;
+    }
+
+    /* Print styles */
+    @media print {
+        /* Hide elements that should not be visible in print */
+        .no-print {
+            display: none;
+        }
+    }
+    </style>
+</head>
+<body>
+    
+
+    <div class="container">
+        <header>
+            <h1>{{somity_name}}</h1>
+        </header>
+        <div class="cash-payment">
+            <h2 style="text-align: center;">Cash Payment</h2> <hr>
+            <table>
+                <tr>
+                    <th>Expense Category</th>
+                    <td>{{ data.voucher_category }}</td>
+                </tr>
+                <tr>
+                    <th>Branch</th>
+                    <td>{{ data.branch }}</td>
+                </tr>
+                <tr>
+                    <th>Expense Amount</th>
+                    <td>{{ data.Amount }}</td>
+                </tr>
+                <tr>
+                    <th>Voucher ID</th>
+                    <td>{{ data.VoucherID }}</td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>{{ data.ExpenseDate }}</td>
+                </tr>
+            </table>
+
+            <div class="signature">
+                <div style="text-align: center;">
+                    <p>Signature of Provider</p>
+                </div>
+                <div style="text-align: center;">
+                    <p>Signature of Receiver</p>
+                </div>
+            </div>
+        </div>
+        
+        <button class="print-button no-print" onclick="window.print();">Print</button>
+        <button class="no-print" onclick="window.location.href='{% url 'general_expense' %}';">Close</button>
+    </div>
+
+</body>
+</html>
+
+

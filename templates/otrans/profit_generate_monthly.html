@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Profit Generate Monthly
+{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'otrans/styles.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<style>
+    .title{
+        background: #0951a2;
+        color: white;
+        padding: 10px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<div>
+   <h2>
+    Profit Generate Monthly
+    </h2>
+</div>
+<div>
+    <div class="title">
+        {{year}} Fiscal Year - {{profit_type}}
+    </div>
+</div>
+
+<table style="border: 1px solid #ddd;">
+    <tbody>
+      <tr>
+        <td>Total Customers in this Branch</td>
+        <td>{{ total_customers }} Customers</td>
+      </tr>
+      <tr>
+        <td>Total Active Customers</td>
+        <td>{{ total_active_customers }} Customers</td>
+      </tr>
+      <tr>
+        <td>Has been eligible to receive dividends</td>
+        <td>{% if profit_type == 'Share_Account' %} {{ total_share_accounts }} {% else %} {{ total_customers }} {% endif %} Customers</td>
+      </tr>
+      <tr>
+        <td>Total dividends will be distributed -&gt; {% if profit_type == 'Share_Account' %} share account {% else %} general account {% endif %}
+        </td>
+        <td>{% if profit_type == 'Share_Account' %} {{ total_share_accounts }} Share Accounts{% else %} {{ total_customers }} General Savings Accounts  {% endif %}</td>
+      </tr>
+    </tbody>
+</table>
+
+<div>
+    <div class="title" style="margin-top: 20px;">
+        Sample of Profit Making
+    </div>
+</div>
+
+<table style="border: 1px solid #ddd;">
+    <tbody>
+        <tr>
+            <td>Account No</td>
+            <td>{{random_customer.account_no}}</td>
+        </tr>
+        <tr>
+            <td>Customer Name</td>
+            <td>{{random_customer.customer_name}}</td>
+        </tr>
+        <tr>
+            <td>Total Profit Rate %</td>
+            <td>{{ profit_percentage }} %</td>
+        </tr>
+        <tr>
+            <td>Fiscal Year</td>
+            <td>{{ financial_year }}</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+<table>
+    <thead>
+      <tr>
+        <th>Name of Month</th>
+        <th>Balance status at the end of the month</th>
+        <th>Profit Rate %</th>
+        <th>Receiving Profit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>July</td>
+        <td>0.00</td>
+        <td>{{profit_rate}} %</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>August</td>
+        <td>0.00</td>
+        <td>{{profit_rate}} %</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>September</td>
+        <td>0.00</td>
+        <td>{{profit_rate}} %</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>October</td>
+        <td>0.00</td>
+        <td>{{profit_rate}} %</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>November</td>
+        <td>0.00</td>
+        <td>{{profit_rate}} %</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>December</td>
+        <td>0.00</td>
+        <td>{{profit_rate}} %</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>January</td>
+        <td>0.00</td>
+        <td>{{profit_rate}} %</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>February</td>
+        <td>0.00</td>
+        <td>{{profit_rate}} %</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>March</td>
+        <td>0.00</td>
+        <td>{{profit_rate}} %</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>April</td>
+        <td>0.00</td>
+        <td>{{profit_rate}} %</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>May</td>
+        <td>0.00</td>
+        <td>{{profit_rate}} %</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>June</td>
+        <td>0.00</td>
+        <td>{{profit_rate}} %</td>
+        <td>0.00</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr style="background: #ddd;">
+        <td>Total Calculation:</td>
+        <td>0.00</td>
+        <td>{{ profit_percentage }} %</td>
+        <td>0.00</td>
+      </tr>
+    </tfoot>
+  </table>
+  
+
+<form method="post" action="">{% csrf_token %}
+    <input type="hidden" name="date" value="{{date}}">
+    <input type="hidden" name="financial_year" value="{{financial_year}}">
+    <input type="hidden" name="year" value="{{year}}">
+    <input type="hidden" name="profit_type" value="{{profit_type}}">
+    <input type="hidden" name="profit_percentage" value="{{profit_percentage}}">
+    <input type="hidden" name="profit_amount" value="0">
+    <input type="hidden" name="total_account" value="{{total_ac}}">
+
+    <button type="submit">Finalize this Profit Distribution</button>
+</form>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(function() {
+        var today = new Date();
+        var formattedDate = $.datepicker.formatDate('yy-mm-dd', today);
+
+        $("#date").datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: today,
+        }).val(formattedDate);
+    });
+</script>
+{% endblock %}
+
+

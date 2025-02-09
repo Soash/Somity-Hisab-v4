@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Customer Details{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/customer_details.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2>Customer Details</h2>
+<div class="div1">
+    
+    <table>
+        <tr>
+            <th>Status</th>
+            <td>{{ customer.status }}</td>
+        </tr>
+        <tr>
+            <th>Account No.</th>
+            <td>{{ customer.account_no }}</td>
+        </tr>
+        <tr>
+            <th>Customer Name</th>
+            <td>{{ customer.customer_name }}</td>
+        </tr>
+        <tr>
+            <th>Mobile Number</th>
+            <td>{{ customer.mobile_number }}</td>
+        </tr>
+        <tr>
+            <th>Joining Date</th>
+            <td>{{ customer.joining_date }}</td>
+        </tr>
+        <tr>
+            <th>Customer Type</th>
+            <td>{{ customer.customer_type }}</td>
+        </tr>
+        <tr>
+            <th>Somity/Group</th>
+            <td>{{ customer.group }}</td>
+        </tr>
+        <tr>
+            <th>Current Address</th>
+            <td>{{ customer.current_village }}, {{ customer.current_post_office }}, {{ customer.current_thana }}, {{ customer.current_district }}</td>
+        </tr>
+        <tr>
+            <th>Permanent Address</th>
+            <td>{{ customer.permanent_village }}, {{ customer.permanent_post_office }}, {{ customer.permanent_thana }}, {{ customer.permanent_district }}</td>
+        </tr>
+        <tr>
+            <th>Spouse Name</th>
+            <td>{{ customer.spouse_name }}</td>
+        </tr>
+        <tr>
+            <th>National ID Number</th>
+            <td>{{ customer.national_id_number }}</td>
+        </tr>
+        <tr>
+            <th>Gender</th>
+            <td>{{ customer.gender }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ customer.email }}</td>
+        </tr>
+        <tr>
+            <th>Secondary Number</th>
+            <td>{{ customer.secondary_number }}</td>
+        </tr>
+        <tr>
+            <th>Profession</th>
+            <td>{{ customer.profession }}</td>
+        </tr>
+        <tr>
+            <th>Religion</th>
+            <td>{{ customer.religion }}</td>
+        </tr>
+        <tr>
+            <th>Business Name</th>
+            <td>{{ customer.business_name }}</td>
+        </tr>
+        <tr>
+            <th>Date of Birth</th>
+            <td>{{ customer.date_of_birth }}</td>
+        </tr>
+        <tr>
+            <th>Nominee Name</th>
+            <td>{{ customer.nominee_name }}</td>
+        </tr>
+        <tr>
+            <th>Relation with Customer</th>
+            <td>{{ customer.nominee_relation }}</td>
+        </tr>
+        <tr>
+            <th>Nominee Father</th>
+            <td>{{ customer.nominee_father }}</td>
+        </tr>
+        <tr>
+            <th>Nominee Mother</th>
+            <td>{{ customer.nominee_mother }}</td>
+        </tr>
+        <tr>
+            <th>Nominee National ID Number</th>
+            <td>{{ customer.nominee_national_id }}</td>
+        </tr>
+        <tr>
+            <th>Nominee Mobile Number</th>
+            <td>{{ customer.nominee_mobile_number }}</td>
+        </tr>
+        <tr>
+            <th>Nominee Address</th>
+            <td>{{ customer.nominee_address }}</td>
+        </tr>
+    </table>
+    
+    <div class="img-container">
+        {% if customer.profile_picture %}
+        <div>
+            <img src="{{ customer.profile_picture.url }}" class="centered-image">
+        </div>
+        {% endif %}
+        {% if customer.national_id_copy %}
+        <div>
+            <img src="{{ customer.national_id_copy.url }}" class="nid-image">
+            <div style="text-align: center;">
+                <a href="{{ customer.national_id_copy.url }}" download class="download-btn">Download National ID</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

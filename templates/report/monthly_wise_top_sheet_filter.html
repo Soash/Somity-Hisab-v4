@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Monthly Wise Top Sheet{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'report/styles.css' %}">
+{% endblock %}
+{% block content %}
+<div>
+    <h2>Monthly Wise Top Sheet</h2>
+ </div>
+
+ <div class="box">
+    <form method="POST" action="{% url 'monthly_wise_top_sheet_report' %}">
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+            <input type="submit" value="Report" name="search">
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+

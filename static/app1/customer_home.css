@@ -1,0 +1,107 @@
+
+.main{
+    width: 85%;
+}
+.main > div {
+    display: none;
+}
+.main > div.active {
+    display: block;
+}
+.nav-link.active {
+    background-color: #FFFFFF;
+    color: #000;
+}
+.table-container {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.table-container table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+}
+
+.table-container th, .table-container td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.table-container th {
+    background-color: #f4f4f4;
+}
+
+
+
+
+
+
+
+/* Style the form container */
+#change_password {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Style each form group */
+#change_password div {
+    margin-bottom: 15px;
+}
+
+/* Style the labels */
+#change_password label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: inline-block;
+    color: #333;
+}
+
+/* Add a red color to the asterisk */
+#change_password label span {
+    color: red;
+}
+
+/* Style the input fields */
+#change_password input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+/* Style the submit button */
+#change_password input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Add hover effect to the submit button */
+#change_password input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Add focus effect to the input fields */
+#change_password input[type="password"]:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Responsive design */
+@media screen and (max-width: 480px) {
+    #change_password {
+        padding: 15px;
+    }
+}

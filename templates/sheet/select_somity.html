@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+{% comment %} <h1>{% trans "Select Somity" %}</h1> {% endcomment %}
+<form method="post">
+    {% csrf_token %}
+    <label for="somity">{% trans "Somity" %}:</label>
+    <select name="somity" id="somity">
+        {% for somity in somities %}
+        <option value="{{ somity.id }}">{{ somity.group_name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">{% trans "Submit" %}</button>
+</form>
+{% endblock %}

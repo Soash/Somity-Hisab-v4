@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'report/styles.css' %}">
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .table-container {
+            width: 48%;
+        }
+    </style>
+    <title>Receive & Payment Report</title>
+</head>
+<body>
+
+    <div style="text-align: center;">
+        <h1>{{somity_name}}</h1>
+        <h3>INTEGRITY IS OUR HALLMARK</h3>
+        <hr>
+        <h3>Receive & Payment Report</h3>
+        <h3>Branch Name: {{ branch }}</h3>
+        <h3>Date: {{ start_date }} to {{end_date}}</h3>
+    </div>
+
+    <div class="container">
+        <!-- Receive Table -->
+        <div class="table-container">
+            <h2>Receive</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Account Name</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in receive_logs %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ log.action }}</td>
+                        <td>{{ log.total_amount | floatformat:2}}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="2"><strong>Total Receive:</strong></td>
+                        <td><strong>{{ total_receive | floatformat:2}}</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Payment Table -->
+        <div class="table-container">
+            <h2>Payment</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Account Name</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in payment_logs %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ log.action }}</td>
+                        <td>{{ log.total_amount | floatformat:2}}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="2"><strong>Total Payment:</strong></td>
+                        <td><strong>{{ total_payment | floatformat:2}}</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <table style="margin-top: 20px; font-weight: bold;">
+        <tr>
+            <td>Total Receive</td>
+            <td>{{ total_receive | floatformat:2}}</td>
+        </tr>
+        <tr>
+            <td>Total Payment</td>
+            <td>{{ total_payment | floatformat:2}}</td>
+        </tr>
+        <tr>
+            <td>Final balance</td>
+            <td>{{ final_balance | floatformat:2}}</td>
+        </tr>
+    </table>
+    <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+        <p>Prepared by: _____________________</p>
+        <p>Approved by: _____________________</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;" class="no-print">
+        <button onclick="window.history.back();">Go Back</button>
+        <button onclick="window.print();">Print</button>
+        <button onclick="window.location.href='{% url 'home' %}';">Home</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Loan AC Schedule{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/dps.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <h2>Loan AC Schedule</h2>
+    
+
+    <div class="table-container">
+        <table id="myTable" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Account No</th>
+                    <th>Customer Name</th>
+                    <th>Somity</th>
+                    <th>Loan Scheme</th>
+                    <th>Loan Category</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Installments</th>
+                    <th>Installments Amount</th>
+                    <th>Total Amount</th>
+                    <th>Paid</th>
+                    <th>Due</th>
+                </tr>
+            </thead>
+            <tbody>           
+                <tr>           
+                    <td>{{ loan.customer.status }}</td>
+                    <td>{{ loan.customer.account_no }}</td>
+                    <td>{{ loan.customer.customer_name }}</td>
+                    <td>{{ loan.customer.group }}</td>
+                    <td>{{ loan.loan_scheme }}</td>
+                    <td>{{ loan.loan_category }}</td>
+                    <td>{{ loan.date }}</td>
+                    <td>{{ loan.end_date }}</td>
+                    <td>{{paid_installments_count}}/{{ loan.number_of_installments }}</td>
+                    <td>{{ loan.installment_amount }}</td>
+                    <td>{{ loan.total_amount }}</td>
+                    <td>{{ loan.paid_amount }}</td>
+                    <td>{{ due }}</td>
+                </tr>       
+            </tbody>
+        </table>
+    </div>
+
+    <h2 style="margin: 20px 0px">Loan Transactions ID: {{ loan.transaction_id }}</h2>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>SL</th>
+                    <th>Date</th>
+                    <th>Installment Amount</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for schedule in schedules %}
+                    {% if schedule.is_skipped %}
+                    <tr>
+                        <td colspan="4" style="text-align: center">
+                            {% if schedule.skipped_due_date in holidays %}
+                                Holiday: {{ schedule.skipped_due_date }}
+                            {% else %}
+                                Weekend: {{ schedule.skipped_due_date }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+
+
+                    {% if schedule.installment_status == 'due' %}
+                        <tr style="background: red;">
+                    {% elif schedule.installment_status == 'paid' %}
+                        <tr style="background: green;">
+                    {% else %}
+                        <tr>
+                    {% endif %}
+                        <td>{{ schedule.installment_number }}</td>
+                        <td>{{ schedule.due_date }}</td>
+            
+                        <td>{{ schedule.amount }} tk</td>
+                        <td>{{ schedule.installment_status }}</td>
+                                    
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

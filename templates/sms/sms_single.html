@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}{% trans "Send Single SMS" %}{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'sms/styles.css' %}">
+{% endblock %}
+{% block content %}
+
+<div>
+    <h2>{% trans "Send Single SMS" %}</h2>
+</div>
+
+
+<div class="box">
+     <form method="post" action="{% url 'sms_single' %}">{% csrf_token %}
+     <div class="form-group">
+          <label for="mobile">{% trans "Mobile Number" %}<span class="required">*</span></label>
+          <div>
+                <textarea rows="3" name="mobile" id="mobile"  placeholder="{% trans 'Multiple Mobile Number separator By Comma (,)' %}" required></textarea>
+          </div>
+     </div>
+     <div class="form-group">
+          <label for="sms_body">{% trans "SMS Body" %}<span class="required">*</span></label>
+          <div>
+                <textarea rows="6" placeholder="{% trans 'Please Type Message' %}" name="sms_body" id="sms_body" required></textarea>
+                <span class="sms-note">{% trans '* 160 characters count as 1 SMS in English language and 70 characters in other languages as 1 SMS.' %}</span>
+          </div>
+     </div>
+
+     <div class="form-group form-actions">
+          <input type="submit" name="submit" value="{% trans 'Submit' %}" class="submit-button">
+     </div>
+     </form>
+</div>
+
+{% if response_texts %}
+     <div class="response-messages">
+          <h3>{% trans 'SMS API Responses:' %}</h3>
+          <ul>
+                {% for response in response_texts %}
+                     <li>{{ response|safe }}</li>
+                {% endfor %}
+          </ul>
+     </div>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

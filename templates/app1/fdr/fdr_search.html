@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}FDR Search{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'app1/add_loan1.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2>Add FDR</h2>
+<div class="div1">
+    <form id="fdrForm" onsubmit="redirectToFDRCreatePage(event)">
+        <div>
+            <input type="text" placeholder="Account No." id="account_no" name="account_no" required> 
+        </div>
+        <div>
+            <label for="scheme_id">Scheme Name:</label>
+            <select id="scheme_id" name="scheme_id" required>
+                <option value="">Select Scheme</option>
+                {% for scheme in schemes %}
+                    <option value="{{ scheme.id }}">{{ scheme.scheme_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <button type="submit">Search</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    function redirectToFDRCreatePage(event) {
+        event.preventDefault();
+        const accountNo = document.getElementById('account_no').value;
+        const schemeId = document.getElementById('scheme_id').value;
+        if (accountNo && schemeId) {
+            window.location.href = `/fdr-create/${accountNo}/?scheme_id=${schemeId}`;
+        }
+    }
+</script>
+{% endblock %}

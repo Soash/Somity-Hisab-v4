@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{% load i18n %}
+{% trans "Send SMS to Customers" %}
+{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'sms/styles.css' %}">
+{% endblock %}
+{% block content %}
+
+<div>
+   <h2>
+    {% trans "Send SMS to Customers" %}
+    </h2>
+</div>
+
+ 
+<div class="box">
+    <form method="post" action="{% url 'sms_customer' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="type">{% trans "Type" %}<span class="required">*</span></label>
+            <select name="type" required>
+                <option value="all_member">{% trans "All Customer" %}</option>
+                <option value="only_active_member">{% trans "Active Customer" %}</option>
+                <option value="all_dps">{% trans "All DPS A/C" %}</option>
+                <option value="only_active_dps">{% trans "Active DPS A/C" %}</option>
+                <option value="all_loan">{% trans "All Loan A/C" %}</option>
+                <option value="only_active_loan">{% trans "Active Loan A/C" %}</option>
+                <option value="all_fdr">{% trans "All FDR A/C" %}</option>
+                <option value="only_active_fdr">{% trans "Active FDR A/C" %}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="sms_body">{% trans "SMS Body" %}<span class="required">*</span></label>
+            <div>
+                <textarea rows="6" placeholder="{% trans 'Please Type Message' %}" name="sms_body" id="sms_body" required></textarea>
+                <span class="sms-note">{% trans "* 160 characters count as 1 SMS in English language and 70 characters in other languages as 1 SMS." %}</span>
+            </div>
+        </div>
+
+        <div class="form-group form-actions">
+            <input type="submit" name="submit" value="Submit" class="submit-button">
+        </div>
+    </form>
+</div>
+
+{% if response_texts %}
+    <div class="response-messages">
+        <h3>{% trans "SMS API Responses:" %}</h3>
+        <ul>
+            {% for response in response_texts %}
+                <li>{{ response|safe }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+
+

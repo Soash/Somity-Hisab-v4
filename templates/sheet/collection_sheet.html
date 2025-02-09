@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load collection_sheet_tags %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+        .text-center{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>Samity Hisab</h1>
+        <h3>INTEGRITY IS OUR HALLMARK</h3>
+        <hr>
+        <p>Branch Name: {{ somity.branch }}</p>
+        <p>Collection Sheet ({{date}})</p>
+        <p>Somity: {{ somity.group_name }}</p>
+    </div>
+
+<table>
+    <thead>
+        <tr>
+            <td rowspan="2">SL</td>
+            <td rowspan="2">Account No</td>
+            <td rowspan="2">Customer Name</td>
+            <td colspan="3" class="text-center">General Savings</td>
+            <td colspan="3" class="text-center">Special Savings</td>
+            <td colspan="8" class="text-center">Loan</td>
+            <td colspan="4" class="text-center">DPS</td>
+            <td rowspan="2">Signature</td>
+        </tr>
+        <tr>
+            <td>Balance</td>
+            <td>Target</td>
+            <td>Deposit</td>
+            <td>Balance</td>
+            <td>Target</td>
+            <td>Deposit</td>
+
+            <td>Total</td>
+            <td>Paid</td>
+            <td>Due</td>
+            <td>Amount</td>
+            <td>Inst.</td>
+            <td>Original</td>
+            <td>Profit</td>
+            <td>Penalty</td>
+
+            <td>Balance</td>
+            <td>Target</td>
+            <td>Deposit</td>
+            <td>Penalty</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ customer.account_no }}</td>
+                <td>{{ customer.customer_name }}</td>
+
+                <td>{% customer_balance customer %}</td>
+                <td>{% customer_regular_target customer %}</td>
+                <td></td>
+
+                <td>{% savings_balance customer %}</td>
+                <td>{% savings_target customer %}</td>
+                <td></td>
+
+                <td>{% total_loan customer %}</td>
+                <td>{% loan_paid customer %}</td>
+                <td>{% loan_due customer %}</td>
+                <td>{% loan_inst customer %}</td>
+                <td>{% loan_number_of_installments customer %}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{% total_dps_balance customer %}</td>
+                <td>{% total_dps_installments customer %}</td> 
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Total</td>
+            <td>{% total_customer_balance customers %}</td>
+            <td>{% total_customer_target customers %}</td>
+            <td></td>
+            <td>{% total_ss_balance customers %}</td>
+            <td>{% total_ss_target customers %}</td>
+            <td></td>
+            <td>{% sum_total_loan customers %}</td>
+            <td>{% sum_loan_paid customers %}</td>
+            <td>{% sum_loan_due customers %}</td>
+            <td>{% sum_loan_inst customers %}</td>
+            <td></td>
+
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{% sum_dps_balance customers %}</td>
+            <td>{% sum_dps_target customers %}</td>
+            <td></td>
+            <td></td>
+
+            <td></td> 
+        </tr>
+    </tfoot>
+
+
+</table>
+<div style="margin-top: 20px;display: flex;justify-content: space-between;">
+    <p>Prepared by: _____________________</p>
+    <p>Approved by: _____________________</p>
+</div>
+
+<div style="text-align: center; margin-top: 20px;" class="no-print">
+    <button onclick="window.history.back();">Go Back</button>
+    <button onclick="window.print();">Print</button>
+    <button onclick="window.location.href='{% url 'home' %}';">home</button>
+</div>
+</body>
+</html>
+

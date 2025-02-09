@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+
+    <label for="somity">{% trans "Somity" %}:</label>
+    <select name="somity" id="somity">
+        {% for somity in somities %}
+        <option value="{{ somity.id }}">{{ somity.group_name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="scheme">{% trans "Scheme" %}:</label>
+    <select name="scheme" id="scheme" required>
+        <option value="daily">{% trans "Daily" %}</option>
+        <option value="weekly">{% trans "Weekly" %}</option>
+        <option value="half_monthly">{% trans "Half Monthly" %}</option>
+        <option value="monthly">{% trans "Monthly" %}</option>
+    </select>
+
+    <button type="submit">{% trans "Submit" %}</button>
+</form>
+{% endblock %}

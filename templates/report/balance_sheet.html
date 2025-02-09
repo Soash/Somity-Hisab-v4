@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance Sheet</title>
+    <link rel="stylesheet" href="{% static 'report/styles.css' %}">
+</head>
+<body>
+    
+<button onclick="window.print();" class="mb-10 no-print" style="padding: 10px;">Print</button>
+<div id="data">
+    <h3 class="text-center mb-10" style="background-color: rgba(2, 172, 79, 0.337) !important; padding: 10px 0;">
+        {{somity_name}} <br> 
+        <p style="font-size: 15px; margin: 7px 0 5px; line-height: 22px;">
+            Branch Name: {{branch.name}}<br>
+        </p> 
+    </h3>
+    <h5 class="text-center mb-10" style="background-color: rgb(246, 248, 150); padding: 12px 0 10px;">Balance Sheet || {{today}}</h5>
+
+    <table class="table mb-10">
+        <tbody>
+            <tr style="background-color: rgba(145, 135, 250, 0.316);">
+                <th colspan="3" class="text-center">Assets</th>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr style="background-color: rgba(86, 233, 49, 0.332);" class="text-center">
+                <td width="50">SL</td>
+                <td>Particulars</td>
+                <td width="200">Amount</td>
+            </tr>
+
+            <tr>
+                <td class="text-center">1</td>
+                <td>Current Loan Status (Daily)</td>
+                <td class="text-right">{{ total_daily_loan_amount }}</td>
+            </tr>
+            
+            <tr>
+                <td class="text-center">2</td>
+                <td>Current Loan Status (Weekly)</td>
+                <td class="text-right">{{ total_weekly_loan_amount }}</td>
+            </tr>
+            
+            <tr>
+                <td class="text-center">3</td>
+                <td>Current Loan Status (Monthly)</td>
+                <td class="text-right">{{ total_monthly_loan_amount }}</td>
+            </tr>
+            
+            <tr>
+                <td class="text-center">4</td>
+                <td>Current CC Loan Status</td>
+                <td class="text-right">{{ total_cc_loan_amount }}</td>
+            </tr>
+            
+            <tr>
+                <td class="text-center">5</td>
+                <td>Current Special Loan Status</td>
+                <td class="text-right">{{ total_special_loan_amount }}</td>
+            </tr>
+            
+            <tr>
+                <td class="text-center">6</td>
+                <td>Current Cash in Hand</td>
+                <td class="text-right">{{ cash_in_hand }}</td>
+            </tr>
+
+            <tr class="bg-light">
+                <td class="text-center">7</td>
+                <td>Current Cash in Bank</td>
+                <td class="text-right">{{ cash_in_bank }}</td>
+            </tr>
+            
+            <tr class="bg-info">
+                <td colspan="2" class="text-center">Total Assets</td>
+                <td class="text-right">{{ total_asset }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table">
+        <tbody>
+            <tr style="background-color: rgb(192, 188, 235);">
+                <th colspan="3" class="text-center">Capital and Liabilities</th>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr style="background-color: rgba(233, 230, 49, 0.279);" class="text-center">
+                <td width="50">SL</td>
+                <td>Particulars</td>
+                <td width="200">Amount</td>
+            </tr>
+            
+            <tr class="bg-light">
+                <td class="text-center">1</td>
+                <td>General Savings (Daily)</td>
+                <td class="text-right">{{ general_savings_daily }}</td>
+            </tr>
+            <tr class="bg-light">
+                <td class="text-center">2</td>
+                <td>General Savings (Weekly)</td>
+                <td class="text-right">{{ general_savings_weekly }}</td>
+            </tr>
+            <tr class="bg-light">
+                <td class="text-center">3</td>
+                <td>General Savings (Monthly)</td>
+                <td class="text-right">{{ general_savings_monthly }}</td>
+            </tr>
+            
+            <tr class="bg-light">
+                <td class="text-center">4</td>
+                <td>Special Savings (Daily)</td>
+                <td class="text-right">{{ special_savings_daily }}</td>
+            </tr>
+            <tr class="bg-light">
+                <td class="text-center">5</td>
+                <td>Special Savings (Weekly)</td>
+                <td class="text-right">{{ special_savings_weekly }}</td>
+            </tr>
+            <tr class="bg-light">
+                <td class="text-center">6</td>
+                <td>Special Savings (Monthly)</td>
+                <td class="text-right">{{ special_savings_monthly }}</td>
+            </tr>
+            
+            <tr class="bg-light">
+                <td class="text-center">7</td>
+                <td>Share</td>
+                <td class="text-right">{{ share_balance }}</td>
+            </tr>
+            <tr class="bg-light">
+                <td class="text-center">8</td>
+                <td>Share Profit</td>
+                <td class="text-right">{{ share_profit_balance }}</td>
+            </tr>
+            <tr>
+                <td class="text-center">9</td>
+                <td>DPS</td>
+                <td class="text-right">{{ dps_balance }}</td>
+            </tr>
+            <tr>
+                <td class="text-center">10</td>
+                <td>Fixed Deposit</td>
+                <td class="text-right">{{ fdr_balance }}</td>
+            </tr>
+            <tr>
+                <td class="text-center">11</td>
+                <td>Accounts of Directors</td>
+                <td class="text-right">{{ director_balance }}</td>
+            </tr>
+            <tr class="bg-light">
+                <td class="text-center">12</td>
+                <td>External Debt Account (Out Loan)</td>
+                <td class="text-right">{{ outloan_balance }}</td>
+            </tr>
+            <tr>
+                <td class="text-center">13</td>
+                <td>Staffs Security Balance</td>
+                <td class="text-right">{{ staff_balance }}</td>
+            </tr>
+            <tr>
+                <td class="text-center">14</td>
+                <td>Accumulated Profit / Loss</td>
+                <td class="text-right">{{ accumulated_profit_loss | floatformat:2 }}</td>
+            </tr>
+            
+            <tr class="bg-warning">
+                <td colspan="2" class="text-center">Total Capital And Liabilities</td>
+                <td class="text-right">{{ total_capital | floatformat:2 }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

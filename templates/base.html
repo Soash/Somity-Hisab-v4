@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load i18n %}
+
+    {% load custom_filters %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="soash">
+    <meta name="author" content="Soash Sadat">
+    <!-- Developed by Soash Sadat -->
+    <!-- https://soash.github.io/ -->
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+
+    <title>{% block title %}Django App{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    {% if not user.is_staff %}
+    <style>
+    .sidebar {
+        display: none;
+    }
+    .skip-to-content-link{
+        display: none;
+    }
+    </style>
+    {% endif %}
+    {% block style_links %}{% endblock %}
+</head>
+<body>
+    <div class="nav">
+        <div class="nav1">
+                        
+            <div>
+                {% if logo %}
+                    {% if user.is_staff %}
+                        <a href="{% url 'home' %}"><img src="{{ logo.image.url }}" alt="Site Logo"></a>
+                    {% else %}
+                        <a href="{% url 'customer_home' %}"><img src="{{ logo.image.url }}" alt="Site Logo"></a>
+                    {% endif %}
+                {% else %}
+                    <!-- Fallback logo -->
+                    <a href="{% url 'home' %}"><img src="{% static 'img/logo.jpg' %}" alt="Default Logo"></a>
+                {% endif %}
+            </div>
+
+            <div style="display: flex; gap:50px;">
+                <div>
+                    {% if user.is_staff %}
+                    <form id="branch-form">
+                        <select id="branch-select" autocomplete="off">
+                            <option value="---" disabled selected>---</option>
+                            {% for branch in branches %}
+                                <option value="{{ branch.id }}" {% if active_branch and branch.id == active_branch.branch.id %}selected{% endif %}>{{ branch.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                    {% endif %}
+                </div>
+                <button type="button" class="menu"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+
+        <div class="nav2">
+            <div>
+                {% if request.LANGUAGE_CODE == 'bn' %}
+                    <button onclick="setLanguage('en')" class="lang">English <i class="fa-solid fa-language"></i></button>
+                {% else %}
+                    <button onclick="setLanguage('bn')" class="lang">বাংলা <i class="fa-solid fa-language"></i></button>
+                {% endif %}                
+            </div>
+            <div class="admin-menu">
+                <div id="admin-btn">
+                    {% if user.is_staff %}
+                    <span>{{user.username}}</span>
+                    {% else %}
+                    <span>{{request.user}}</span>
+                    {% endif %}
+                    <i class="fa-solid fa-user" style="border: 1px solid; border-radius: 50px; padding: 10px; margin-left: 10px;"></i>
+                </div>
+                {% if user.is_staff %}
+                <div class="admin-options" style="display: none;">
+                    <a href="{% url 'logout' %}" class="nav-link"><i class="fa-solid fa-power-off"></i> &nbsp;{% trans "Logout" %}</a>
+                    <a href="{% url 'package' %}" class="nav-link"><i class="fa-solid fa-cube"></i> &nbsp;{% trans "Package" %}</a>
+                    <a href="{{ request.scheme }}://{{ request.get_host }}/admin/primary_setup/customuser/{{ request.user.id }}/change/" class="nav-link"><i class="fa-solid fa-key"></i> &nbsp;{% trans "Change Password" %}</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        <div><i class="fa-solid fa-house"></i>{% trans "Home" %}</div>
+                        <i class="fa-solid fa-angle-left arrow-icon"></i>
+                    </button>
+                    <div class="panel">
+                        <a href="{% url 'home' %}" class="nav-link">{% trans "Default" %}</a>
+                        <a href="{% url 'today_dashboard_no_date' %}" class="nav-link">{% trans "Today Dashboard" %}</a>
+                        <a href="{% url 'monthly_dashboard' %}" class="nav-link">{% trans "Monthly Dashboard" %}</a>
+                        <a href="{% url 'dashboard' %}" class="nav-link">{% trans "Dashboard" %}</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        <div><i class="fa-sharp fa-solid fa-briefcase"></i>{% trans "Account" %}</div>
+                        <i class="fa-solid fa-angle-left arrow-icon"></i>
+                    </button>
+                    <div class="panel">
+                        <a href="{% url 'customer_add' %}" class="nav-link">{% trans "Add Customer" %}</a>
+                    
+                       
+                            <a href="{% url 'customer_list' %}" class="nav-link">{% trans "Customer List" %}</a>
+                      
+                        
+                        {% if user|has_permission:'app1.view_generalac' %}
+                        <a href="{% url 'general_list' %}" class="nav-link">{% trans "General AC" %}</a>
+                        {% endif %}
+                                                
+                        
+                        <a href="{% url 'savings_list' %}" class="nav-link">{% trans "Special Savings AC" %}</a>
+                        <a href="{% url 'loan_search' %}" class="nav-link">{% trans "Add Loan AC" %}</a>
+                        <a href="{% url 'loan_list' %}" class="nav-link">{% trans "Loan AC List" %}</a>
+                        <a href="{% url 'loan_cc_search' %}" class="nav-link">{% trans "Add CC Loan" %}</a>
+                        <a href="{% url 'loan_cc_list' %}" class="nav-link">{% trans "CC Loan List" %}</a>
+                        <a href="{% url 'loan_sp_search' %}" class="nav-link">{% trans "Add Special Loan" %}</a>
+                        <a href="{% url 'loan_sp_list' %}" class="nav-link">{% trans "Special Loan List" %}</a>
+                        <a href="{% url 'dps_search' %}" class="nav-link">{% trans "Add DPS" %}</a>
+                        <a href="{% url 'dps_list' %}" class="nav-link">{% trans "DPS List" %}</a>
+                        <a href="{% url 'fdr_search' %}" class="nav-link">{% trans "Add FDR" %}</a>
+                        <a href="{% url 'fdr_list' %}" class="nav-link">{% trans "FDR List" %}</a>
+                        <a href="{% url 'share_search' %}" class="nav-link">{% trans "Add Share AC" %}</a>
+                        <a href="{% url 'share_list' %}" class="nav-link">{% trans "Share AC List" %}</a>
+                        <a href="{% url 'delete_search' %}" class="nav-link">{% trans "Delete" %}</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        <div><i class="fa-duotone fa-solid fa-layer-group"></i>{% trans "Credit" %}</div>
+                        <i class="fa-solid fa-angle-left arrow-icon"></i>
+                    </button>
+                    <div class="panel">
+                        <a href="{% url 'somity_wise_loan' %}" class="nav-link">{% trans "Somity Wise Installment Collection" %}</a>
+                        <a href="{% url 'somity_wise_general_deposit' %}" class="nav-link">{% trans "Somity Wise General AC Deposit" %}</a>
+                        <a href="{% url 'somity_wise_dps_deposit' %}" class="nav-link">{% trans "Somity Wise DPS Deposit" %}</a>
+                        <a href="{% url 'common_collection' %}" class="nav-link">{% trans "Common Collection" %}</a>
+                        <a href="{% url 'general_deposit_search' %}" class="nav-link">{% trans "Deposit General AC" %}</a>
+                        <a href="{% url 'savings_deposit_search' %}" class="nav-link">{% trans "Deposit Special Savings AC" %}</a>
+                        <a href="{% url 'loan_collection_search' %}" class="nav-link">{% trans "Installment Collection" %}</a>
+                        <a href="{% url 'loan_close_search' %}" class="nav-link">{% trans "Loan Close" %}</a>
+                        <a href="{% url 'loan_cc_collection_search' %}" class="nav-link">{% trans "CC Loan Collection" %}</a>
+                        <a href="{% url 'loan_cc_close_search' %}" class="nav-link">{% trans "CC Loan Close" %}</a>
+                        <a href="{% url 'loan_sp_close_search' %}" class="nav-link">{% trans "Special Loan Close" %}</a>
+                        <a href="{% url 'share_deposit_search' %}" class="nav-link">{% trans "Deposit Share AC" %}</a>
+                        <a href="{% url 'dps_deposit_search' %}" class="nav-link">{% trans "Deposit DPS" %}</a>
+                        <a href="{% url 'fdr_deposit_search' %}" class="nav-link">{% trans "Deposit FDR" %}</a>
+                        <a href="{% url 'bank_withdraw' %}" class="nav-link">{% trans "Bank Withdraw" %}</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        <div><i class="fa-solid fa-credit-card"></i>{% trans "Debit" %}</div>
+                        <i class="fa-solid fa-angle-left arrow-icon"></i>
+                    </button>
+                    <div class="panel">
+                        <a href="{% url 'general_withdraw_search' %}" class="nav-link">{% trans "Withdraw General AC" %}</a>
+                        <a href="{% url 'savings_withdraw_search' %}" class="nav-link">{% trans "Withdraw Special Savings AC" %}</a>
+                        <a href="{% url 'dps_withdraw_search' %}" class="nav-link">{% trans "Withdraw DPS" %}</a>
+                        <a href="{% url 'dps_close_search' %}" class="nav-link">{% trans "DPS Close" %}</a>
+                        <a href="{% url 'share_withdraw_search' %}" class="nav-link">{% trans "Withdraw Share AC" %}</a>
+                        <a href="{% url 'share_profit_withdraw_search' %}" class="nav-link">{% trans "Profit Withdraw Share AC" %}</a>
+                        <a href="{% url 'bank_deposit' %}" class="nav-link">{% trans "Bank Deposit" %}</a>
+                        <a href="{% url 'fdr_profit_withdraw_search' %}" class="nav-link">{% trans "FDR Profit Withdraw" %}</a>
+                        <a href="{% url 'fdr_balance_withdraw_search' %}" class="nav-link">{% trans "FDR Balance Withdraw" %}</a>
+                        <a href="{% url 'fdr_close_search' %}" class="nav-link">{% trans "FDR Close" %}</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        <div><i class="fa-solid fa-money-bill-transfer"></i>{% trans "Other Transactions" %}</div>
+                        <i class="fa-solid fa-angle-left arrow-icon"></i>
+                    </button>
+                    <div class="panel">
+                        <a href="{% url 'general_expense' %}" class="nav-link">{% trans "General Expense" %}</a>
+                        <a href="{% url 'general_income' %}" class="nav-link">{% trans "General Income" %}</a>
+                        <a href="{% url 'director_deposit' %}" class="nav-link">{% trans "Deposit from Director" %}</a>
+                        <a href="{% url 'director_withdraw' %}" class="nav-link">{% trans "Withdraw for Director" %}</a>
+                        <a href="{% url 'passbook' %}" class="nav-link">{% trans "Passbook" %}</a>
+                        <a href="{% url 'get_out_loan' %}" class="nav-link">{% trans "Get Out Loan" %}</a>
+                        <a href="{% url 'return_out_loan' %}" class="nav-link">{% trans "Return Out Loan" %}</a>
+                        <a href="{% url 'ssm_deposit' %}" class="nav-link">{% trans "SSM Deposit" %}</a>
+                        <a href="{% url 'ssm_withdraw' %}" class="nav-link">{% trans "SSM Withdraw" %}</a>
+                        <a href="{% url 'staff_salary_sheet' %}" class="nav-link">{% trans "Staff Salary Distribution" %}</a>
+                        <a href="{% url 'profit_generate_monthly' %}" class="nav-link">{% trans "Profit Generate Monthly" %}</a>
+                        <a href="{% url 'profit_distribution_history' %}" class="nav-link">{% trans "Profit Distribution History" %}</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        <div><i class="fa-solid fa-chart-line"></i>{% trans "All Reports" %}</div>
+                        <i class="fa-solid fa-angle-left arrow-icon"></i>
+                    </button>
+                    <div class="panel">
+                        <a href="{% url 'daily_loan_report' %}" class="nav-link">{% trans "Daily Loan Report" %}</a>
+                        <a href="{% url 'weekly_loan_report' %}" class="nav-link">{% trans "Weekly Loan Report" %}</a>
+                        <a href="{% url 'monthly_loan_report' %}" class="nav-link">{% trans "Monthly Loan Report" %}</a>
+                        <a href="{% url 'loan_due_list' %}" class="nav-link">{% trans "Loan Due List" %}</a>
+                        <a href="{% url 'loan_recovery_percentage' %}" class="nav-link">{% trans "Loan Recovery Percentage" %}</a>
+                        <a href="{% url 'customer_report' %}" class="nav-link">{% trans "Admission Report" %}</a>
+                        <a href="{% url 'customer_balance' %}" class="nav-link">{% trans "Customer Balance" %}</a>
+                        <a href="{% url 'general_ledger' %}" class="nav-link">{% trans "General Ledger" %}</a>
+                        <a href="{% url 'account_statement' %}" class="nav-link">{% trans "Account Statement" %}</a>
+                        <a href="{% url 'bank_transactions' %}" class="nav-link">{% trans "Bank Statement" %}</a>
+                        <a href="{% url 'ReceivePayment' %}" class="nav-link">{% trans "Receive & Payment" %}</a>
+                        <a href="{% url 'ProfitLoss' %}" class="nav-link">{% trans "Profit & Loss" %}</a>
+                        <a href="{% url 'balance_sheet' %}" class="nav-link">{% trans "Balance Sheet" %}</a>
+                        <a href="{% url 'monthly_top_sheet_report' %}" class="nav-link">{% trans "Monthly Top Sheet" %}</a>
+                        <a href="{% url 'monthly_wise_top_sheet_report' %}" class="nav-link">{% trans "Monthly Wise Top Sheet" %}</a>
+                        <a href="{% url 'loanOC_report' %}" class="nav-link">{% trans "Loan Opening Closing Report" %}</a>
+                        <a href="{% url 'voucher_report' %}" class="nav-link">{% trans "Voucher Report" %}</a>
+                        <a href="{% url 'share_report' %}" class="nav-link">{% trans "Share AC Report" %}</a>
+                        <a href="{% url 'dps_report' %}" class="nav-link">{% trans "DPS Report" %}</a>
+                        <a href="{% url 'fixed_deposit_report' %}" class="nav-link">{% trans "FDR Report" %}</a>
+                        <a href="{% url 'user_wise_entry_summary' %}" class="nav-link">{% trans "User Wise Entry Summary" %}</a>
+                        <a href="{% url 'user_entry_summary' %}" class="nav-link">{% trans "User Entry Summary" %}</a>
+                        <a href="{% url 'user_log' %}" class="nav-link">{% trans "User Log" %}</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        <div><i class="fa-solid fa-gear"></i>{% trans "Primary Setup" %}</div>
+                        <i class="fa-solid fa-angle-left arrow-icon"></i>
+                    </button>
+                    <div class="panel">
+                        {% if user|has_permission:'primary_setup.view_branch' %}
+                        <a href="{{ request.scheme }}://{{ request.get_host }}/admin/primary_setup/branch/" class="nav-link">{% trans "Branch List" %}</a>
+                        {% endif %}
+                        
+                        {% if user|has_permission:'primary_setup.view_customuser' %}
+                        <a href="{{ request.scheme }}://{{ request.get_host }}/admin/primary_setup/customuser/" class="nav-link">{% trans "Staff List" %}</a>
+                        {% endif %}
+                        
+                        {% if user|has_permission:'primary_setup.view_somity' %}
+                        <a href="{{ request.scheme }}://{{ request.get_host }}/admin/primary_setup/somity/" class="nav-link">{% trans "Somity List" %}</a>
+                        {% endif %}
+                        
+                        {% if user|has_permission:'primary_setup.view_bank' %}
+                        <a href="{{ request.scheme }}://{{ request.get_host }}/admin/primary_setup/bank/" class="nav-link">{% trans "Bank List" %}</a>
+                        {% endif %}
+                        
+                        {% if user|has_permission:'primary_setup.view_director' %}
+                        <a href="{{ request.scheme }}://{{ request.get_host }}/admin/primary_setup/director/" class="nav-link">{% trans "Director List" %}</a>
+                        {% endif %}
+                        
+                        {% if user|has_permission:'primary_setup.view_outloan' %}
+                        <a href="{{ request.scheme }}://{{ request.get_host }}/admin/primary_setup/outloan/" class="nav-link">{% trans "Out Loan" %}</a>
+                        {% endif %}
+                        
+                        {% if user|has_permission:'primary_setup.view_loancategory' %}
+                        <a href="{{ request.scheme }}://{{ request.get_host }}/admin/primary_setup/loancategory/" class="nav-link">{% trans "Loan Category" %}</a>
+                        {% endif %}
+                        
+                        {% if user|has_permission:'primary_setup.view_vouchercategory' %}
+                        <a href="{{ request.scheme }}://{{ request.get_host }}/admin/primary_setup/vouchercategory/" class="nav-link">{% trans "Voucher Category" %}</a>
+                        {% endif %}
+                        
+                        {% if user|has_permission:'primary_setup.view_fdrscheme' %}
+                        <a href="{{ request.scheme }}://{{ request.get_host }}/admin/primary_setup/fdrscheme/" class="nav-link">{% trans "FDR Scheme" %}</a>
+                        {% endif %}
+                        
+                        {% if user|has_permission:'primary_setup.view_dpsscheme' %}
+                        <a href="{{ request.scheme }}://{{ request.get_host }}/admin/primary_setup/dpsscheme/" class="nav-link">{% trans "DPS Scheme" %}</a>
+                        {% endif %}
+                        
+                        {% if user|has_permission:'primary_setup.view_holiday' %}
+                        <a href="{{ request.scheme }}://{{ request.get_host }}/admin/primary_setup/holiday/" class="nav-link">{% trans "Holiday" %}</a>
+                        {% endif %}
+                        
+                        {% if user|has_permission:'auth.view_group' %}
+                        <a href="{% url 'manage_permissions' %}" class="nav-link">{% trans "User Type" %}</a>
+                        {% endif %}
+                        
+                        {% if user|has_permission:'primary_setup.view_smssetting' %}
+                        <a href="{{ request.scheme }}://{{ request.get_host }}/admin/primary_setup/smssetting/" class="nav-link">{% trans "SMS Setting" %}</a>
+                        {% endif %} 
+                        {% if user|has_permission:'primary_setup.view_smssetting' %}
+                        <a href="{{ request.scheme }}://{{ request.get_host }}/admin/sms/smsreport/" class="nav-link">{% trans "All SMS" %}</a>
+                        {% endif %} 
+
+                        {% if user|has_permission:'primary_setup.view_smssetting' %}
+                        <a href="{{ request.scheme }}://{{ request.get_host }}/admin/app1/package/" class="nav-link">{% trans "Package Setting" %}</a>
+                        {% endif %}
+
+                        {% if user|has_permission:'primary_setup.view_smssetting' %}
+                        <a href="{{ request.scheme }}://{{ request.get_host }}/admin/app1/logo/" class="nav-link">{% trans "Logo Setting" %}</a>
+                        {% endif %} 
+                        {% comment %} <a href="{{ request.scheme }}://{{ request.get_host }}/admin/auth/group/" class="nav-link">{% trans "User Type" %}</a> {% endcomment %}
+                    </div>                    
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        <div><i class="fa-regular fa-file-lines"></i>{% trans "Sheet Download" %}</div>
+                        <i class="fa-solid fa-angle-left arrow-icon"></i>
+                    </button>
+                    <div class="panel">
+                        <a href="{% url 'collection_sheet_filter' %}" class="nav-link">{% trans "Collection Sheet 1" %}</a>
+                        <a href="{% url 'collection_sheet_filter2' %}" class="nav-link">{% trans "Collection Sheet 2" %}</a>
+                        <a href="{% url 'loan_collection_sheet_filter' %}" class="nav-link">{% trans "Loan Collection Sheet" %}</a>
+                        <a href="{% url 'select_somity_loan_cc' %}" class="nav-link">{% trans "CC Loan Collection Sheet" %}</a>
+                        <a href="{% url 'select_somity' %}" class="nav-link">{% trans "Savings Collection Sheet" %}</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        <div><i class="fa-solid fa-comment"></i>{% trans "Mobile SMS" %}</div>
+                        <i class="fa-solid fa-angle-left arrow-icon"></i>
+                    </button>
+                    <div class="panel">
+                        <a href="{% url 'sms_bulk' %}" class="nav-link">{% trans "Send Bulk SMS" %}</a>
+                        <a href="{% url 'sms_single' %}" class="nav-link">{% trans "Send Single SMS" %}</a>
+                        <a href="{% url 'sms_customer' %}" class="nav-link">{% trans "Send SMS to Customers" %}</a>
+                        <a href="{% url 'sms_report' %}" class="nav-link">{% trans "SMS Report" %}</a>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-button">
+                        <div>
+                            <a href="https://soash.github.io/" target="_blank" class="developer-link">
+                                <i class="fa-solid fa-code"></i>{% trans "Developer Info" %}
+                            </a>
+                        </div>
+                    </button>
+                </div>                
+            </div>
+        </div>
+        
+        
+        <div class="main">
+        
+                {% if messages %}
+                <div>
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li id="message-{{ forloop.counter }}" class="{{ message.tags }}">
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+         
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <footer>
+        {% comment %} <p>&copy; 2024 | Developed by <a href="https://soash.github.io/">Soash Sadat</a></p> {% endcomment %}
+        <p>&copy; 2024 | Developed by <a href="https://soash.github.io/">---</a></p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.accordion-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const panel = button.nextElementSibling;
+                const arrowIcon = button.querySelector('.arrow-icon');
+        
+                // Close all panels except the current one
+                document.querySelectorAll('.panel').forEach(otherPanel => {
+                    if (otherPanel !== panel) {
+                        otherPanel.style.display = 'none';
+                        otherPanel.previousElementSibling.querySelector('.arrow-icon').classList.remove('rotate');
+                    }
+                });
+        
+                // Toggle the clicked panel and rotate the arrow
+                if (panel.style.display === 'block') {
+                    panel.style.display = 'none';
+                    arrowIcon.classList.remove('rotate');
+                } else {
+                    panel.style.display = 'block';
+                    arrowIcon.classList.add('rotate');
+                }
+            });
+        });               
+    </script>
+
+    <script>
+        document.querySelector('.menu').addEventListener('click', function() {
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar.classList.contains('visible')) {
+                sidebar.classList.remove('visible');
+            } else {
+                sidebar.classList.add('visible');
+            }
+        });
+        
+    </script>
+
+    <!-- setBranch -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var branchSelect = document.getElementById('branch-select');
+            // console.log('Branch Select:', branchSelect);
+            
+            //console.log('Active Branch:', branchSelect.value);
+            // Check if no branch is selected
+            if (!branchSelect.value) {
+                    branchSelect.value = branchSelect.options[1].value;
+                    //console.log('Branch Selected:', branchSelect.value);
+                    var branchId = branchSelect.value;
+                    //console.log('Branch ID:', branchId);
+                    var branchName = branchSelect.options[branchSelect.selectedIndex].text;
+
+                    // Send the selected branch to the server
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '{% url "update_active_branch" %}', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+                    xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+                    xhr.send(JSON.stringify({ 'branch_id': branchId }));
+
+                    xhr.onload = function() {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            console.log('Branch updated successfully');
+                            console.log('Selected Branch Name:', branchName);
+                        } else {
+                            console.error('Failed to update branch');
+                        }
+                    };
+                }
+            }
+        );
+  
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var branchSelect = document.getElementById('branch-select');
+        
+
+            // Handle branch selection change
+            branchSelect.addEventListener('change', function() {
+                var branchId = this.value;
+                var branchName = this.options[this.selectedIndex].text;
+        
+                if (branchId) {
+                    console.log('Branch selected: ' + branchName + ' (ID: ' + branchId + ')');
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '{% url "update_active_branch" %}', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+                    xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+                    xhr.send(JSON.stringify({ 'branch_id': branchId }));
+        
+                    xhr.onload = function() {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            console.log('Branch updated successfully');
+                            window.location.reload();
+                        } else {
+                            console.error('Failed to update branch, status code: ' + xhr.status);
+                        }
+                    };
+                } else {
+                    console.log('No branch selected');
+                }
+            });
+        });
+    </script>
+
+    <!-- setLanguage -->
+    <script>
+        function setLanguage(lang) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/set_language/', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        location.reload();
+                    } else {
+                        alert('Failed to change language');
+                    }
+                }
+            };
+
+            xhr.send(`language=${lang}`);
+        }
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const currentUrl = window.location.pathname; // Get current URL path
+            const accordionItems = document.querySelectorAll(".accordion-item");
+    
+            accordionItems.forEach(item => {
+                const links = item.querySelectorAll(".nav-link");
+                let panelToExpand = null;
+    
+                links.forEach(link => {
+                    const linkHref = link.getAttribute("href");
+    
+                    // Check if the current URL starts with the linkHref
+                    if (currentUrl.startsWith(linkHref)) {
+                        console.log("Match found:", linkHref); // Debug: when a match is found
+                        link.classList.add("active");
+                        panelToExpand = item.querySelector(".panel");
+                    }
+                });
+    
+                if (panelToExpand) {
+                    const button = item.querySelector(".accordion-button");
+                    panelToExpand.classList.add("show");
+                }
+            });
+        });
+    </script>
+    
+    <script>   
+        
+        function dismissMessage(messageId) {
+            var messageElement = document.getElementById(messageId);
+            if (messageElement) {
+                messageElement.style.opacity = 0;
+                setTimeout(function() {
+                    messageElement.remove();
+                }, 300); // Matches the CSS transition time
+            }
+        }
+        
+        // Automatically remove messages after 3 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            var messages = document.querySelectorAll('.messages li');
+            messages.forEach(function(message, index) {
+                setTimeout(function() {
+                    dismissMessage(message.id);
+                }, 3000 * (index + 1));
+            });
+        });   
+    </script>
+
+    <script>
+        document.getElementById('admin-btn').addEventListener('click', function() {
+            var adminOptions = document.querySelector('.admin-options');
+            if (adminOptions.style.display === 'none') {
+                adminOptions.style.display = 'block';
+            } else {
+                adminOptions.style.display = 'none';
+            }
+        });
+    </script>
+
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
+
+
+

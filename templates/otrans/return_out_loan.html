@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Return Out Loan
+{% endblock %}
+{% block style_links %}
+<link rel="stylesheet" href="{% static 'otrans/styles.css' %}">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+{% endblock %}
+{% block content %}
+
+<div>
+   <h2>
+    Return Out Loan
+    </h2>
+</div>
+
+{% comment %} <form method="POST" onsubmit="return confirmSubmit()">
+    {% csrf_token %}
+    
+    <label for="date">Date</label>
+    <input type="text" id="date" name="date" required>
+
+    <label for="account_name">Account Name</label>
+    <select id="account_name" name="account_name" required>
+        <option value="" disabled selected>Select Account</option>
+        {% for key, value in account_name_choices %}
+            <option value="{{ key }}">{{ value }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="current_amount">Current Amount</label>
+    <input type="text" id="current_amount" name="current_amount" value="0.00" readonly>
+
+    <label for="deposit_amount">Withdraw Amount</label>
+    <input type="number" id="deposit_amount" name="deposit_amount" step="0.01" required>
+
+    <label for="current_profit">Current Profit</label>
+    <input type="text" id="current_profit" name="current_profit" value="0.00" readonly>
+
+    <label for="profit">Profit</label>
+    <input type="number" id="profit" name="profit" step="0.01" value="0.00" required>
+
+    <label for="note">Note</label>
+    <input type="text" id="note" name="note">
+
+    <button type="submit">Save</button>
+</form> {% endcomment %}
+
+<form method="POST" onsubmit="return confirmSubmit()">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Branch</th>
+                <th>Account</th>
+                <th>Voucher</th>
+                <th>Current Amount</th>
+                <th>Profit</th>
+                <th>Date</th>
+                <th>Processed By</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for info in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ info.branch }}</td>
+                <td>{{ info.account_name }}</td>
+                <td>{{ info.VoucherID }}</td>
+                <td>{{ info.current_amount }}</td>
+                <td>{{ info.profit }}</td>
+                <td>{{ info.date }}</td>
+                <td>{{ info.processed_by }}</td>
+                <td>{{ info.note }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(function() {
+        var today = new Date();
+        var formattedDate = $.datepicker.formatDate('yy-mm-dd', today);
+
+        $("#id_date").datepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: today,
+        }).val(formattedDate);
+    });
+</script>
+<script>
+    function confirmSubmit() {
+        return confirm("Are you sure you want to submit this form?");
+    }
+</script>
+<script>
+    $(document).ready(function() {
+        $('#id_account').change(function() {
+            var accountId = $(this).val();
+            if (accountId) {
+                $.ajax({
+                    url: '',
+                    type: 'GET',
+                    data: {
+                        'account_id': accountId
+                    },
+                    success: function(data) {
+                        $('#id_current_amount').val(data.balance);
+                    }
+                });
+            } else {
+                $('#id_current_amount').val('');
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+
