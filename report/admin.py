@@ -16,7 +16,7 @@ class UserLogAdmin(admin.ModelAdmin):
         'ip_address', 
         'description'
     )
-    search_fields = ('action','customer')
+    search_fields = ('action','customer', 'description')
     
 
 admin.site.register(UserLog, UserLogAdmin)
