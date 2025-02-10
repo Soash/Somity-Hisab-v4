@@ -182,26 +182,6 @@ else:
 
 LOGIN_URL = 'login'
 
-
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'file': {
-#             'level': 'DEBUG',
-#             'class': 'logging.FileHandler',
-#             'filename': 'debug.log',
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['file'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#     },
-# }
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -216,17 +196,27 @@ LOGGING = {
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
         },
-        'file': {
+        'django_file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'app1_debug.log',  # Logs specific to your app
+            'filename': 'debug.log',  # Logs for Django
+        },
+        'app1_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'app1_debug.log',  # Logs specific to app1
         },
     },
     'loggers': {
-        'app1': {  # Replace 'app1' with your app's name
-            'handlers': ['console', 'file'],
+        'django': {
+            'handlers': ['console', 'django_file'],
             'level': 'DEBUG',
-            'propagate': False,  # Prevents messages from propagating to other loggers
+            'propagate': False,
+        },
+        'app1': {  # Replace 'app1' with your actual app name
+            'handlers': ['console', 'app1_file'],
+            'level': 'DEBUG',
+            'propagate': False,
         },
     },
 }

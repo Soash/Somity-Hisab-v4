@@ -3,3 +3,4 @@ db.sqlite3
 db1.sqlite3
 info.txt
 app1_debug.log
+debug.log

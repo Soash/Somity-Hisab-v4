@@ -24,3 +24,4 @@ class PassbookAdmin(admin.ModelAdmin):  # Fixed class name capitalization
 @admin.register(GetOutLoan)
 class GetOutLoanAdmin(admin.ModelAdmin):
     list_display = ('branch', 'current_amount', 'date', 'VoucherID')
+    
