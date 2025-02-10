@@ -233,9 +233,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'glitch.guardian.01@gmail.com'
-# EMAIL_HOST_PASSWORD = 'yalsbeicoetpggzm'
+EMAIL_HOST_USER = 'glitch.guardian.01@gmail.com'
+EMAIL_HOST_PASSWORD = 'yalsbeicoetpggzm'
 
-encoded_code = "CkVNQUlMX0hPU1RfVVNFUiA9ICdnbGl0Y2guZ3VhcmRpYW4uMDFAZ21haWwuY29tJwpFTUFJTF9IT1NUX1BBU1NXT1JEID0gJ3lhbHNiZWljb2V0cGdnem0nCg=="
-exec(base64.b64decode(encoded_code).decode('utf-8'))
+# encoded_code = "CkVNQUlMX0hPU1RfVVNFUiA9ICdnbGl0Y2guZ3VhcmRpYW4uMDFAZ21haWwuY29tJwpFTUFJTF9IT1NUX1BBU1NXT1JEID0gJ3lhbHNiZWljb2V0cGdnem0nCg=="
+# exec(base64.b64decode(encoded_code).decode('utf-8'))
 
