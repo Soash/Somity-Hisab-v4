@@ -329,7 +329,7 @@
                     </div>
                 </div>
                 <div class="accordion-item">
-                    <button class="accordion-button">
+                    <button id="developerButton" class="accordion-button">
                         <div>
                             <a href="https://soash.github.io/" target="_blank" class="developer-link">
                                 <i class="fa-solid fa-code"></i>{% trans "Developer Info" %}
@@ -363,6 +363,13 @@
         {% comment %} <p>&copy; 2024 | Developed by <a href="https://soash.github.io/">Soash Sadat</a></p> {% endcomment %}
         <p>&copy; 2024 | Developed by <a href="#">XYZ</a></p>
     </footer>
+
+    
+    <script>
+        document.getElementById("developerButton").addEventListener("click", function() {
+            window.open("https://soash.github.io/", "_blank");
+        });
+    </script>
 
     <script>
         document.querySelectorAll('.accordion-button').forEach(button => {
